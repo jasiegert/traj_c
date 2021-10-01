@@ -3,15 +3,37 @@
 #include "read_trajec.h"
 #include "chemistry.h"
 
-int main()
+int docalc(char* calcline);
+
+int main(int argc, char *argv[])
 {
-    int a1 = element_to_no("O");
-    printf("%i\n\n", a1);
+    if (argc < 4)
+    {
+        printf("Usage: ./dostuff.c xyz-file pbc-file calc-file\n\n");
+        return 1;
+    }
 
     // Get file name, atom number and line number{
-    char name[] = "test_traj/CDP_224_example.xyz";
+    char* name = argv[1];
+    char* pbc_dat = argv[2];
+    char* calc_dat = argv[3];
     int atom_no = get_atoms(name);
     int frame_no = get_lines(name) / (atom_no + 2);
+
+    // Read calc-file and dump its content into calc_dump
+    FILE *calc_file = fopen(calc_dat, "r");
+    if (calc_file == NULL)
+    {
+        printf("Calc-file %s couldn't be opened.\n", calc_dat);
+        return 1;
+    }
+    fseek (calc_file, 0, SEEK_END);
+    int calc_length = ftell(calc_file);
+    fseek (calc_file, 0, SEEK_SET);
+    char calc_dump[calc_length + 1];
+    fread (calc_dump, 1, calc_length, calc_file);
+    calc_dump[calc_length] = '\0';
+    fclose(calc_file);
 
     // Create atom array holding atom labels and trajectory array holding coordinates
     float (*traj)[atom_no][3];
@@ -24,15 +46,28 @@ int main()
     }
 
     // Read trajectory contents into traj and atom
-    readxyz(name, frame_no, atom_no, traj, atom);
+    if (readxyz(name, frame_no, atom_no, traj, atom) != 0)
+    {
+        free(traj);
+        return 1;
+    }
     printf("Trajectory has been read.\n");
 
+    // Read pbc-file into pbc
+    float pbc[3][3];
+    if (readpbc(pbc_dat, pbc) != 0)
+    {
+        free(traj);
+        return 1;
+    }
+    
     // Remove com from trajectory
     float (*trajcom)[atom_no][3];
     trajcom = malloc(sizeof(*traj)*frame_no);
     if (trajcom == NULL)
     {
         printf("Couldn't create trajcom in memory.\n");
+        free(traj);
         return 1;
     }
     removecom(frame_no, atom_no, traj, atom, trajcom);

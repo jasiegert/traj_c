@@ -84,6 +84,26 @@ int readxyz(char *name, int frame_no, int atom_no, float traj[frame_no][atom_no]
     return 0;
 }
 
+int readpbc(char *name, float pbc[3][3])
+{
+    FILE *pbc_dat = fopen(name, "r");
+    if (pbc_dat == NULL)
+    {
+        printf("pbc-file %s could not be read!\n", name);
+        return 1;
+    }
+
+    for (int i = 0; i < 3; i++)
+    {
+        if (fscanf(pbc_dat, "%f %f %f \n", &pbc[i][0], &pbc[i][1], &pbc[i][2]) != 3)
+        {
+            printf("pbc-file %s did not contain 3 readable float values in line %i.\n", name, i);
+            return 2;
+        }
+    }
+    return 0;
+}
+
 int removecom(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no], float trajcom[frame_no][atom_no][3])
 {
     // Generate atom masses
