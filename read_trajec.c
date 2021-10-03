@@ -114,7 +114,6 @@ int removecom(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int a
         atom_mass[j] = no_to_mass(atom[j]);
         total_mass += atom_mass[j];
     }
-    printf("Atom mass generated\n");
 
     // Calculate com for each timestep and subtract it from each elements coord
     for (int i = 0; i < frame_no; i++)

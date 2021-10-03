@@ -1,11 +1,13 @@
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include "../chemistry.h"
 
 int msd_overall(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no], int target_atom, int resolution, float timerange, float msd[resolution][2], char **output)
 {
     float coord_diff;
     int sampled;
-    float timestep = 0.5;
+    float timestep = 0.5; // in fs
 
     // Count number of target atoms in trajectory
     int target_atom_no = 0;
@@ -18,9 +20,9 @@ int msd_overall(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int
     }
 
     // Create correlation time for each resolution point 
-    for (int i = 1; i <= resolution; i++)
+    for (int i = 0; i < resolution; i++)
     {
-        int corr_time = round(i / (float)resolution * timerange * frame_no);
+        int corr_time = round((i + 1) / (float)resolution * timerange * frame_no);
         msd[i][0] = corr_time * timestep / 1000;   // Correlation time in ps
         msd[i][1] = 0;             // MSD for correlation time in pm^2
 
@@ -42,6 +44,17 @@ int msd_overall(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int
             }
         }
     }
+
+    // Apply linear fit to find D
+    float slope, intercept, R;
+    linregress_array(resolution, msd, 0.5, 1, &slope, &intercept, &R);
+    float D = slope / 6;
+
+    char atom_name[3];
+    no_to_element(target_atom, atom_name);
+    *output = malloc(sizeof(char) * 100);
+    sprintf(*output, "\tmsd %s %i %f\n\tDiffusion coefficient: %f (R^2 = %f)\n", atom_name, resolution, timerange, D, R * R);
+
 
     return 0;
 }
