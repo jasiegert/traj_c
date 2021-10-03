@@ -8,5 +8,6 @@ int readpbc(char *name, float pbc[3][3]);
 int removecom(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no], float trajcom[frame_no][atom_no][3]);
 int printarray(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no]);
 int writexyz(char *name, int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no]);
+int savecsv(char *outputname, int col_no, int row_no, float outputarray[col_no][row_no]);
 
 #endif /* READTRAJEC_H */

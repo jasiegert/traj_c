@@ -114,7 +114,8 @@ int removecom(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int a
         atom_mass[j] = no_to_mass(atom[j]);
         total_mass += atom_mass[j];
     }
-    
+    printf("Atom mass generated\n");
+
     // Calculate com for each timestep and subtract it from each elements coord
     for (int i = 0; i < frame_no; i++)
     {
@@ -188,5 +189,34 @@ int writexyz(char *name, int frame_no, int atom_no, float traj[frame_no][atom_no
     
     // Close output file
     fclose(xyzout);
+    return 0;
+}
+
+int savecsv(char *outputname, int col_no, int row_no, float outputarray[col_no][row_no])
+{
+    FILE *output = fopen(outputname, "w+");
+
+
+
+    char outputstring[3*row_no+1];
+    for (int i = 0; i < row_no; i++)
+    {
+        outputstring[0 + i * 3] = '%';
+        outputstring[1 + i * 3] = 'f';
+        outputstring[2 + i * 3] = ' ';
+    }
+    outputstring [row_no*3 - 1] = '\n';     // Replace last space with newline character
+    outputstring [row_no*3] = '\0';         // Null-terminate string
+
+    for (int i = 0; i < col_no; i++)
+    {
+        for (int j = 0; j < row_no; j++)
+        {
+            fprintf(output, "%.10e    ", outputarray[i][j]);
+        }
+        fprintf(output, "\n");
+    }
+
+    fclose(output);
     return 0;
 }

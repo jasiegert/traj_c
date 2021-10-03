@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "read_trajec.h"
 #include "chemistry.h"
+#include "calc/msd.h"
 
 int docalc(char* calcline);
 
@@ -19,6 +20,7 @@ int main(int argc, char *argv[])
     char* calc_dat = argv[3];
     int atom_no = get_atoms(name);
     int frame_no = get_lines(name) / (atom_no + 2);
+    printf("frame_no: %i\n", frame_no);
 
     // Read calc-file and dump its content into calc_dump
     FILE *calc_file = fopen(calc_dat, "r");
@@ -54,31 +56,55 @@ int main(int argc, char *argv[])
     printf("Trajectory has been read.\n");
 
     // Read pbc-file into pbc
+    printf("Reading pbc-file...");
     float pbc[3][3];
     if (readpbc(pbc_dat, pbc) != 0)
     {
         free(traj);
         return 1;
     }
+    printf("done\n");
     
     // Remove com from trajectory
+    printf("Removing com...\n");
     float (*trajcom)[atom_no][3];
-    trajcom = malloc(sizeof(*traj)*frame_no);
+    trajcom = malloc(sizeof(*trajcom)*frame_no);
     if (trajcom == NULL)
     {
         printf("Couldn't create trajcom in memory.\n");
         free(traj);
         return 1;
     }
+    printf("running removecom\n");
     removecom(frame_no, atom_no, traj, atom, trajcom);
-    writexyz("out_com.xyz", frame_no, atom_no, trajcom, atom);
+    printf("done\n");
+
+//    printf("Writing to out.xyz...");
+//    writexyz("out_com.xyz", frame_no, atom_no, trajcom, atom);
+//    printf("done\n");
+
 
 
     // Print trajectory to stdout to check it out
     //printarray(frame_no, atom_no, traj, atom);
-    char outname[] = "out.xyz";
-    writexyz(outname, frame_no, atom_no, traj, atom);
-    free(traj);
-    free(trajcom);
+
+    // Save trajectory to out.xyz to check it out
+//    char outname[] = "out.xyz";
+//    writexyz(outname, frame_no, atom_no, traj, atom);
+//    free(traj);
+//    free(trajcom);
+
+    // Calculate msd
+    printf("Calculationg msd...");
+    int resolution = 100;
+    float (*msd)[2];
+    msd = malloc(sizeof(msd) * resolution);
+//    float msd[resolution][2];
+    char* msd_output;
+    msd_overall(frame_no, atom_no, trajcom, atom, 1, resolution, 0.4, msd, &msd_output);
+    printf("done\nWriting to csv...");
+    savecsv("msd_H.csv", resolution, 2, msd);
+    printf("done\n");
+
     return 0;
 }
