@@ -6,10 +6,12 @@
 #include "read_trajec.h"
 #include "chemistry.h"
 #include "calc/msd.h"
+#include "calc/rdf.h"
 
 #define OUTPUTFILE "traj_c.out"
+#define OUTSTRINGLENGTH 100
 
-int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no], char* line);
+int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line);
 
 int main(int argc, char *argv[])
 {
@@ -105,18 +107,17 @@ int main(int argc, char *argv[])
     while (line != NULL)
     {
         printf("\nLine %i: %s\n", calc_line_no, line);
-        docalc(frame_no, atom_no, trajcom, atom, line);
+        docalc(frame_no, atom_no, trajcom, pbc, atom, line);
         line = strtok(NULL, "\n");
         calc_line_no++;
     }
 
     free(traj);
     free(trajcom);
-
     return 0;
 }
 
-int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no], char* line)
+int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line)
 {
     // printf("Parsing file: %s\n", line);
 
@@ -150,8 +151,8 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom
             // Allocate output array msd and string msd_output, then run calculation to fill them with result
             float (*msd)[2];
             msd = malloc(sizeof(msd) * resolution);
-            char* msd_output;
-            msd_overall(frame_no, atom_no, traj, atom, target_atom_no, resolution, timerange, msd, &msd_output);
+            char msd_output[OUTSTRINGLENGTH];
+            msd_overall(frame_no, atom_no, traj, atom, target_atom_no, resolution, timerange, msd, msd_output);
 
             // Write msd into outputcsv and outputstring into outputfile
             char outputcsv[11];
@@ -162,7 +163,6 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom
             printf("%s\n", msd_output);
 
             fclose(output);
-            free(msd_output);
             free(msd);
         }
         else
@@ -172,6 +172,59 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom
         }
 
 
+    }
+    else if (strcmp(calc_name, "rdf") == 0)
+    {
+        // Set default values for resolution and timerange
+        printf("\tRDF calculation\n");
+        int bin = 100;
+        float min_distance = 0.0;
+        float max_distance = 4.0;
+        char target_atom_1[3];
+        char target_atom_2[3];
+
+        // Read atom type from calc-line and complain if atom type is missing or unrecognized
+        if ( sscanf(line, "%*s %s %s %i %f %f", target_atom_1, target_atom_2, &bin, &min_distance, &max_distance) >= 2)
+        {
+            int target_atom_no_1 = element_to_no(target_atom_1);
+            int target_atom_no_2 = element_to_no(target_atom_2);
+            if ( target_atom_no_1 == -1)
+            {
+                printf("\tAtom type %s not recognized.\n", target_atom_1);
+                return 1;
+            }
+            if ( target_atom_no_2 == -1)
+            {
+                printf("\tAtom type %s not recognized.\n", target_atom_2);
+                return 1;
+            }
+            // Allocate output array msd and string msd_output, then run calculation to fill them with result
+            float (*rdf)[2];
+            rdf = malloc(sizeof(rdf) * bin);
+            char rdf_output[OUTSTRINGLENGTH];
+            rdf_overall(frame_no, atom_no, traj, pbc, atom, target_atom_no_1, target_atom_no_2, min_distance, max_distance, bin, rdf, rdf_output);
+
+            // Write msd into outputcsv and outputstring into outputfile
+            char outputcsv[13];
+            sprintf(outputcsv, "rdf_%s_%s.csv", target_atom_1, target_atom_2);
+            savecsv(outputcsv, bin, 2, rdf);
+            FILE *output = fopen(OUTPUTFILE, "a");
+            if (output == NULL)
+            {
+                printf("\tOutputfile %s could not be opened.\n", OUTPUTFILE);
+                return 1;
+            }
+            fprintf(output, "%s\n", rdf_output);
+            printf("%s\n", rdf_output);
+
+            fclose(output);
+            free(rdf);
+        }
+        else
+        {
+            printf("The necessary two atom types for rdf are missing.\n");
+            return 1;
+        }
     }
     else
     {

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "../chemistry.h"
 
-int msd_overall(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no], int target_atom, int resolution, float timerange, float msd[resolution][2], char **output)
+int msd_overall(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no], int target_atom, int resolution, float timerange, float msd[resolution][2], char *output)
 {
     float coord_diff;
     int sampled;
@@ -52,9 +52,10 @@ int msd_overall(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int
 
     char atom_name[3];
     no_to_element(target_atom, atom_name);
-    *output = malloc(sizeof(char) * 100);
-    sprintf(*output, "\tmsd %s %i %f\n\tDiffusion coefficient: %f (R^2 = %f)\n", atom_name, resolution, timerange, D, R * R);
-
+    if (output != NULL)
+    {
+        sprintf(output, "\tmsd %s %i %f\n\tDiffusion coefficient: %f (R^2 = %f)\n", atom_name, resolution, timerange, D, R * R);
+    }
 
     return 0;
 }

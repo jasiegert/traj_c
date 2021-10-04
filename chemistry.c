@@ -106,3 +106,35 @@ int linregress_array(int n, float ar[n][2], float start_point, float end_point, 
 
     return 0;
 }
+
+float pbc_dist(float coord_1[3], float coord_2[3], float pbc[3][3])
+{
+    float diff[3];
+    float dist = 0;
+    for (int i = 0; i < 3; i++)
+    {
+        diff[i] = coord_2[i] - coord_1[i];
+        if (diff[i] < 0) 
+            diff[i] *= -1;
+        diff[i] = diff[i] - floor(diff[i] / pbc[i][i]) * pbc[i][i];
+        if (diff[i] > pbc[i][i]/2)
+        {
+            diff[i] = pbc[i][i] - diff[i];
+        }
+
+        dist += diff[i] * diff[i];
+    }
+    dist = sqrt(dist);
+    return dist;
+
+}
+
+int pbc_coord(float coord[3], float coord_pbc[3], float pbc[3][3])
+{
+    return 0;
+}
+
+int pbc_traj(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float traj_pbc[frame_no][atom_no][3], float pbc[3][3])
+{
+    return 0;
+}

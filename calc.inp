@@ -1,2 +1,4 @@
 msd H 100 0.3
 msd P 100 0.3
+rdf H O 100 0 4
+rdf O O 100 0 4
