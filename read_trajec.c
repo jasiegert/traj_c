@@ -193,9 +193,7 @@ int writexyz(char *name, int frame_no, int atom_no, float traj[frame_no][atom_no
 
 int savecsv(char *outputname, int col_no, int row_no, float outputarray[col_no][row_no])
 {
-    FILE *output = fopen(outputname, "w+");
-
-
+    FILE *output = fopen(outputname, "w");
 
     char outputstring[3*row_no+1];
     for (int i = 0; i < row_no; i++)

@@ -7,6 +7,7 @@
 #include "chemistry.h"
 #include "calc/msd.h"
 #include "calc/rdf.h"
+#include "calc/oacf.h"
 
 #define OUTPUTFILE "traj_c.out"
 #define OUTSTRINGLENGTH 100
@@ -106,7 +107,7 @@ int main(int argc, char *argv[])
     int calc_line_no = 1;
     while (line != NULL)
     {
-        printf("\nLine %i: %s\n", calc_line_no, line);
+//        printf("\nLine %i: %s\n", calc_line_no, line);
         docalc(frame_no, atom_no, trajcom, pbc, atom, line);
         line = strtok(NULL, "\n");
         calc_line_no++;
@@ -123,15 +124,17 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
 
     // Take first string as calc_name
     char calc_name[10];
-    if (sscanf(line, "%s %*[^\n] ", calc_name) == 0)
+    if ( (sscanf(line, "%s %*[^\n] ", calc_name) == 0) || ( calc_name[0] == '#'))   //(strcmp(&calc_name[0], "#") == 0) )
     {
-        //printf("Following line in calc-file does not start with a calculation name:\n\t%s\n\n", line);
-        printf("\tDoes not start with a calculation name.\n");
+        // printf("\tDoes not start with a calculation name.\n");
         return 1;
     }
+    else
+    {
+    printf("%s\n", line);
     // Check whether calc_name matches any predefined calculation name, which currently are:
     // msd
-    else if (strcmp(calc_name, "msd") == 0)
+    if (strcmp(calc_name, "msd") == 0)
     {
         // Set default values for resolution and timerange
         printf("\tMSD calculation\n");
@@ -167,11 +170,9 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
         }
         else
         {
-            printf("Following line does not give msd the necessary atom type:\n\t%s\n\n", line);
+            printf("Does not contain the necessary atom type for OACF.\n");
             return 1;
         }
-
-
     }
     else if (strcmp(calc_name, "rdf") == 0)
     {
@@ -222,7 +223,110 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
         }
         else
         {
-            printf("The necessary two atom types for rdf are missing.\n");
+            printf("Does not contain the necessary two atom types for RDF.\n");
+            return 1;
+        }
+    }
+    else if (strcmp(calc_name, "rdf_inter") == 0)
+    {
+        // Set default values for resolution and timerange
+        printf("\tRDF calculation\n");
+        int bin = 100;
+        float min_distance = 0.0;
+        float max_distance = 4.0;
+        char target_atom_1[3];
+        char target_atom_2[3];
+        char central_atom[3];
+
+        // Read atom type from calc-line and complain if atom type is missing or unrecognized
+        if ( sscanf(line, "%*s %s %s %s %i %f %f", target_atom_1, target_atom_2, central_atom, &bin, &min_distance, &max_distance) >= 3)
+        {
+            int target_atom_no_1 = element_to_no(target_atom_1);
+            int target_atom_no_2 = element_to_no(target_atom_2);
+            int central_atom_no = element_to_no(central_atom);
+            if ( target_atom_no_1 == -1)
+            {
+                printf("\tAtom type %s not recognized.\n", target_atom_1);
+                return 1;
+            }
+            if ( target_atom_no_2 == -1)
+            {
+                printf("\tAtom type %s not recognized.\n", target_atom_2);
+                return 1;
+            }
+            // Allocate output array msd and string msd_output, then run calculation to fill them with result
+            float (*rdf)[2];
+            rdf = malloc(sizeof(rdf) * bin);
+            char rdf_output[OUTSTRINGLENGTH];
+            rdf_intermolecular(frame_no, atom_no, traj, pbc, atom, target_atom_no_1, target_atom_no_2, central_atom_no, min_distance, max_distance, bin, rdf, rdf_output);
+
+            // Write msd into outputcsv and outputstring into outputfile
+            char outputcsv[19];
+            sprintf(outputcsv, "rdf_inter_%s_%s.csv", target_atom_1, target_atom_2);
+            savecsv(outputcsv, bin, 2, rdf);
+            FILE *output = fopen(OUTPUTFILE, "a");
+            if (output == NULL)
+            {
+                printf("\tOutputfile %s could not be opened.\n", OUTPUTFILE);
+                return 1;
+            }
+            fprintf(output, "%s\n", rdf_output);
+            printf("%s\n", rdf_output);
+
+            fclose(output);
+            free(rdf);
+        }
+        else
+        {
+            printf("Does not contain the necessary three atom types for intermolecular RDF.\n");
+            return 1;
+        }
+    }
+    else if (strcmp(calc_name, "oacf") == 0)
+    {
+        // Set default values for resolution and timerange
+        printf("\tOACF calculation\n");
+        float timerange = 0.4;
+        int resolution = 100;
+        char target_atom_1[3];
+        char target_atom_2[3];
+
+        // Read atom type from calc-line and complain if atom type is missing or unrecognized
+        if ( sscanf(line, "%*s %s %s %i %f", target_atom_1, target_atom_2, &resolution, &timerange) >= 2)
+        {
+            int target_atom_no_1 = element_to_no(target_atom_1);
+            int target_atom_no_2 = element_to_no(target_atom_2);
+            if ( target_atom_no_1 == -1)
+            {
+                printf("\tAtom type %s not recognized.\n", target_atom_1);
+                return 1;
+            }
+            if ( target_atom_no_2 == -1)
+            {
+                printf("\tAtom type %s not recognized.\n", target_atom_2);
+                return 1;
+            }
+
+            // Allocate output array oacf and string oacf_output, then run calculation to fill them with result
+            float (*oacf)[2];
+            oacf = malloc(sizeof(oacf) * resolution);
+            char oacf_output[OUTSTRINGLENGTH];
+            oacf_overall(frame_no, atom_no, traj, atom, pbc, target_atom_no_1, target_atom_no_2, resolution, timerange, oacf, oacf_output);
+
+            // Write msd into outputcsv and outputstring into outputfile
+            char outputcsv[15];
+            sprintf(outputcsv, "oacf_%s_%s.csv", target_atom_1, target_atom_2);
+            savecsv(outputcsv, resolution, 2, oacf);
+            FILE *output = fopen(OUTPUTFILE, "a");
+            fprintf(output, "%s\n", oacf_output);
+            printf("%s\n", oacf_output);
+
+            fclose(output);
+            free(oacf);
+        }
+        else
+        {
+            printf("Does not contain the necessary two atom types for OACF.\n");
             return 1;
         }
     }
@@ -231,7 +335,7 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
         printf("\tDoes not start with a valid calculation.\n");
         return 1;
     }
-
+    }
 
     return 0;
 }

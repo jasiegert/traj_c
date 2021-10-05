@@ -1,4 +1,10 @@
-msd H 100 0.3
+#msd H 100 0.3
 msd P 100 0.3
-rdf H O 100 0 4
-rdf O O 100 0 4
+oacf P O 100 0.3
+rdf H O 300 0 4
+rdf O O 300 0 4
+#rdf O H 300 0 4
+rdf_inter O H P 300 0 4
+rdf_inter H O P 300 0 4
+#rdf_inter O O P 300 0 4
+oacf P O 100 0.3
