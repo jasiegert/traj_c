@@ -35,10 +35,10 @@ int rdf_overall(int frame_no, int atom_no, float traj[frame_no][atom_no][3], flo
     atom_2_index[atom_2_no] = -1;
 
     // Print total number of found atoms of each type
-    char atom_1_name[3], atom_2_name[3];
-    no_to_element(atom_1, atom_1_name);
-    no_to_element(atom_2, atom_2_name);
-    printf("\tFound %i %s atoms and %i %s atoms.\n", atom_1_no, atom_1_name, atom_2_no, atom_2_name);
+    //char atom_1_name[3], atom_2_name[3];
+    //no_to_element(atom_1, atom_1_name);
+    //no_to_element(atom_2, atom_2_name);
+    //printf("\tFound %i %s atoms and %i %s atoms.\n", atom_1_no, atom_1_name, atom_2_no, atom_2_name);
 
     // Iterate through each timestep, each atom of type atom_1 and atom of type atom_2
     for (int i = 0; i < frame_no; i++)
@@ -75,7 +75,10 @@ int rdf_overall(int frame_no, int atom_no, float traj[frame_no][atom_no][3], flo
 
     if (output != NULL)
     {
-        sprintf(output, "\trdf %s %s %i %f %f\n", atom_1_name, atom_2_name, bin, min_distance, max_distance);
+        char atom_1_name[3], atom_2_name[3];
+        no_to_element(atom_1, atom_1_name);
+        no_to_element(atom_2, atom_2_name);
+        sprintf(output, "\trdf %s %s %i %f %f\n\tFound %i %s atoms and %i %s atoms.\n", atom_1_name, atom_2_name, bin, min_distance, max_distance, atom_1_no, atom_1_name, atom_2_no, atom_2_name);
     }
 
     return 0;
@@ -111,7 +114,6 @@ int rdf_intermolecular(int frame_no, int atom_no, float traj[frame_no][atom_no][
             atom_central_index[atom_central_no] = i;
             atom_central_no++;
         }
-        
     }
     // Assign oxygen to the same molecule as their closest central atom
     int atom_O = element_to_no("O");
@@ -158,11 +160,11 @@ int rdf_intermolecular(int frame_no, int atom_no, float traj[frame_no][atom_no][
         return 1;
     
     // Print total number of found atoms of each type
-    char atom_1_name[3], atom_2_name[3], atom_central_name[3];
-    no_to_element(atom_1, atom_1_name);
-    no_to_element(atom_2, atom_2_name);
-    no_to_element(atom_central, atom_central_name);
-    printf("\tFound %i %s atoms and %i %s atoms.\n", atom_1_no, atom_1_name, atom_2_no, atom_2_name);
+    //char atom_1_name[3], atom_2_name[3], atom_central_name[3];
+    //no_to_element(atom_1, atom_1_name);
+    //no_to_element(atom_2, atom_2_name);
+    //no_to_element(atom_central, atom_central_name);
+    //printf("\tFound %i %s atoms and %i %s atoms.\n", atom_1_no, atom_1_name, atom_2_no, atom_2_name);
 
     // Iterate through each timestep, each atom of type atom_1 and atom of type atom_2
     for (int i = 0; i < frame_no; i++)
@@ -203,7 +205,11 @@ int rdf_intermolecular(int frame_no, int atom_no, float traj[frame_no][atom_no][
     // Print used parameters into output-string
     if (output != NULL)
     {
-        sprintf(output, "\trdf %s %s %s %i %f %f\n", atom_1_name, atom_2_name, atom_central_name, bin, min_distance, max_distance);
+        char atom_1_name[3], atom_2_name[3], atom_central_name[3];
+        no_to_element(atom_1, atom_1_name);
+        no_to_element(atom_2, atom_2_name);
+        no_to_element(atom_central, atom_central_name);
+        sprintf(output, "\trdf %s %s %i %f %f\n\tFound %i %s atoms, %i %s atoms and %i %s atoms.\n", atom_1_name, atom_2_name, bin, min_distance, max_distance, atom_central_no, atom_central_name, atom_1_no, atom_1_name, atom_2_no, atom_2_name);
     }
 
     return 0;

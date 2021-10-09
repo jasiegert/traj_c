@@ -26,9 +26,14 @@ int main(int argc, char *argv[])
     char* name = argv[1];
     char* pbc_dat = argv[2];
     char* calc_dat = argv[3];
-    int atom_no = get_atoms(name);
-    int frame_no = get_lines(name) / (atom_no + 2);
-    printf("frame_no: %i\n", frame_no);
+    // Generate name and file pointer for the dat-file
+    int namelen = strlen(name);
+    char datname[namelen];
+    strcpy(datname, name);
+    datname[namelen-3] = 'd';
+    datname[namelen-2] = 'a';
+    datname[namelen-1] = 't';
+    FILE *trajdat;
 
     // Read calc-file and dump its content into calc_dump
     FILE *calc_file = fopen(calc_dat, "r");
@@ -45,9 +50,41 @@ int main(int argc, char *argv[])
     calc_dump[calc_length] = '\0';
     fclose(calc_file);
 
-    // Create atom array holding atom labels and trajectory array holding coordinates
-    float (*traj)[atom_no][3];
+    // Read pbc-file into pbc
+    printf("Reading pbc-file...");
+    float pbc[3][3];
+    if (readpbc(pbc_dat, pbc) != 0)
+    {
+        printf("Couldn't read pbc-file.\n");
+        return 1;
+    }
+    printf("done\n");
+
+    // Get atom_no and frame_no either from the dat-file or the xyz-file
+    int atom_no, frame_no;
+    if ( (trajdat = fopen(datname, "r")) != NULL)
+    {
+        // Read atom_no and frame_no from the beginning of dat-file
+        fread(&atom_no, 1, sizeof(int), trajdat);
+        fread(&frame_no, 1, sizeof(int), trajdat);
+    }
+    else
+    {
+        // Generate atom_no and frame_no from xyz-file
+        atom_no = get_atoms(name);
+        int line_no = get_lines(name);
+        frame_no = get_lines(name) / (atom_no + 2);
+        if (frame_no * (atom_no + 2) < line_no)
+        {
+            printf("xyz-file is not correctly formatted (line_no is not divisible by atom_no + 2).");
+            return 1;
+        }
+        printf("frame_no: %i\n", frame_no);
+    }
+
+    // Declare array holding atom numbers (atom) and coordinates (traj)
     int atom[atom_no];
+    float (*traj)[atom_no][3];
     traj = malloc(sizeof(*traj)*frame_no);
     if (traj == NULL)
     {
@@ -55,24 +92,44 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+    clock_t c_start, c_end;
+    c_start = clock();
     // Read trajectory contents into traj and atom
-    if (readxyz(name, frame_no, atom_no, traj, atom) != 0)
+    if ( (trajdat = fopen(datname, "r")) != NULL)
     {
-        free(traj);
-        return 1;
-    }
-    printf("Trajectory has been read.\n");
+        // Read atom_no and frame_no from the beginning of dat-file
+        fread(&atom_no, 1, sizeof(int), trajdat);
+        fread(&frame_no, 1, sizeof(int), trajdat);
+        // Read atom numbers and coordinates from dat-file
+        fread(atom, atom_no, sizeof(int), trajdat);
+        fread(traj, frame_no * atom_no * 3, sizeof(float), trajdat);
 
-    // Read pbc-file into pbc
-    printf("Reading pbc-file...");
-    float pbc[3][3];
-    if (readpbc(pbc_dat, pbc) != 0)
-    {
-        free(traj);
-        return 1;
+        fclose(trajdat);
+        printf("Trajectory has been read from dat-file.\n");
     }
-    printf("done\n");
-    
+    else
+    {
+        // Read atom numbers and coordinates from xyz-file
+        if (readxyz(name, frame_no, atom_no, traj, atom) != 0)
+        {
+            free(traj);
+            printf("Trajectory could not be read from xyz-file.\n");
+            return 1;
+        }
+        printf("Trajectory has been read from xyz-file");
+        
+        // Write dat-file for future use
+        trajdat = fopen(datname, "w");
+        fwrite(&atom_no, 1, sizeof(int), trajdat);
+        fwrite(&frame_no, 1, sizeof(int), trajdat);
+        fwrite(atom, atom_no, sizeof(int), trajdat);
+        fwrite(traj, frame_no * atom_no * 3, sizeof(float), trajdat);
+        fclose(trajdat);
+        printf(" and written to a dat-file.\n");
+    }
+    c_end = clock();
+    printf("\ttook %f s in CPU time.\n", (double)(c_end - c_start) / CLOCKS_PER_SEC);
+
     // Remove com from trajectory
     printf("Removing com...");
     float (*trajcom)[atom_no][3];
@@ -85,8 +142,6 @@ int main(int argc, char *argv[])
     }
     removecom(frame_no, atom_no, traj, atom, trajcom);
     printf("done\n");
-
-
 
     // Print trajectory to stdout to check it out
     //printarray(frame_no, atom_no, traj, atom);
@@ -104,13 +159,15 @@ int main(int argc, char *argv[])
 
     // Parse input
     char* line = strtok(calc_dump, "\n");
-    int calc_line_no = 1;
     while (line != NULL)
     {
-//        printf("\nLine %i: %s\n", calc_line_no, line);
-        docalc(frame_no, atom_no, trajcom, pbc, atom, line);
+        c_start = clock();
+        if ( docalc(frame_no, atom_no, trajcom, pbc, atom, line) == 0)
+        {
+            c_end = clock();
+            printf("\ttook %f s in CPU time.\n\n", (double)(c_end - c_start) / CLOCKS_PER_SEC);
+        }
         line = strtok(NULL, "\n");
-        calc_line_no++;
     }
 
     free(traj);
@@ -120,8 +177,6 @@ int main(int argc, char *argv[])
 
 int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line)
 {
-    // printf("Parsing file: %s\n", line);
-
     // Take first string as calc_name
     char calc_name[10];
     if ( (sscanf(line, "%s %*[^\n] ", calc_name) == 0) || ( calc_name[0] == '#'))   //(strcmp(&calc_name[0], "#") == 0) )
@@ -129,8 +184,6 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
         // printf("\tDoes not start with a calculation name.\n");
         return 1;
     }
-    else
-    {
     printf("%s\n", line);
     // Check whether calc_name matches any predefined calculation name, which currently are:
     // msd
@@ -163,10 +216,11 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
             savecsv(outputcsv, resolution, 2, msd);
             FILE *output = fopen(OUTPUTFILE, "a");
             fprintf(output, "%s\n", msd_output);
-            printf("%s\n", msd_output);
+            printf("%s", msd_output);
 
             fclose(output);
             free(msd);
+            return 0;
         }
         else
         {
@@ -216,10 +270,11 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
                 return 1;
             }
             fprintf(output, "%s\n", rdf_output);
-            printf("%s\n", rdf_output);
+            printf("%s", rdf_output);
 
             fclose(output);
             free(rdf);
+            return 0;
         }
         else
         {
@@ -271,10 +326,11 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
                 return 1;
             }
             fprintf(output, "%s\n", rdf_output);
-            printf("%s\n", rdf_output);
+            printf("%s", rdf_output);
 
             fclose(output);
             free(rdf);
+            return 0;
         }
         else
         {
@@ -319,10 +375,11 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
             savecsv(outputcsv, resolution, 2, oacf);
             FILE *output = fopen(OUTPUTFILE, "a");
             fprintf(output, "%s\n", oacf_output);
-            printf("%s\n", oacf_output);
+            printf("%s", oacf_output);
 
             fclose(output);
             free(oacf);
+            return 0;
         }
         else
         {
@@ -335,7 +392,4 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
         printf("\tDoes not start with a valid calculation.\n");
         return 1;
     }
-    }
-
-    return 0;
 }

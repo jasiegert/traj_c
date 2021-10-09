@@ -42,7 +42,7 @@ int get_lines(char *name)
         line_no++;
     }
     fclose(xyz);
-    printf("line_no: %i\n", line_no);
+    //printf("line_no: %i\n", line_no);
     return line_no;
 }
 
@@ -194,16 +194,6 @@ int writexyz(char *name, int frame_no, int atom_no, float traj[frame_no][atom_no
 int savecsv(char *outputname, int col_no, int row_no, float outputarray[col_no][row_no])
 {
     FILE *output = fopen(outputname, "w");
-
-    char outputstring[3*row_no+1];
-    for (int i = 0; i < row_no; i++)
-    {
-        outputstring[0 + i * 3] = '%';
-        outputstring[1 + i * 3] = 'f';
-        outputstring[2 + i * 3] = ' ';
-    }
-    outputstring [row_no*3 - 1] = '\n';     // Replace last space with newline character
-    outputstring [row_no*3] = '\0';         // Null-terminate string
 
     for (int i = 0; i < col_no; i++)
     {
