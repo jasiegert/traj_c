@@ -1,3 +1,4 @@
+# Reference: https://www.cs.swarthmore.edu/~newhall/unixhelp/howto_makefiles.html
 # Define compiler CC, flags CFLAGS, linked libraries LIBS, source files SRCS, resulting objects OBJS and executable MAIN
 CC = clang
 CFLAGS = -Wall
