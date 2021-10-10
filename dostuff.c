@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <math.h>
 
 #include "read_trajec.h"
 #include "chemistry.h"
@@ -18,7 +19,7 @@ int main(int argc, char *argv[])
 {
     if (argc < 4)
     {
-        printf("Usage: ./dostuff.c xyz-file pbc-file calc-file\n\n");
+        printf("Usage: ./dostuff.out xyz-file pbc-file calc-file\n");
         return 1;
     }
 
@@ -199,21 +200,63 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
         if ( sscanf(line, "%*s %s %i %f", target_atom, &resolution, &timerange) >= 1)
         {
             int target_atom_no = element_to_no(target_atom);
-            if ( target_atom_no == -1)
+            if (target_atom_no == -1)
             {
                 printf("\tAtom type %s not recognized.\n", target_atom);
                 return 1;
             }
             // Allocate output array msd and string msd_output, then run calculation to fill them with result
+            int msd_len = resolution + 1;
             float (*msd)[2];
-            msd = malloc(sizeof(msd) * resolution);
+            msd = malloc(sizeof(msd) * msd_len);
             char msd_output[OUTSTRINGLENGTH];
             msd_overall(frame_no, atom_no, traj, atom, target_atom_no, resolution, timerange, msd, msd_output);
 
             // Write msd into outputcsv and outputstring into outputfile
             char outputcsv[11];
             sprintf(outputcsv, "msd_%s.csv", target_atom);
-            savecsv(outputcsv, resolution, 2, msd);
+            savecsv(outputcsv, msd_len, 2, msd);
+            FILE *output = fopen(OUTPUTFILE, "a");
+            fprintf(output, "%s\n", msd_output);
+            printf("%s", msd_output);
+
+            fclose(output);
+            free(msd);
+            return 0;
+        }
+        else
+        {
+            printf("Does not contain the necessary atom type for OACF.\n");
+            return 1;
+        }
+    }
+    else if (strcmp(calc_name, "msd_fft") == 0)
+    {
+        // Set default values for resolution and timerange
+        printf("\tMSD calculation (FFT)\n");
+        float timerange = 0.3;
+        char target_atom[3];
+
+        // Read atom type from calc-line and complain if atom type is missing or unrecognized
+        if ( sscanf(line, "%*s %s %f", target_atom, &timerange) >= 1)
+        {
+            int target_atom_no = element_to_no(target_atom);
+            if ( target_atom_no == -1)
+            {
+                printf("\tAtom type %s not recognized.\n", target_atom);
+                return 1;
+            }
+            // Allocate output array msd and string msd_output, then run calculation to fill them with result
+            int msd_len = round(frame_no * timerange) + 1;
+            float (*msd)[2];
+            msd = calloc(msd_len, sizeof(msd));
+            char msd_output[OUTSTRINGLENGTH];
+            msd_fft(frame_no, atom_no, traj, atom, target_atom_no, timerange, msd, msd_output);
+
+            // Write msd into outputcsv and outputstring into outputfile
+            char outputcsv[15];
+            sprintf(outputcsv, "msd_fft_%s.csv", target_atom);
+            savecsv(outputcsv, msd_len, 2, msd);
             FILE *output = fopen(OUTPUTFILE, "a");
             fprintf(output, "%s\n", msd_output);
             printf("%s", msd_output);
