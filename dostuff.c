@@ -12,6 +12,7 @@
 
 #define OUTPUTFILE "traj_c.out"
 #define OUTSTRINGLENGTH 100
+#define XYZ_NAME_MAX 20
 
 int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line);
 
@@ -427,6 +428,21 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
         else
         {
             printf("Does not contain the necessary two atom types for OACF.\n");
+            return 1;
+        }
+    }
+    else if (strcmp(calc_name, "removecom") == 0)
+    {
+        char output_xyz_name[XYZ_NAME_MAX];
+        if ( sscanf(line, "%*s %s", output_xyz_name) >= 1)
+        {
+            printf("\tSaving trajectory with removed com to %s\n", output_xyz_name);
+            writexyz(output_xyz_name, frame_no, atom_no, traj, atom);
+            return 0;
+        }
+        else
+        {
+            printf("\tPlease provide a name for removecom.\n");
             return 1;
         }
     }

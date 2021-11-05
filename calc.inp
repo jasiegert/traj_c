@@ -1,7 +1,7 @@
 msd H 100 0.3
 #msd_fft H 100 0.3
 msd P 100 0.3
-msd_fft P 100 0.3
+msd_fft P 0.3
 #oacf P O 100 0.3
 #rdf H O 300 0 4
 #rdf O O 300 0 4
@@ -10,3 +10,4 @@ msd_fft P 100 0.3
 #rdf_inter H O P 300 0 4
 #rdf_inter O O P 300 0 4
 #oacf P O 100 0.3
+removecom CDP_com.xyz
