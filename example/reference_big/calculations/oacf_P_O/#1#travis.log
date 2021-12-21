@@ -1,0 +1,441 @@
+Command line:
+"travis -i intmp.txt -p ../../../traj/csh2po4_standard-pos-1.xyz"
+
+
+  ________                                 __
+ /        |                               /  |
+ ########/ ______    ______    __     __  ##/    _______
+    ## |  /      \  /      \  /  \   /  | /  |  /       |
+    ## | /######  | ######  | ##  \ /##/  ## | /#######/
+    ## | ## |  ##/  /    ## |  ##  /##/   ## | ##      \
+    ## | ## |      /####### |   ## ##/    ## |  ######  |
+    ## | ## |      ##    ## |    ###/     ## | /     ##/
+    ##/  ##/        #######/      #/      ##/  #######/
+
+    TRajectory Analyzer and VISualizer  -  Open-source free software under GNU GPL v3
+
+    Copyright (c) Martin Brehm      (2009-2021), University of Halle (Saale)
+                  Martin Thomas     (2012-2021)
+                  Sascha Gehrke     (2016-2021), University of Bonn
+                  Barbara Kirchner  (2009-2021), University of Bonn
+
+    http://www.travis-analyzer.de
+
+    Please cite: J. Chem. Phys. 2020, 152 (16), 164105.         (DOI 10.1063/5.0005078 )
+                 J. Chem. Inf. Model. 2011, 51 (8), 2007-2023.  (DOI 10.1021/ci200217w )
+
+    There is absolutely no warranty on any results obtained from TRAVIS.
+
+ #  Running on pop-os at Tue Dec 21 21:29:16 2021 (PID 12920)
+ #  Running in /home/alex/Documents/Studium_Chemie/HiWi/ThC_HiWi/c_stuff/traj_c/example/reference_big/calculations/oacf_P_O
+ #  Version: May 21 2021, built at Oct  5 2021, 16:13:10, compiler "10.3.0", GCC 10.3.0
+ #  Target platform: Linux, __cplusplus=201402L, Compile flags: NEW_CHARGEVAR DEBUG_ARRAYS 
+ #  Machine: x86_64, int=4b, long=8b, addr=8b, 0xA0B0C0D0=D0,C0,B0,A0.
+ #  Home: /home/alex,  Executable: /home/alex/bin/travis
+ #  Input from intmp.txt, Output to terminal
+
+    >>> Please use a color scheme with dark background or specify "-nocolor"! <<<
+
+    Loading configuration from /home/alex/.travis.conf ...
+
+    Opening position trajectory ../../../traj/csh2po4_standard-pos-1.xyz ...
+
+    Trajectory contains approximately 80000 frames (just a *guess* from the file size of 640.11 MiB).
+
+    128 atoms in the system: 16x Cs, 32x H, 64x O, 16x P
+
+    System extent:  X = {     -3 ..  +1029 pm }, dX = 1032 pm
+      (in step 1)   Y = {    -65 ..   +984 pm }, dY = 1049 pm
+                    Z = {    -24 ..  +1983 pm }, dZ = 2008 pm
+
+    The "advanced mode" offers seldomly required features, including support for non-orthorhombic
+    simulation cells, NPT ensemble, non-periodic systems, user-definded virtual atoms, pseudomolecules, ...
+
+    Use the advanced mode until the analysis selection menu (y/n)? [no] n
+
+    A cell vector of 1827.95 pm would result in a density of 1.0 g/cm^3.
+
+    Are the 3 cell vectors of the same size (yes/no)? [yes] n
+    Enter length of X cell vector in pm: 992.2
+    Enter length of Y cell vector in pm: 992.2
+    Enter length of Z cell vector in pm: 1984.4
+
+    The box size is 992.20 x 992.20 x 1984.40 pm.
+    The overall box density is 3.126559 g/cm^3.
+
+    Using the following element data:
+
+      Element | Ord. Number |  Mass / u | Cov. Radius / pm | VdW Radius / pm | Color
+    ----------|-------------|-----------|------------------|-----------------|----------
+      H       |           1 |   1.00798 |            37.00 |          109.00 | #FFFFFF
+      O       |           8 |  15.99940 |            75.00 |          152.00 | #FF0000
+      P       |          15 |  30.97376 |           111.00 |          180.00 | #E47100
+      Cs      |          55 | 132.90545 |           225.00 |          343.00 | #00FFFF
+
+
+    The trajectory contains some metal atoms.
+    In many cases, these are ions, and should not form any covalent bonds.
+
+      Exclude Cs atoms from bond recognition (y/n)? [yes] <RETURN>
+
+
+    Initialized spatial domain engine with 3 x 3 x 7 cells, min. diameter = 255 pm.
+
+    Molecule recognition [##########################################]
+
+    32 molecules found.
+
+    Sorting atom types...
+    Setting up bond lists...
+    Building atom codes...
+    Creating refined topological atom order...
+      [################################] Done.
+    Creating bond list...
+    Creating angle list...
+    Grouping together equivalent molecules...
+    Found 4 unique molecule types.
+    Sorting molecule types by molecular mass...
+    Found 0 rings.
+    Molecule recognition finished.
+
+Output of bond matrices:
+
+*** Molecule 1: Cs; Representant 1; Distances in pm ***
+[only 1 Atom]
+
+*** Molecule 2: H3O4P; Representant 1; Distances in pm ***
+
+    H1  H2  H3  O1  O2  O3  O4  P1 
+H1  ***  -   -  107  -   -   -   -  
+H2   -  ***  -   -  105  -   -   -  
+H3   -   -  ***  -   -  103  -   -  
+O1  107  -   -  ***  -   -   -  162 
+O2   -  105  -   -  ***  -   -  162 
+O3   -   -  103  -   -  ***  -  162 
+O4   -   -   -   -   -   -  *** 157 
+P1   -   -   -  162 162 162 157 *** 
+
+    Atoms H1, H2, H3 are equivalent.
+    Atoms O1, O2, O3 are equivalent.
+
+*** Molecule 3: H2O4P; Representant 1; Distances in pm ***
+
+    H1  H2  O1  O2  O3  O4  P1 
+H1  ***  -   99  -   -   -   -  
+H2   -  ***  -  102  -   -   -  
+O1   99  -  ***  -   -   -  161 
+O2   -  102  -  ***  -   -  158 
+O3   -   -   -   -  ***  -  154 
+O4   -   -   -   -   -  *** 153 
+P1   -   -  161 158 154 153 *** 
+
+    Atoms H1, H2 are equivalent.
+    Atoms O1, O2 are equivalent.
+    Atoms O3, O4 are equivalent.
+
+*** Molecule 4: HO4P; Representant 1; Distances in pm ***
+
+    H1  O1  O2  O3  O4  P1 
+H1  *** 104  -   -   -   -  
+O1  104 ***  -   -   -  166 
+O2   -   -  ***  -   -  153 
+O3   -   -   -  ***  -  150 
+O4   -   -   -   -  *** 160 
+P1   -  166 153 150 160 *** 
+
+    Atoms O2, O3, O4 are equivalent.
+
+
+*** The following 4 kinds of molecules have been recognized:
+    (ordered by molecular mass)
+
+  - Molecule 1:  Cs (16 pieces, 132.91 g/mol)
+      (1 noneq. atom, 0 noneq. bonds, 0 noneq. angles)
+      Concentration:  13.600078 mol/liter
+
+  - Molecule 2:  H3O4P (1 piece, 98.00 g/mol)
+      (4 noneq. atoms, 3 noneq. bonds, 3 noneq. angles)
+      Concentration:   0.850005 mol/liter
+
+  - Molecule 3:  H2O4P (14 pieces, 96.99 g/mol)
+      (4 noneq. atoms, 3 noneq. bonds, 4 noneq. angles)
+      Concentration:  11.900069 mol/liter
+
+  - Molecule 4:  HO4P (1 piece, 95.98 g/mol)
+      (4 noneq. atoms, 3 noneq. bonds, 3 noneq. angles)
+      Concentration:   0.850005 mol/liter
+
+
+    If you switch on "USE_OPENBABEL" in config.h, TRAVIS can print SMILES strings of your molecules.
+
+    You can create images of the structural formulas with the atom labels for easier
+    identification of the atoms (requires installed GraphViz package - see www.graphviz.org).
+
+    Create images of the structural formulas (y/n)? [no] <RETURN>
+
+    Accept these molecules (y) or change something (n)? [yes] n
+
+    If you want some atom types to form no bonds at all, assign covalent radius 0 to them.
+
+    *** Modify Molecules ***
+
+    Your choices:
+
+    1.) Change covalent atom radii used for bond recognition
+    2.) Break specific bonds
+    3.) Rename elements
+    4.) Split molecule type into two types
+    5.) Add bonds / add solvation shell to molecule
+
+    Please select: [done] 1
+
+    A covalent radius of 0 means that the element can't form any bonds.
+
+    These values have been used (covalent radii from literature multiplied with 1.15):
+
+      - Cs      0.0 pm
+      - H      42.5 pm
+      - O      86.2 pm
+      - P     127.6 pm
+
+    The radius of which element do you want to change (enter element label)? [done] H
+    Please enter new bond radius for H in pm: [42.5] 0
+
+      Atom H will form no bonds now.
+
+    Also remove this atom type from the system (y/n)? [no] <RETURN>
+
+    The radius of which element do you want to change (enter element label)? [done] <RETURN>
+
+
+    *** Modify Molecules ***
+
+    Your choices:
+
+    1.) Change covalent atom radii used for bond recognition
+    2.) Break specific bonds
+    3.) Rename elements
+    4.) Split molecule type into two types
+    5.) Add bonds / add solvation shell to molecule
+
+    Please select: [done] <RETURN>
+
+    Going back to molecule recognition with changed settings.
+
+
+
+    Initialized spatial domain engine with 3 x 3 x 7 cells, min. diameter = 255 pm.
+
+    Molecule recognition [##########################################]
+
+    64 molecules found.
+
+    Sorting atom types...
+    Setting up bond lists...
+    Building atom codes...
+    Creating refined topological atom order...
+      [############################################################] Done.
+    Creating bond list...
+    Creating angle list...
+    Grouping together equivalent molecules...
+    Found 3 unique molecule types.
+    Sorting molecule types by molecular mass...
+    Found 0 rings.
+    Molecule recognition finished.
+
+Output of bond matrices:
+
+*** Molecule 1: Cs; Representant 1; Distances in pm ***
+[only 1 Atom]
+
+*** Molecule 2: O4P; Representant 1; Distances in pm ***
+
+    O1  O2  O3  O4  P1 
+O1  ***  -   -   -  154 
+O2   -  ***  -   -  153 
+O3   -   -  ***  -  161 
+O4   -   -   -  *** 158 
+P1  154 153 161 158 *** 
+
+    Atoms O1, O2, O3, O4 are equivalent.
+
+*** Molecule 3: H; Representant 1; Distances in pm ***
+[only 1 Atom]
+
+
+*** The following 3 kinds of molecules have been recognized:
+    (ordered by molecular mass)
+
+  - Molecule 1:  Cs (16 pieces, 132.91 g/mol)
+      (1 noneq. atom, 0 noneq. bonds, 0 noneq. angles)
+      Concentration:  13.600078 mol/liter
+
+  - Molecule 2:  O4P (16 pieces, 94.97 g/mol)
+      (2 noneq. atoms, 1 noneq. bond, 1 noneq. angle)
+      Concentration:  13.600078 mol/liter
+
+  - Molecule 3:  H (32 pieces, 1.01 g/mol)
+      (1 noneq. atom, 0 noneq. bonds, 0 noneq. angles)
+      Concentration:  27.200157 mol/liter
+
+
+    If you switch on "USE_OPENBABEL" in config.h, TRAVIS can print SMILES strings of your molecules.
+
+    You can create images of the structural formulas with the atom labels for easier
+    identification of the atoms (requires installed GraphViz package - see www.graphviz.org).
+
+    Create images of the structural formulas (y/n)? [no] <RETURN>
+
+    Accept these molecules (y) or change something (n)? [yes] <RETURN>
+
+    Uniting molecules which have been broken by wrapping...
+
+    Determining maximum molecular diameters...
+
+    Found the following maximal molecular diameters:
+
+      (*) Molecule 1 (Cs):   (only one atom)
+
+      (*) Molecule 2 (O4P):    279.12 pm
+
+      (*) Molecule 3 (H):    (only one atom)
+
+
+    The atoms are currently ordered by topological priority.
+
+    Defining virtual atom #1 as molecular Center of Geometry:
+      - Cs...
+      - O4P...
+      - H...
+
+    Defining virtual atom #2 as molecular Center of Mass:
+      - Cs...
+      - O4P...
+      - H...
+
+    Defining molecular dipole vectors:
+
+      The last virtual atom of each molecule is defined as the tip of the dipole vector
+      starting in center of mass (#2). 1 Debye corresponds to 100 pm of vector length.
+      Only useful if dipole/charge data is provided. Otherwise vector has always length of zero.
+
+      - Dipole vector #2 --> #3 in Cs ...
+      - Dipole vector #2 --> #3 in O4P ...
+      - Dipole vector #2 --> #3 in H ...
+
+>>> 9 virtual atoms have been defined: >>>
+
+    #1 in Cs: Center of Geometry.
+    #2 in Cs: Center of Mass.
+
+    #3 in Cs - tip of molecular dipole vector starting in #2.
+
+    #1 in O4P: Center of Geometry.
+    #2 in O4P: Center of Mass.
+
+    #3 in O4P - tip of molecular dipole vector starting in #2.
+
+    #1 in H: Center of Geometry.
+    #2 in H: Center of Mass.
+
+    #3 in H - tip of molecular dipole vector starting in #2.
+
+<<< End of virtual atoms <<<
+
+
+>>> List of functions <<<
+
+ *** Static (time independent) Functions
+ cdf      - Combined Distribution Function
+ rdf      - Radial Distribution Function
+ adf      - Angular Distribution Function
+ ddf      - Dihedral Distribution Function
+ pldf     - Point-Plane Distance Distribution
+ lidf     - Point-Line Distance Distribution
+ plproj   - Plane Projection Distribution
+ dprof    - Fixed Plane Density Profile
+ fpp      - Fixed Plane Projection
+ dens     - Density Distribution Function
+ sdf      - Spatial Distribution Function
+ psdf     - Pseudo SDF (only 2 ref. atoms)
+ dip      - Dipole Distribution Function
+ cond     - Evaluate Structural Condition
+ sfac     - Compute Structure Factor
+ agtopo   - Aggregation Topology Analysis
+ cmat     - Contact Matrix / Connection Matrix
+ geodens  - Particle Density inside Geometric Object
+
+ *** Dynamic (time dependent) Functions
+ vdf      - Velocity Distribution Function
+ fdf      - Force Distribution Function
+ msd      - Mean Square Displacement / Diffusion Coefficients
+ acf      - Velocity Autocorrelation Functions
+ rdyn     - Vector Reorientation Dynamics
+ vhcf     - Van Hove Correlation Function
+ aggr     - Aggregation Functions (DACF, DLDF, DDisp)
+ hbond    - Hydrogen Bond Dynamics
+ ionpair  - Diffusion Corrected Ion Pair Dynamics
+ tddf     - Time Dependent Distribution Functions
+
+ *** Spectroscopic Functions
+ spec     - New Spectroscopy Module (IR, Raman, VCD, ROA)
+ power    - Calculate Power Spectrum
+ nc       - Normal Coordinate Analysis
+ ir       - (old) Calculate IR Spectrum
+ raman    - (old) Calculate Raman Spectrum
+ vcd      - (old) Calculate VCD Spectrum
+ drst     - Save Dipole Restart File
+ mrst     - Save Magnetic Moment Restart File
+ pol      - Set up Polarizability Calculation
+
+ *** Miscellaneous Functions
+ env      - Save Trajectory of RM Environment / TDO Plot
+ proc     - Save Processed Trajectory
+ cut      - Cut Clusters
+ reg      - Region-specific Analysis
+ chi      - Chirality Analysis
+ eck      - Transform to Eckart Frame
+ swan     - Sort Wannier Centers
+ voro     - Basic Voronoi Analysis
+ vori     - Voronoi Integration Functions
+ vorochg  - Voronoi Charge Optimization
+ doma     - Domain Analysis
+ order    - Order Parameters
+ hole     - Hole Theory based Analysis
+
+   (You may specify multiple analyses at once, but
+    the safe way is to perform only one kind of analysis at a time.)
+
+    Which functions to compute (comma separated)? <RETURN>
+
+Unknown Function: ""
+Invalid input.
+
+    Which functions to compute (comma separated)? 
+End of input file reached. Switching to keyboard input.
+
+    Do you want to write an input file for this session (y/n)? [yes] 
+    Copying contents of old input file to input.txt ...
+[Renaming existing File intmp.txt to #1#intmp.txt ...OK.]
+Error: Input file "intmp.txt" is no longer available.
+
+*** Please note that the input file must not be named "intmp.txt". ***
+
+
+
+*** SIGABRT caught: Abnormal program termination ***
+TRAVIS had to abort execution.
+Hopefully, the reason was printed above this message.
+Decoding line numbers... ("addr2line <addr> -f -i -C -e /home/alex/bin/travis")
+ # 11 - [0x55b102696c91] - ?? - ??:0 
+ # 10 - [0x55b10269716a] - ?? - ??:0 
+ #  9 - [0x55b1026971dd] - ?? - ??:0 
+ #  8 - [0x7fcdf80a5040] - ?? - ??:0 
+ #  7 - [0x7fcdf80a4fbb] - ?? - ??:0 
+ #  6 - [0x7fcdf808a864] - ?? - ??:0 
+ #  5 - [0x55b1028e0508] - ?? - ??:0 
+ #  4 - [0x55b102770a6f] - ?? - ??:0 
+ #  3 - [0x55b102646f71] - ?? - ??:0 
+ #  2 - [0x7fcdf808c565] - ?? - ??:0 
+ #  1 - [0x55b10267aade] - ?? - ??:0 
+Delivering control to operating system.
