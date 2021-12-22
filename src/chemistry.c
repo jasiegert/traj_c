@@ -126,7 +126,6 @@ float pbc_dist(float coord_1[3], float coord_2[3], float pbc[3][3])
     }
     dist = sqrt(dist);
     return dist;
-
 }
 
 // Finds closest neighbor of type atom_neighbor in trajectory defined by traj_frame and atom to coordinates coord; returns -1 if nothing is found

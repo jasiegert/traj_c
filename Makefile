@@ -4,8 +4,12 @@ CC = gcc
 CFLAGS = -Wall -O3 -march=native
 LIBS = -lm  # links math.h
 SRCDIR = src/
-SRCS = dostuff.c read_trajec.c chemistry.c calc/msd.c calc/rdf.c calc/oacf.c kissFFT/kiss_fft.c kissFFT/kiss_fftr.c
-OBJS = $(SRCS:%.c=$(SRCDIR)%.o)  # .o-files generated from .c-files in SRCS
+SRCFILES = read_trajec.c chemistry.c calc/msd.c calc/rdf.c calc/oacf.c kissFFT/kiss_fft.c kissFFT/kiss_fftr.c
+MAINSRC = dostuff.c     # special treatment, because it doesn't have a header file
+
+HEADERS = $(SRCFILES:%.c=$(SRCDIR)%.h)
+SRCS = $(SRCFILES:%=$(SRCDIR)%) $(MAINSRC:%=$(SRCDIR)%)
+OBJS = $(SRCS:%.c=%.o)  # .o-files generated from .c-files in SRCS
 MAIN = dostuff.out
 
 # Default action is to compile executable MAIN
@@ -24,3 +28,8 @@ clean:
 
 remove:
 	$(RM) $(OBJS) $(MAIN)
+
+manual: manual/html/index.html
+
+manual/html/index.html: $(MAIN) $(SRCS) $(HEADERS)
+	doxygen Doxyfile
