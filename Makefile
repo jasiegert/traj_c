@@ -30,7 +30,7 @@ clean:
 remove:
 	$(RM) $(OBJS) $(MAIN)
 
-manual: manual/html/index.html
+manual: docs/html/index.html
 
-manual/html/index.html: $(MAIN) $(SRCS) $(HEADERS)
+docs/html/index.html: $(SRCS) $(HEADERS)
 	doxygen Doxyfile
