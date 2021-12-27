@@ -62,7 +62,11 @@ int readxyz(char *name, int frame_no, int atom_no, float traj[frame_no][atom_no]
     fscanf(xyz, " %*[^\n] \n");
     for (int j = 0; j < atom_no; j++)
     {
-        fscanf(xyz, " %s %*[^\n] \n", atom_label);
+        if (fscanf(xyz, " %s %*[^\n] \n", atom_label) != 1)
+        {
+            printf("Label of atom %d could not be read!\n", j);
+            return 1;
+        }
         atom[j] = element_to_no(atom_label);
     }
     rewind(xyz);
@@ -75,8 +79,11 @@ int readxyz(char *name, int frame_no, int atom_no, float traj[frame_no][atom_no]
         fscanf(xyz, " %*[^\n] \n");
         for (int j = 0; j < atom_no; j++)
         {
-//            float* position = *(*(traj+i)+j);
-            fscanf(xyz, " %*s %f %f %f \n", &traj[i][j][0], &traj[i][j][1], &traj[i][j][2]);
+            if (fscanf(xyz, " %*s %f %f %f \n", &traj[i][j][0], &traj[i][j][1], &traj[i][j][2]) != 3)
+            {
+                printf("Error reading xyz-file %s in line %d atom %d!\n", name, i, j);
+                return 1;
+            }
         }
     }
     fclose(xyz);
@@ -98,7 +105,7 @@ int readpbc(char *name, float pbc[3][3])
         if (fscanf(pbc_dat, "%f %f %f \n", &pbc[i][0], &pbc[i][1], &pbc[i][2]) != 3)
         {
             printf("pbc-file %s did not contain 3 readable float values in line %i.\n", name, i);
-            return 2;
+            return 1;
         }
     }
     return 0;
@@ -136,28 +143,6 @@ int removecom(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int a
     return 0;
 }
 
-// Prints atom labels in $atom and coordinates in $traj as trajectory with $frame_no frames and $atom_no atoms into stdout
-int printarray(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no])
-{
-    // Generate atom labels from atom numbers
-    char atom_labels[atom_no][3];
-    for (int j = 0; j < atom_no; j++)
-    {
-        no_to_element(atom[j], atom_labels[j]);
-    }
-
-    // Print atom labels and coordinates into stdout
-    for (int i = 0; i < frame_no; i++)
-    {
-        printf("%i\n\n",i);
-        for (int j = 0; j < atom_no; j++)
-        {
-            printf("%s %f %f %f \n", atom_labels[j] ,traj[i][j][0], traj[i][j][1], traj[i][j][2]);
-        }
-    }
-    return 0;
-}
-
 // Writes atom labels in $atom and coordinates in $traj as trajectory with $frame_no frames and $atom_no atoms into file $name
 int writexyz(char *name, int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no])
 {
@@ -191,19 +176,3 @@ int writexyz(char *name, int frame_no, int atom_no, float traj[frame_no][atom_no
     return 0;
 }
 
-int savecsv(char *outputname, int col_no, int row_no, float outputarray[col_no][row_no])
-{
-    FILE *output = fopen(outputname, "w");
-
-    for (int i = 0; i < col_no; i++)
-    {
-        for (int j = 0; j < row_no; j++)
-        {
-            fprintf(output, "%.10e    ", outputarray[i][j]);
-        }
-        fprintf(output, "\n");
-    }
-
-    fclose(output);
-    return 0;
-}

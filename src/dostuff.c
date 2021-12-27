@@ -6,6 +6,7 @@
 
 #include "read_trajec.h"
 #include "chemistry.h"
+#include "mathtools.h"
 #include "calc/msd.h"
 #include "calc/rdf.h"
 #include "calc/oacf.h"
@@ -304,7 +305,7 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
             rdf_overall(frame_no, atom_no, traj, pbc, atom, target_atom_no_1, target_atom_no_2, min_distance, max_distance, bin, rdf, rdf_output);
 
             // Write msd into outputcsv and outputstring into outputfile
-            char outputcsv[13];
+            char outputcsv[14];
             sprintf(outputcsv, "rdf_%s_%s.csv", target_atom_1, target_atom_2);
             savecsv(outputcsv, bin, 2, rdf);
             FILE *output = fopen(OUTPUTFILE, "a");
@@ -360,7 +361,7 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
             rdf_intermolecular(frame_no, atom_no, traj, pbc, atom, target_atom_no_1, target_atom_no_2, central_atom_no, min_distance, max_distance, bin, rdf, rdf_output);
 
             // Write msd into outputcsv and outputstring into outputfile
-            char outputcsv[19];
+            char outputcsv[20];
             sprintf(outputcsv, "rdf_inter_%s_%s.csv", target_atom_1, target_atom_2);
             savecsv(outputcsv, bin, 2, rdf);
             FILE *output = fopen(OUTPUTFILE, "a");

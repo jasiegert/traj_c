@@ -4,7 +4,7 @@ CC = gcc
 CFLAGS = -Wall -O3 -march=native
 LIBS = -lm  # links math.h
 SRCDIR = src/
-SRCFILES = read_trajec.c chemistry.c calc/msd.c calc/rdf.c calc/oacf.c kissFFT/kiss_fft.c kissFFT/kiss_fftr.c
+SRCFILES = read_trajec.c chemistry.c mathtools.c calc/msd.c calc/rdf.c calc/oacf.c kissFFT/kiss_fft.c kissFFT/kiss_fftr.c
 MAINSRC = dostuff.c     # special treatment, because it doesn't have a header file
 
 HEADERS = $(SRCFILES:%.c=$(SRCDIR)%.h)

@@ -18,8 +18,6 @@ int no_to_element(int atom_no, char* element);
 
 
 float no_to_mass(int atom_no);
-int linregress(int n, float x[n], float y[n], float start_point, float end_point, float *slope, float *intercept, float *R);
-int linregress_array(int n, float ar[n][2], float start_point, float end_point, float *slope, float *intercept,     float *R);
 
 /**
 * Calculates the distance between two points in real space following the minimum image convention.
