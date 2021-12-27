@@ -4,10 +4,11 @@ CC = gcc
 CFLAGS = -Wall -O3 -march=native
 LIBS = -lm  # links math.h
 SRCDIR = src/
-SRCFILES = read_trajec.c chemistry.c mathtools.c calc/msd.c calc/rdf.c calc/oacf.c kissFFT/kiss_fft.c kissFFT/kiss_fftr.c
+SRCFILES = trajec_io/read_trajec.c trajec_io/chemistry.c calc/mathtools.c calc/msd.c calc/rdf.c calc/oacf.c kissFFT/kiss_fft.c kissFFT/kiss_fftr.c
 MAINSRC = dostuff.c     # special treatment, because it doesn't have a header file
 
 HEADERS = $(SRCFILES:%.c=$(SRCDIR)%.h)
+INCLUDE = $(SRCDIR:%=-I%)
 SRCS = $(SRCFILES:%=$(SRCDIR)%) $(MAINSRC:%=$(SRCDIR)%)
 OBJS = $(SRCS:%.c=%.o)  # .o-files generated from .c-files in SRCS
 MAIN = dostuff.out
@@ -16,11 +17,11 @@ MAIN = dostuff.out
 all: $(MAIN)
 
 $(MAIN): $(OBJS)
-	$(CC) $(CFLAGS) -o $(MAIN) $(OBJS) $(LIBS)
+	$(CC) $(INCLUDE) $(CFLAGS) -o $(MAIN) $(OBJS) $(LIBS)
 
 # Generate .o-files from corresponding .c-files where needed
 .c.o:
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(INCLUDE) $(CFLAGS) -c $< -o $@
 
 # Delete all .o-files named in OBJS with "make clean"
 clean:

@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../chemistry.h"
+#include "trajec_io/chemistry.h"
 
 // Calculates the RDF between two atom types passed as atom_1 and atom_2 in the trajectory traj. Returns RDF by writing into rdf.
 int rdf_overall(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], int atom_1, int atom_2, float min_distance, float max_distance, int bin, float rdf[bin][2], char *output)

@@ -4,9 +4,9 @@
 #include <time.h>
 #include <math.h>
 
-#include "read_trajec.h"
-#include "chemistry.h"
-#include "mathtools.h"
+#include "trajec_io/read_trajec.h"
+#include "trajec_io/chemistry.h"
+#include "calc/mathtools.h"
 #include "calc/msd.h"
 #include "calc/rdf.h"
 #include "calc/oacf.h"
