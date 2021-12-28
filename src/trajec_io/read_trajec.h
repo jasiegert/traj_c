@@ -1,4 +1,5 @@
 /** @file read_trajec.h
+* @author Johnny Alexander Jimenez Siegert
 * @brief Functions to read/write trajectories from/to xyz-files.
 * @ingroup TrajectoryIO 
 * @warning Currently only supports xyz-files. Other common file formats might be added later on.
@@ -23,6 +24,12 @@ int get_atoms(char *name);
 */
 int get_lines(char *name);
 
+int get_atom_and_frame_no(char *name, int *atom_no, int *frame_no);
+
+void skipline(FILE *f);
+
+int readtraj(char *name, int *frame_no, int *atom_no, float **trajectory_pointer, int **atom_pointer);
+
 /**
 * @brief Reads content of an xyz-file into a 3D-array.
 *
@@ -33,7 +40,9 @@ int get_lines(char *name);
 * @param[out] atom atomic numbers of atoms in the trajectory in the same order as they appear in the first frame.
 * @return int 1 if a problem occured, otherwise 0.
 */
-int readxyz(char *name, int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no]);
+int readxyz(char *name, int *frame_no_pointer, int *atom_no_pointer, float** trajectory_pointer, int **atom_pointer);
+
+int readdat(char *datname, int *frame_no, int *atom_no, float **trajectory_pointer, int **atom_pointer);
 
 /**
 * @brief Reads file containing periodic boundary conditions into array.

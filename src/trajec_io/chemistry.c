@@ -89,10 +89,10 @@ float pbc_dist(float coord_1[3], float coord_2[3], float pbc[3][3])
 int nextneighbor_in_traj(float coord[3], int atom_no, float traj_frame[atom_no][3], int atom[atom_no], int atom_neighbor, float pbc[3][3])
 {
     int index_neighbor = -1;
-    float min_distance = 10.0; //sqrt(sqr(pbc[0][0]) + sqr(pbc[1][1]) + sqr(pbc[2][2])); // longest distance possible in orthogonal cell with side lengths pbc[i][i]
+    float min_distance = pbc[0][0] + pbc[1][1] + pbc[2][2]; // larger distance than any two atoms can have between them
     for (int i = 0; i < atom_no; i++)
     {
-        if (atom[i] == atom_neighbor)
+        if (atom[i] == atom_neighbor || atom_neighbor == 0)
         {
             float dist = pbc_dist(coord, traj_frame[i], pbc);
             if (dist < min_distance)

@@ -2,6 +2,7 @@
 * @file chemistry.h
 * @brief Functions to get information on elements and do simple trajectory calculations.
 * @ingroup TrajectoryIO
+* @author Johnny Alexander Jimenez Siegert
 */
 
 #ifndef CHEMISTRY_H
@@ -42,15 +43,17 @@ float pbc_dist(float coord_1[3], float coord_2[3], float pbc[3][3]);
 /**
 * @brief Finds the closest atom ("neighbor") to a given point in a frame.
 *
-* Given a point and a frame (list of atom coordinates), returns the index of the entry of type atom_neighbor in frame with the lowest distance to the point.\n
-* Distance is determined using \ref pbc_dist.
+* Given a point and a frame (list of atom coordinates), returns the index of the entry in frame with the lowest distance to the point.\n
+* If atom_neighbor is not 0, then only neighbors with it as atomic number may be returned. If 0, then all atoms are eligible.\n
+* Distance is determined using \ref pbc_dist (see limitations there).
 *
 * @param[in] coord coordinates of the point, whose nearest neighbor should be found.
 * @param[in] atom_no number of atoms in the frame.
 * @param[in] traj_frame frame from the trajectory.
 * @param[in] atom atomic numbers of all atoms in frame.
-* @param[in] atom_neighbor atomic number of the neighbor atom.
+* @param[in] atom_neighbor atomic number of neighbor, which should be returned. Set to 0 to accept all atom types.
 * @param[in] pbc periodic boundary conditions.
+* @return index of the atom closest to the given point in traj_frame. -1 if none is found.
 */
 int nextneighbor_in_traj(float coord[3], int atom_no, float traj_frame[atom_no][3], int atom[atom_no], int atom_neighbor, float pbc[3][3]);
 
