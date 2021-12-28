@@ -9,40 +9,70 @@
 #define READTRAJEC_H
 
 /**
-* @brief Counts number of atoms in an xyz-file.
+* @brief Counts number of atoms and frames in an xyz-file.
+*
+* Each frame should consist of 2 comment lines followed by atom_no entries.\n
+* Number of atoms will be counted in the first frame. Frame number will be determined by counting the lines and dividing by line number per frame (atom_no + 2).
 *
 * @param[in] name path to the xyz-file.
-* @return number of atoms in the trajectory.
+* @param[out] atom_no number of atoms.
+* @param[out] frame_no number of frames.
+* @return 1 if something went wrong (e.g. file can't be opened or is not properly formatted), otherwise 0.
 */
-int get_atoms(char *name);
-
-/**
-* @brief Counts number of lines in a text file.
-*
-* @param[in] name path to the file.
-* @return number of lines in the file.
-*/
-int get_lines(char *name);
-
 int get_atom_and_frame_no(char *name, int *atom_no, int *frame_no);
 
 void skipline(FILE *f);
 
-int readtraj(char *name, int *frame_no, int *atom_no, float **trajectory_pointer, int **atom_pointer);
+/**
+* @brief Reads content of an xyz-file or dat-file into a 3D-array.
+*
+* Reads a trajectory from an xyz-file. If an auxiliary dat-file (with .xyz replaced by .dat) exists, it will be used instead, otherwise it will be generated.\n
+* Since atom is a 1D-array the pointer *atom_pointer can be used as is. For the trajectory casting to a 3D-array might be useful:\n
+* \code
+* float *trajectory_pointer;
+* int frame_no, atom_no;
+* int *atom;
+* readtraj(char *name, &frame_no, &atom_no, &trajectory_pointer, &atom);
+* float (*traj)[atom_no][3] = ( float (*)[atom_no][3] ) trajectory_pointer;
+* \endcode
+*
+* @warning Atom (*atom_pointer) and trajectory (*trajectory_pointer) will be malloc'd, remember to free them!
+* @param[in] name path to the xyz-file.
+* @param[in] frame_no_pointer number of frames in the trajectory.
+* @param[in] atom_no_pointer number of atoms in the trajectory
+* @param[out] trajectory_pointer 3D-array to hold the trajectory coordinates.
+* @param[out] atom_pointer atomic numbers of atoms in the trajectory in the same order as they appear in the first frame.
+* @return int 1 if a problem occured, otherwise 0.
+*/
+int readtraj(char *name, int *frame_no_pointer, int *atom_no_pointer, float **trajectory_pointer, int **atom_pointer);
 
 /**
 * @brief Reads content of an xyz-file into a 3D-array.
 *
+* Reads xyz-file. For usage see \ref readtraj.
+*
 * @param[in] name path to the xyz-file.
-* @param[in] frame_no number of frames in the trajectory.
-* @param[in] atom_no number of atoms in the trajectory
-* @param[out] traj 3D-array to hold the trajectory coordinates.
-* @param[out] atom atomic numbers of atoms in the trajectory in the same order as they appear in the first frame.
+* @param[in] frame_no_pointer number of frames in the trajectory.
+* @param[in] atom_no_pointer number of atoms in the trajectory
+* @param[out] trajectory_pointer 3D-array to hold the trajectory coordinates.
+* @param[out] atom_pointer atomic numbers of atoms in the trajectory in the same order as they appear in the first frame.
 * @return int 1 if a problem occured, otherwise 0.
 */
-int readxyz(char *name, int *frame_no_pointer, int *atom_no_pointer, float** trajectory_pointer, int **atom_pointer);
+int readxyz(char *name, int *frame_no_pointer, int *atom_no_pointer, float **trajectory_pointer, int **atom_pointer);
 
-int readdat(char *datname, int *frame_no, int *atom_no, float **trajectory_pointer, int **atom_pointer);
+/**
+* @brief Reads content of an auxiliary dat-file into a 3D-array.
+*
+* Reads dat-file. For usage see \ref readtraj.
+*
+* @param[in] datname path to the xyz-file.
+* @param[in] frame_no_pointer number of frames in the trajectory.
+* @param[in] atom_no_pointer number of atoms in the trajectory
+* @param[out] trajectory_pointer 3D-array to hold the trajectory coordinates.
+* @param[out] atom_pointer atomic numbers of atoms in the trajectory in the same order as they appear in the first frame.
+* @return int 1 if a problem occured, otherwise 0.
+*/
+int readdat(char *datname, int *frame_no_pointer, int *atom_no_pointer, float **trajectory_pointer, int **atom_pointer);
 
 /**
 * @brief Reads file containing periodic boundary conditions into array.

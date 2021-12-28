@@ -32,5 +32,5 @@ remove:
 
 manual: docs/html/index.html
 
-docs/html/index.html: $(SRCS) $(HEADERS)
+docs/html/index.html: $(SRCS) $(HEADERS) Doxyfile src/doxygen_modules.h
 	doxygen Doxyfile
