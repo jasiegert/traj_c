@@ -11,7 +11,7 @@ HEADERS = $(SRCFILES:%.c=$(SRCDIR)%.h)
 INCLUDE = $(SRCDIR:%=-I%)
 SRCS = $(SRCFILES:%=$(SRCDIR)%) $(MAINSRC:%=$(SRCDIR)%)
 OBJS = $(SRCS:%.c=%.o)  # .o-files generated from .c-files in SRCS
-MAIN = dostuff.out
+MAIN = traj_analyzer
 
 # Default action is to compile executable MAIN
 all: $(MAIN)
@@ -32,5 +32,5 @@ remove:
 
 manual: docs/html/index.html
 
-docs/html/index.html: $(SRCS) $(HEADERS) Doxyfile src/doxygen_modules.h
+docs/html/index.html: $(SRCS) $(HEADERS) Doxyfile src/doxygen_modules.h README.md
 	doxygen Doxyfile
