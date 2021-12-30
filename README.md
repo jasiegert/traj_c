@@ -1,6 +1,6 @@
 # Trajectory analyzer #
 
-This is a tool used to analyze a trajectory, the result of a molecular dynamics (MD) simulation.
+This is a tool used to analyze a trajectory, the result of a molecular dynamics (MD) simulation. If you're unfamiliar with this field, you might want to check out the [Theoretical Background](docs/THEORY.md).
 
 # Installtion #
 
@@ -48,9 +48,11 @@ A small example is included in the directory example/. It contains the necessary
 
 Once inside the example/ directory, the calculation can be invoked as:
 
-    mkdir results; 
-    cd results;
-    ../../traj_analyzer ../traj/CDP_224_small.xyz ../traj/pbc_CDP_224 ../calc.inp;
+~~~~~~~~~~~~~~
+mkdir results; 
+cd results;
+../../traj_analyzer ../traj/CDP_224_small.xyz ../traj/pbc_CDP_224 ../calc.inp;
+~~~~~~~~~~~~~~
 
 These commands have been collected in example/example.sh, once inside the example/ directory you can run `bash example.sh`. The results will be stored in the directory example/results. For reference the same functions have been computed using the free program package [TRAVIS](http://www.travis-analyzer.de/). The results and reference csv-files with the same name should be just about the same (within margin of error).
 

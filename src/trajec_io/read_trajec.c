@@ -56,7 +56,10 @@ void skipline(FILE *f)
 // Reads trajectoy stored in $name with $frame_no frames and $atom_no atoms; writes coordinates into $traj and atomic numbers into $atom
 int readxyz(char *name, int *frame_no_pointer, int *atom_no_pointer, float** trajectory_pointer, int **atom_pointer)
 {
-    get_atom_and_frame_no(name, atom_no_pointer, frame_no_pointer);
+    if (get_atom_and_frame_no(name, atom_no_pointer, frame_no_pointer) != 0)
+    {
+        return 1;
+    }
     int atom_no = *atom_no_pointer, frame_no = *frame_no_pointer;
 
     // Allocate trajectory and atom arrays

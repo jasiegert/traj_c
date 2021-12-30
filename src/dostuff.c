@@ -16,12 +16,13 @@
 #define XYZ_NAME_MAX 20
 
 int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line);
+int calc_msd(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line);
 
 int main(int argc, char *argv[])
 {
     if (argc < 4)
     {
-        printf("Usage: ./dostuff.out xyz-file pbc-file calc-file\n");
+        printf("Usage: traj_analyzer xyz-file pbc-file calc-file\n");
         return 1;
     }
 
@@ -61,10 +62,11 @@ int main(int argc, char *argv[])
 
     clock_t c_start, c_end;
     c_start = clock();
+
     // Read trajectory contents into traj and atom
     int frame_no, atom_no;
-    int *atom;
-    float *trajectory_as_pointer;
+    int *atom = NULL;
+    float *trajectory_as_pointer = NULL;
     if (readtraj(name, &frame_no, &atom_no, &trajectory_as_pointer, &atom) != 0)
     {
         free(atom);
@@ -115,6 +117,7 @@ int main(int argc, char *argv[])
 
     free(traj);
     free(trajcom);
+    free(atom);
     return 0;
 }
 
@@ -122,55 +125,16 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
 {
     // Take first string as calc_name
     char calc_name[10];
-    if ( (sscanf(line, "%s %*[^\n] ", calc_name) == 0) || ( calc_name[0] == '#'))   //(strcmp(&calc_name[0], "#") == 0) )
+    if ( (sscanf(line, "%s %*[^\n] ", calc_name) == 0) || ( calc_name[0] == '#'))
     {
-        // printf("\tDoes not start with a calculation name.\n");
         return 1;
     }
     printf("%s\n", line);
     // Check whether calc_name matches any predefined calculation name, which currently are:
-    // msd
+    // msd, msd_fft, rdf, rdf_inter, oacf
     if (strcmp(calc_name, "msd") == 0)
     {
-        // Set default values for resolution and timerange
-        printf("\tMSD calculation\n");
-        float timerange = 0.4;
-        int resolution = 100;
-        char target_atom[3];
-
-        // Read atom type from calc-line and complain if atom type is missing or unrecognized
-        if ( sscanf(line, "%*s %s %i %f", target_atom, &resolution, &timerange) >= 1)
-        {
-            int target_atom_no = element_to_no(target_atom);
-            if (target_atom_no == -1)
-            {
-                printf("\tAtom type %s not recognized.\n", target_atom);
-                return 1;
-            }
-            // Allocate output array msd and string msd_output, then run calculation to fill them with result
-            int msd_len = resolution + 1;
-            float (*msd)[2];
-            msd = malloc(sizeof(msd) * msd_len);
-            char msd_output[OUTSTRINGLENGTH];
-            msd_overall(frame_no, atom_no, traj, atom, target_atom_no, resolution, timerange, msd, msd_output);
-
-            // Write msd into outputcsv and outputstring into outputfile
-            char outputcsv[11];
-            sprintf(outputcsv, "msd_%s.csv", target_atom);
-            savecsv(outputcsv, msd_len, 2, msd);
-            FILE *output = fopen(OUTPUTFILE, "a");
-            fprintf(output, "%s\n", msd_output);
-            printf("%s", msd_output);
-
-            fclose(output);
-            free(msd);
-            return 0;
-        }
-        else
-        {
-            printf("Does not contain the necessary atom type for OACF.\n");
-            return 1;
-        }
+        return calc_msd(frame_no, atom_no, traj, pbc, atom, line);
     }
     else if (strcmp(calc_name, "msd_fft") == 0)
     {
@@ -390,6 +354,51 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
     else
     {
         printf("\tDoes not start with a valid calculation.\n");
+        return 1;
+    }
+}
+
+
+int calc_msd(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line)
+{
+    // Set default values for resolution and timerange
+    printf("\tMSD calculation\n");
+    float timerange = 0.4;
+    int resolution = 100;
+    char target_atom[3];
+
+    // Read atom type from calc-line and complain if atom type is missing or unrecognized
+    if ( sscanf(line, "%*s %s %i %f", target_atom, &resolution, &timerange) >= 1)
+    {
+        int target_atom_no = element_to_no(target_atom);
+        if (target_atom_no == -1)
+        {
+            printf("\tAtom type %s not recognized.\n", target_atom);
+            return 1;
+        }
+        
+        // Allocate output array msd and string msd_output, then run calculation to fill them with result
+        int msd_len = resolution + 1;
+        float (*msd)[2];
+        msd = malloc( sizeof(msd) * msd_len );
+        char msd_output[OUTSTRINGLENGTH];
+        msd_overall(frame_no, atom_no, traj, atom, target_atom_no, resolution, timerange, msd, msd_output);
+
+        // Write msd into outputcsv and outputstring into outputfile
+        char outputcsv[11];
+        sprintf(outputcsv, "msd_%s.csv", target_atom);
+        savecsv(outputcsv, msd_len, 2, msd);
+        FILE *output = fopen(OUTPUTFILE, "a");
+        fprintf(output, "%s\n", msd_output);
+        printf("%s", msd_output);
+
+        fclose(output);
+        free(msd);
+        return 0;
+    }
+    else
+    {
+        printf("Does not contain the necessary atom type for MSD calculation.\n");
         return 1;
     }
 }
