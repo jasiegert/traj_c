@@ -1,5 +1,5 @@
 msd H 100 0.3
 msd_fft H 0.3
-oacf P O 100 0.3
+oacf O P 100 0.3
 rdf O O 300 0 4
 rdf_inter O O P 300 0 4

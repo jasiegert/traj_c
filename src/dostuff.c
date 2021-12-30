@@ -17,6 +17,10 @@
 
 int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line);
 int calc_msd(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line);
+int calc_msd_fft(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line);
+int calc_rdf(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line);
+int calc_rdf_inter(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line);
+int calc_oacf(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line);
 
 int main(int argc, char *argv[])
 {
@@ -138,203 +142,19 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
     }
     else if (strcmp(calc_name, "msd_fft") == 0)
     {
-        // Set default values for resolution and timerange
-        printf("\tMSD calculation (FFT)\n");
-        float timerange = 0.3;
-        char target_atom[3];
-
-        // Read atom type from calc-line and complain if atom type is missing or unrecognized
-        if ( sscanf(line, "%*s %s %f", target_atom, &timerange) >= 1)
-        {
-            int target_atom_no = element_to_no(target_atom);
-            if ( target_atom_no == -1)
-            {
-                printf("\tAtom type %s not recognized.\n", target_atom);
-                return 1;
-            }
-            // Allocate output array msd and string msd_output, then run calculation to fill them with result
-            int msd_len = round(frame_no * timerange) + 1;
-            float (*msd)[2];
-            msd = calloc(msd_len, sizeof(msd));
-            char msd_output[OUTSTRINGLENGTH];
-            msd_fft(frame_no, atom_no, traj, atom, target_atom_no, timerange, msd, msd_output);
-
-            // Write msd into outputcsv and outputstring into outputfile
-            char outputcsv[15];
-            sprintf(outputcsv, "msd_fft_%s.csv", target_atom);
-            savecsv(outputcsv, msd_len, 2, msd);
-            FILE *output = fopen(OUTPUTFILE, "a");
-            fprintf(output, "%s\n", msd_output);
-            printf("%s", msd_output);
-
-            fclose(output);
-            free(msd);
-            return 0;
-        }
-        else
-        {
-            printf("Does not contain the necessary atom type for OACF.\n");
-            return 1;
-        }
+        return calc_msd_fft(frame_no, atom_no, traj, pbc, atom, line);
     }
     else if (strcmp(calc_name, "rdf") == 0)
     {
-        // Set default values for resolution and timerange
-        printf("\tRDF calculation\n");
-        int bin = 100;
-        float min_distance = 0.0;
-        float max_distance = 4.0;
-        char target_atom_1[3];
-        char target_atom_2[3];
-
-        // Read atom type from calc-line and complain if atom type is missing or unrecognized
-        if ( sscanf(line, "%*s %s %s %i %f %f", target_atom_1, target_atom_2, &bin, &min_distance, &max_distance) >= 2)
-        {
-            int target_atom_no_1 = element_to_no(target_atom_1);
-            int target_atom_no_2 = element_to_no(target_atom_2);
-            if ( target_atom_no_1 == -1)
-            {
-                printf("\tAtom type %s not recognized.\n", target_atom_1);
-                return 1;
-            }
-            if ( target_atom_no_2 == -1)
-            {
-                printf("\tAtom type %s not recognized.\n", target_atom_2);
-                return 1;
-            }
-            // Allocate output array msd and string msd_output, then run calculation to fill them with result
-            float (*rdf)[2];
-            rdf = malloc(sizeof(rdf) * bin);
-            char rdf_output[OUTSTRINGLENGTH];
-            rdf_overall(frame_no, atom_no, traj, pbc, atom, target_atom_no_1, target_atom_no_2, min_distance, max_distance, bin, rdf, rdf_output);
-
-            // Write msd into outputcsv and outputstring into outputfile
-            char outputcsv[14];
-            sprintf(outputcsv, "rdf_%s_%s.csv", target_atom_1, target_atom_2);
-            savecsv(outputcsv, bin, 2, rdf);
-            FILE *output = fopen(OUTPUTFILE, "a");
-            if (output == NULL)
-            {
-                printf("\tOutputfile %s could not be opened.\n", OUTPUTFILE);
-                return 1;
-            }
-            fprintf(output, "%s\n", rdf_output);
-            printf("%s", rdf_output);
-
-            fclose(output);
-            free(rdf);
-            return 0;
-        }
-        else
-        {
-            printf("Does not contain the necessary two atom types for RDF.\n");
-            return 1;
-        }
+        return calc_rdf(frame_no, atom_no, traj, pbc, atom, line);
     }
     else if (strcmp(calc_name, "rdf_inter") == 0)
     {
-        // Set default values for resolution and timerange
-        printf("\tRDF calculation\n");
-        int bin = 100;
-        float min_distance = 0.0;
-        float max_distance = 4.0;
-        char target_atom_1[3];
-        char target_atom_2[3];
-        char central_atom[3];
-
-        // Read atom type from calc-line and complain if atom type is missing or unrecognized
-        if ( sscanf(line, "%*s %s %s %s %i %f %f", target_atom_1, target_atom_2, central_atom, &bin, &min_distance, &max_distance) >= 3)
-        {
-            int target_atom_no_1 = element_to_no(target_atom_1);
-            int target_atom_no_2 = element_to_no(target_atom_2);
-            int central_atom_no = element_to_no(central_atom);
-            if ( target_atom_no_1 == -1)
-            {
-                printf("\tAtom type %s not recognized.\n", target_atom_1);
-                return 1;
-            }
-            if ( target_atom_no_2 == -1)
-            {
-                printf("\tAtom type %s not recognized.\n", target_atom_2);
-                return 1;
-            }
-            // Allocate output array msd and string msd_output, then run calculation to fill them with result
-            float (*rdf)[2];
-            rdf = malloc(sizeof(rdf) * bin);
-            char rdf_output[OUTSTRINGLENGTH];
-            rdf_intermolecular(frame_no, atom_no, traj, pbc, atom, target_atom_no_1, target_atom_no_2, central_atom_no, min_distance, max_distance, bin, rdf, rdf_output);
-
-            // Write msd into outputcsv and outputstring into outputfile
-            char outputcsv[20];
-            sprintf(outputcsv, "rdf_inter_%s_%s.csv", target_atom_1, target_atom_2);
-            savecsv(outputcsv, bin, 2, rdf);
-            FILE *output = fopen(OUTPUTFILE, "a");
-            if (output == NULL)
-            {
-                printf("\tOutputfile %s could not be opened.\n", OUTPUTFILE);
-                return 1;
-            }
-            fprintf(output, "%s\n", rdf_output);
-            printf("%s", rdf_output);
-
-            fclose(output);
-            free(rdf);
-            return 0;
-        }
-        else
-        {
-            printf("Does not contain the necessary three atom types for intermolecular RDF.\n");
-            return 1;
-        }
+        return calc_rdf_inter(frame_no, atom_no, traj, pbc, atom, line);
     }
     else if (strcmp(calc_name, "oacf") == 0)
     {
-        // Set default values for resolution and timerange
-        printf("\tOACF calculation\n");
-        float timerange = 0.4;
-        int resolution = 100;
-        char target_atom_1[3];
-        char target_atom_2[3];
-
-        // Read atom type from calc-line and complain if atom type is missing or unrecognized
-        if ( sscanf(line, "%*s %s %s %i %f", target_atom_1, target_atom_2, &resolution, &timerange) >= 2)
-        {
-            int target_atom_no_1 = element_to_no(target_atom_1);
-            int target_atom_no_2 = element_to_no(target_atom_2);
-            if ( target_atom_no_1 == -1)
-            {
-                printf("\tAtom type %s not recognized.\n", target_atom_1);
-                return 1;
-            }
-            if ( target_atom_no_2 == -1)
-            {
-                printf("\tAtom type %s not recognized.\n", target_atom_2);
-                return 1;
-            }
-
-            // Allocate output array oacf and string oacf_output, then run calculation to fill them with result
-            float (*oacf)[2];
-            oacf = malloc(sizeof(oacf) * resolution);
-            char oacf_output[OUTSTRINGLENGTH];
-            oacf_overall(frame_no, atom_no, traj, atom, pbc, target_atom_no_1, target_atom_no_2, resolution, timerange, oacf, oacf_output);
-
-            // Write msd into outputcsv and outputstring into outputfile
-            char outputcsv[15];
-            sprintf(outputcsv, "oacf_%s_%s.csv", target_atom_1, target_atom_2);
-            savecsv(outputcsv, resolution, 2, oacf);
-            FILE *output = fopen(OUTPUTFILE, "a");
-            fprintf(output, "%s\n", oacf_output);
-            printf("%s", oacf_output);
-
-            fclose(output);
-            free(oacf);
-            return 0;
-        }
-        else
-        {
-            printf("Does not contain the necessary two atom types for OACF.\n");
-            return 1;
-        }
+        return calc_oacf(frame_no, atom_no, traj, pbc, atom, line);
     }
     else if (strcmp(calc_name, "removecom") == 0)
     {
@@ -399,6 +219,210 @@ int calc_msd(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float 
     else
     {
         printf("Does not contain the necessary atom type for MSD calculation.\n");
+        return 1;
+    }
+}
+
+int calc_msd_fft(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line)
+{
+    // Set default values for resolution and timerange
+    printf("\tMSD calculation (FFT)\n");
+    float timerange = 0.3;
+    char target_atom[3];
+
+    // Read atom type from calc-line and complain if atom type is missing or unrecognized
+    if ( sscanf(line, "%*s %s %f", target_atom, &timerange) >= 1)
+    {
+        int target_atom_no = element_to_no(target_atom);
+        if ( target_atom_no == -1)
+        {
+            printf("\tAtom type %s not recognized.\n", target_atom);
+            return 1;
+        }
+        // Allocate output array msd and string msd_output, then run calculation to fill them with result
+        int msd_len = round(frame_no * timerange) + 1;
+        float (*msd)[2];
+        msd = calloc(msd_len, sizeof(msd));
+        char msd_output[OUTSTRINGLENGTH];
+        msd_fft(frame_no, atom_no, traj, atom, target_atom_no, timerange, msd, msd_output);
+
+        // Write msd into outputcsv and outputstring into outputfile
+        char outputcsv[15];
+        sprintf(outputcsv, "msd_fft_%s.csv", target_atom);
+        savecsv(outputcsv, msd_len, 2, msd);
+        FILE *output = fopen(OUTPUTFILE, "a");
+        fprintf(output, "%s\n", msd_output);
+        printf("%s", msd_output);
+
+        fclose(output);
+        free(msd);
+        return 0;
+    }
+    else
+    {
+        printf("Does not contain the necessary atom type for OACF.\n");
+        return 1;
+    }
+}
+
+int calc_rdf(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line)
+{
+    // Set default values for resolution and timerange
+    printf("\tRDF calculation\n");
+    int bin = 100;
+    float min_distance = 0.0;
+    float max_distance = 4.0;
+    char target_atom_1[3];
+    char target_atom_2[3];
+
+    // Read atom type from calc-line and complain if atom type is missing or unrecognized
+    if ( sscanf(line, "%*s %s %s %i %f %f", target_atom_1, target_atom_2, &bin, &min_distance, &max_distance) >= 2)
+    {
+        int target_atom_no_1 = element_to_no(target_atom_1);
+        int target_atom_no_2 = element_to_no(target_atom_2);
+        if ( target_atom_no_1 == -1)
+        {
+            printf("\tAtom type %s not recognized.\n", target_atom_1);
+            return 1;
+        }
+        if ( target_atom_no_2 == -1)
+        {
+            printf("\tAtom type %s not recognized.\n", target_atom_2);
+            return 1;
+        }
+        // Allocate output array msd and string msd_output, then run calculation to fill them with result
+        float (*rdf)[2];
+        rdf = malloc(sizeof(rdf) * bin);
+        char rdf_output[OUTSTRINGLENGTH];
+        rdf_overall(frame_no, atom_no, traj, pbc, atom, target_atom_no_1, target_atom_no_2, min_distance, max_distance, bin, rdf, rdf_output);
+
+        // Write msd into outputcsv and outputstring into outputfile
+        char outputcsv[14];
+        sprintf(outputcsv, "rdf_%s_%s.csv", target_atom_1, target_atom_2);
+        savecsv(outputcsv, bin, 2, rdf);
+        FILE *output = fopen(OUTPUTFILE, "a");
+        if (output == NULL)
+        {
+            printf("\tOutputfile %s could not be opened.\n", OUTPUTFILE);
+            return 1;
+        }
+        fprintf(output, "%s\n", rdf_output);
+        printf("%s", rdf_output);
+
+        fclose(output);
+        free(rdf);
+        return 0;
+    }
+    else
+    {
+        printf("Does not contain the necessary two atom types for RDF.\n");
+        return 1;
+    }
+}
+
+int calc_rdf_inter(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line)
+{
+    // Set default values for resolution and timerange
+    printf("\tRDF calculation\n");
+    int bin = 100;
+    float min_distance = 0.0;
+    float max_distance = 4.0;
+    char target_atom_1[3];
+    char target_atom_2[3];
+    char central_atom[3];
+
+    // Read atom type from calc-line and complain if atom type is missing or unrecognized
+    if ( sscanf(line, "%*s %s %s %s %i %f %f", target_atom_1, target_atom_2, central_atom, &bin, &min_distance, &max_distance) >= 3)
+    {
+        int target_atom_no_1 = element_to_no(target_atom_1);
+        int target_atom_no_2 = element_to_no(target_atom_2);
+        int central_atom_no = element_to_no(central_atom);
+        if ( target_atom_no_1 == -1)
+        {
+            printf("\tAtom type %s not recognized.\n", target_atom_1);
+            return 1;
+        }
+        if ( target_atom_no_2 == -1)
+        {
+            printf("\tAtom type %s not recognized.\n", target_atom_2);
+            return 1;
+        }
+        // Allocate output array msd and string msd_output, then run calculation to fill them with result
+        float (*rdf)[2];
+        rdf = malloc(sizeof(rdf) * bin);
+        char rdf_output[OUTSTRINGLENGTH];
+        rdf_intermolecular(frame_no, atom_no, traj, pbc, atom, target_atom_no_1, target_atom_no_2, central_atom_no, min_distance, max_distance, bin, rdf, rdf_output);
+
+        // Write msd into outputcsv and outputstring into outputfile
+        char outputcsv[20];
+        sprintf(outputcsv, "rdf_inter_%s_%s.csv", target_atom_1, target_atom_2);
+        savecsv(outputcsv, bin, 2, rdf);
+        FILE *output = fopen(OUTPUTFILE, "a");
+        if (output == NULL)
+        {
+            printf("\tOutputfile %s could not be opened.\n", OUTPUTFILE);
+            return 1;
+        }
+        fprintf(output, "%s\n", rdf_output);
+        printf("%s", rdf_output);
+
+        fclose(output);
+        free(rdf);
+        return 0;
+    }
+    else
+    {
+        printf("Does not contain the necessary three atom types for intermolecular RDF.\n");
+        return 1;
+    }
+}
+
+int calc_oacf(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line)
+{
+    // Set default values for resolution and timerange
+    printf("\tOACF calculation\n");
+    float timerange = 0.4;
+    int resolution = 100;
+    char target_atom_1[3];
+    char target_atom_2[3];
+
+    // Read atom type from calc-line and complain if atom type is missing or unrecognized
+    if ( sscanf(line, "%*s %s %s %i %f", target_atom_1, target_atom_2, &resolution, &timerange) >= 2)
+    {
+        int target_atom_no_1 = element_to_no(target_atom_1);
+        int target_atom_no_2 = element_to_no(target_atom_2);
+        if ( target_atom_no_1 == -1)
+        {
+            printf("\tAtom type %s not recognized.\n", target_atom_1);
+            return 1;
+        }
+        if ( target_atom_no_2 == -1)
+        {
+            printf("\tAtom type %s not recognized.\n", target_atom_2);
+            return 1;
+        }
+
+        // Allocate output array oacf and string oacf_output, then run calculation to fill them with result
+        float (*oacf)[2];
+        oacf = malloc(sizeof(oacf) * resolution);
+        char oacf_output[OUTSTRINGLENGTH];
+        oacf_overall(frame_no, atom_no, traj, atom, pbc, target_atom_no_1, target_atom_no_2, resolution, timerange, oacf, oacf_output);
+
+        // Write msd into outputcsv and outputstring into outputfile
+        char outputcsv[15];
+        sprintf(outputcsv, "oacf_%s_%s.csv", target_atom_1, target_atom_2);
+        savecsv(outputcsv, resolution, 2, oacf);
+        FILE *output = fopen(OUTPUTFILE, "a");
+        fprintf(output, "%s\n", oacf_output);
+        printf("%s", oacf_output);
+
+        fclose(output);
+        free(oacf);
+        return 0;
+    }
+    else
+    {
+        printf("Does not contain the necessary two atom types for OACF.\n");
         return 1;
     }
 }
