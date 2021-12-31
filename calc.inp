@@ -1,6 +1,38 @@
+# mean-square displacement (MSD)
+#   H - atom type
+#   100 - resolution
+#   0.3 - time range
 msd H 100 0.3
-msd_fft H 100 0.3
+
+# mean-square displacement (MSD) using fast-fourier transform
+#   H - atom type
+#   0.3 - time range
+msd_fft H 0.3
+
+# radial-distribution function (RDF)
+#   O - atom type 1
+#   O - atom type 2
+# 300 - number of bins
+#   0 - minimum distance
+#   4 - maximum distance
 rdf O O 300 0 4
+
+# intermolecular radial-distribution function (RDF)
+#   O - atom type 1
+#   O - atom type 2
+#   P - central atom type
+# 300 - number of bins
+#   0 - minimum distance
+#   4 - maximum distance
 rdf_inter O O P 300 0 4
+
+# orientational auto-correlation function (OACF)
+#   P - atom type 1
+#   O - atom type 2
+# 100 - resolution
+# 0.3 - time range
 oacf P O 100 0.3
+
+# remove center of mass movement and save result
+#   CDP_com.xyz - name of the resulting trajectory
 removecom CDP_com.xyz

@@ -11,7 +11,7 @@
 #include "calc/rdf.h"
 #include "calc/oacf.h"
 
-#define OUTPUTFILE "traj_c.out"
+#define OUTPUTFILE "traj_analysis.out"
 #define OUTSTRINGLENGTH 100
 #define XYZ_NAME_MAX 20
 

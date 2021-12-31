@@ -10,8 +10,6 @@
 /**
 * @brief Calculates the mean square displacement (MSD) of a certain atom type in a trajectory.
 *
-* 
-*
 * @param[in] frame_no number of frames in trajectory.
 * @param[in] atom_no number of atoms in trajectory.
 * @param[in] traj atom coordinates of the trajectory.
@@ -25,8 +23,6 @@
 int msd_overall(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no], int target_atom, int resolution, float timerange, float msd[resolution][2], char *output);
 /**
 * @brief Calculates the mean square displacement (MSD) of a certain atom type in a trajectory.
-*
-* 
 *
 * @param[in] frame_no number of frames in trajectory.
 * @param[in] atom_no number of atoms in trajectory.

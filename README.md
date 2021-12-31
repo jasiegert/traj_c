@@ -2,7 +2,7 @@
 
 This is a tool used to analyze a trajectory, the result of a molecular dynamics (MD) simulation. If you're unfamiliar with this field, you might want to check out the [Theoretical Background](docs/THEORY.md).
 
-# Installtion #
+# Installation #
 
 In order to build the executable, simply invoke `make`. This will build all the necessary object files and an executable traj_analyzer. You can remove the object files with `make clean`.
 Compilation can be sped up using the `-j N` option, where N is the number of CPU cores. On a system with 4 cores, you could therefore run:
@@ -54,7 +54,7 @@ cd results;
 ../../traj_analyzer ../traj/CDP_224_small.xyz ../traj/pbc_CDP_224 ../calc.inp;
 ~~~~~~~~~~~~~~
 
-These commands have been collected in example/example.sh, once inside the example/ directory you can run `bash example.sh`. The results will be stored in the directory example/results. For reference the same functions have been computed using the free program package [TRAVIS](http://www.travis-analyzer.de/). The results and reference csv-files with the same name should be just about the same (within margin of error).
+These commands have been collected in example/example.sh, once inside the example/ directory you can run `bash example.sh`. The results will be stored in the directory example/results. For reference the same functions have been computed using the free program package [TRAVIS](http://www.travis-analyzer.de/). The csv-files with the same name in results/ and reference/ should be just about the same (within margin of error).
 
 # Calculations #
 
@@ -79,10 +79,12 @@ oacf        | Atom type 1 |   -    | First atom type, which will be the start of
 ^           | Resolution |   100   | Number of correlation times to be sampled. Higher resolution might give a more accurate and less jagged result, but will also increase calculation time.
 ^           | Time depth |   0.3   | Correlation times will be sampled up until this fraction of the total trajectory length. Higher time depth will give more data by sampling a larger range of correlation times, but the additionally sampled range will be less reliable.
 
+The input file must contain one line for each calculation to be performed. Each line should contain a calculation name followed by its arguments. Empty lines and lines beginning with # are ignored.
+
 The content of the example input file is as follows:
 
     msd H 100 0.3
-    msd_fft H 100 0.3
+    msd_fft H 0.3
     rdf O O 300 0 4
     rdf_inter O O P 300 0 4
     oacf P O 100 0.

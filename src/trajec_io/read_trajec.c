@@ -8,8 +8,8 @@
 // Reads atom number from file; returns -1 if it fails, otherwise returns atom number
 int get_atom_and_frame_no(char *name, int *atom_no, int *frame_no)
 {
-    FILE *xyz;
-    if ( ( xyz = fopen(name, "r")) == NULL)
+    FILE *xyz = fopen(name, "r");
+    if ( xyz == NULL )
     {
         printf("xyz-file %s could not be opened!\n", name);
         return 1;
@@ -137,8 +137,8 @@ int readtraj(char *name, int *frame_no_pointer, int *atom_no_pointer, float **tr
         printf("Trajectory has been read from xyz-file.\n");
         
         // Write dat-file for future use
-        FILE *trajdat;
-        if ( (trajdat = fopen(datname, "w")) == NULL)
+        FILE *trajdat = fopen(datname, "w");
+        if ( trajdat == NULL )
         {
             printf("Couldn't open %s to write auxiliary dat-file.\n", datname);
         }
@@ -175,7 +175,9 @@ int readdat(char *datname, int *frame_no_pointer, int *atom_no_pointer, float **
     *atom_pointer = malloc(sizeof(int) * atom_no);
     *trajectory_pointer = malloc(sizeof(float) * frame_no * atom_no * 3);
     // Read atom numbers and coordinates from dat-file
-    if ( fread(*atom_pointer, sizeof(int), atom_no, trajdat) != atom_no || fread(*trajectory_pointer, sizeof(float), frame_no * atom_no * 3, trajdat) != frame_no * atom_no * 3)
+    if ( fread(*atom_pointer, sizeof(int), atom_no, trajdat) != atom_no \
+         || \
+         fread(*trajectory_pointer, sizeof(float), frame_no * atom_no * 3, trajdat) != frame_no * atom_no * 3)
     {
         printf("Invalid dat-file. Will be overwritten.\n");
         return 1;
@@ -270,4 +272,3 @@ int writexyz(char *name, int frame_no, int atom_no, float traj[frame_no][atom_no
     fclose(xyzout);
     return 0;
 }
-
