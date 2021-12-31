@@ -1,0 +1,15 @@
+\_form#0=8x6:$\tau$
+\_form#1=20x14:$\vec{r}(t)$
+\_form#2=43x14:$\vec{r}(t+\tau)$
+\_form#3=5x9:$i$
+\_form#4=5x9:$t$
+\_form#5=28x10:$t+\tau$
+\_form#6=189x26:\[ MSD(\tau) = \left< \left| \vec{r}_i (t + \tau) - \vec{r}_i (t) \right| ^2 \right> _ {t, i} \]
+\_form#7=119x26:\[ D = \lim_{\tau \rightarrow \infty} \frac{1}{6\tau} MSD(\tau) \]
+\_form#8=33x14:$g_{ab}(r)$
+\_form#9=8x6:$r$
+\_form#10=259x40:\[ g_{ab}(r) = \frac{V}{N_a \cdot N_b} \sum_{i=1}^{N_a} \sum_{j=1}^{N_b} \left< \delta \left( r - \left| \vec{r}_i(t) - \vec{r}_j(t) \right| \right) \right>_t \]
+\_form#11=33x14:$ g_{ab} (\tau) $
+\_form#12=11x13:$ \vec{x}_i $
+\_form#13=79x14:\[ \vec{x}_i = \vec{r}_{a, i} - \vec{r}_{b, i} \]
+\_form#14=130x14:\[ g(\tau) = \left< \vec{x}_i (t) \cdot \vec{x}_i (t+\tau) \right> \]
