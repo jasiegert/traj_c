@@ -33,3 +33,6 @@ manual: docs/html/index.html
 
 docs/html/index.html: $(SRCS) $(HEADERS) .Doxyfile src/doxygen_modules.h README.md docs/THEORY.md
 	doxygen .Doxyfile
+
+openmanual:
+	open docs/html/index.html

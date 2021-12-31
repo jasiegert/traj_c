@@ -19,21 +19,13 @@ int docalc(
             int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line
             );
 
-
-/** 
-* @defgroup CalcHandlers Calculation Handlers
-* @brief Functions to handle the calculations once their type has been determined.
+/**
+* @brief Handles MSD calculation.
 * @param[in] frame_no number of frames in trajectory.
 * @param[in] atom_no number of atoms in trajectory.
 * @param[in] traj coordinates of the trajectory as a 3D array.
-* @param[in] pbc periodic boundary conditions with one cell vector in each row.
 * @param[in] atom atomic numbers of all atoms in the trajectory.
 * @param[in] line input line to be parsed.
-*/
-
-/**
-* @brief Handles MSD calculation.
-* @copydetails docalc()
 *
 * Periodic boundary conditions (pbc) are not used, but passed anyway to fit in with the other calc_* functions.
 *
@@ -43,7 +35,7 @@ int calc_msd(
             );
 /**
 * @brief Handles MSD calculation via fast-fourier transformation.
-* @copydetails docalc()
+* @copydetails calc_msd()
 *
 * Periodic boundary conditions (pbc) are not used, but passed anyway to fit in with the other calc_* functions.
 *
