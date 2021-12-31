@@ -6,6 +6,12 @@
  *  See COPYING file for more information.
  */
 
+/**
+* @file _kiss_fft_guts.h
+* @author Mark Borgerding
+* @ingroup kissFFT
+*/
+
 /* kiss_fft.h
    defines kiss_fft_scalar as either short or a float type
    and defines

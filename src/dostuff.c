@@ -1,3 +1,9 @@
+/**
+* @file dostuff.c
+* @author Johnny Alexander Jimenez Siegert
+* @brief Main control unit of the project, which is compiled into the executable.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,12 +21,26 @@
 #define OUTSTRINGLENGTH 100
 #define XYZ_NAME_MAX 20
 
-int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line);
-int calc_msd(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line);
-int calc_msd_fft(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line);
-int calc_rdf(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line);
-int calc_rdf_inter(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line);
-int calc_oacf(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line);
+int docalc(
+            int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line
+            );
+int calc_msd(
+            int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line
+            );
+int calc_msd_fft(
+            int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line
+            );
+int calc_rdf(
+            int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line
+            );
+int calc_rdf_inter(
+            int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line
+            );
+int calc_oacf(
+            int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line
+            );
+
+void appendoutput(char outputstring[]);
 
 int main(int argc, char *argv[])
 {
@@ -207,12 +227,12 @@ int calc_msd(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float 
         // Write msd into outputcsv and outputstring into outputfile
         char outputcsv[11];
         sprintf(outputcsv, "msd_%s.csv", target_atom);
-        savecsv(outputcsv, msd_len, 2, msd);
-        FILE *output = fopen(OUTPUTFILE, "a");
-        fprintf(output, "%s\n", msd_output);
-        printf("%s", msd_output);
+        char headerstring[] = "# time / ps\t\t\tMSD / A²";
+        savecsv(outputcsv, msd_len, 2, msd, headerstring);
 
-        fclose(output);
+
+        appendoutput(msd_output);
+
         free(msd);
         return 0;
     }
@@ -249,12 +269,11 @@ int calc_msd_fft(int frame_no, int atom_no, float traj[frame_no][atom_no][3], fl
         // Write msd into outputcsv and outputstring into outputfile
         char outputcsv[15];
         sprintf(outputcsv, "msd_fft_%s.csv", target_atom);
-        savecsv(outputcsv, msd_len, 2, msd);
-        FILE *output = fopen(OUTPUTFILE, "a");
-        fprintf(output, "%s\n", msd_output);
-        printf("%s", msd_output);
+        char headerstring[] = "# time / ps\t\t\tMSD / A²";
+        savecsv(outputcsv, msd_len, 2, msd, headerstring);
+        
+        appendoutput(msd_output);
 
-        fclose(output);
         free(msd);
         return 0;
     }
@@ -299,17 +318,11 @@ int calc_rdf(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float 
         // Write msd into outputcsv and outputstring into outputfile
         char outputcsv[14];
         sprintf(outputcsv, "rdf_%s_%s.csv", target_atom_1, target_atom_2);
-        savecsv(outputcsv, bin, 2, rdf);
-        FILE *output = fopen(OUTPUTFILE, "a");
-        if (output == NULL)
-        {
-            printf("\tOutputfile %s could not be opened.\n", OUTPUTFILE);
-            return 1;
-        }
-        fprintf(output, "%s\n", rdf_output);
-        printf("%s", rdf_output);
+        char headerstring[] = "# d / A\t\t\t\tg(r)";
+        savecsv(outputcsv, bin, 2, rdf, headerstring);
 
-        fclose(output);
+        appendoutput(rdf_output);
+
         free(rdf);
         return 0;
     }
@@ -356,17 +369,11 @@ int calc_rdf_inter(int frame_no, int atom_no, float traj[frame_no][atom_no][3], 
         // Write msd into outputcsv and outputstring into outputfile
         char outputcsv[20];
         sprintf(outputcsv, "rdf_inter_%s_%s.csv", target_atom_1, target_atom_2);
-        savecsv(outputcsv, bin, 2, rdf);
-        FILE *output = fopen(OUTPUTFILE, "a");
-        if (output == NULL)
-        {
-            printf("\tOutputfile %s could not be opened.\n", OUTPUTFILE);
-            return 1;
-        }
-        fprintf(output, "%s\n", rdf_output);
-        printf("%s", rdf_output);
+        char headerstring[] = "# d / A\t\t\t\tg(r)";
+        savecsv(outputcsv, bin, 2, rdf, headerstring);
+        
+        appendoutput(rdf_output);
 
-        fclose(output);
         free(rdf);
         return 0;
     }
@@ -411,12 +418,11 @@ int calc_oacf(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float
         // Write msd into outputcsv and outputstring into outputfile
         char outputcsv[15];
         sprintf(outputcsv, "oacf_%s_%s.csv", target_atom_1, target_atom_2);
-        savecsv(outputcsv, resolution, 2, oacf);
-        FILE *output = fopen(OUTPUTFILE, "a");
-        fprintf(output, "%s\n", oacf_output);
-        printf("%s", oacf_output);
+        char headerstring[] = "# time / ps\t\t\tg(r)";
+        savecsv(outputcsv, resolution, 2, oacf, headerstring);
 
-        fclose(output);
+        appendoutput(oacf_output);
+
         free(oacf);
         return 0;
     }
@@ -425,4 +431,16 @@ int calc_oacf(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float
         printf("Does not contain the necessary two atom types for OACF.\n");
         return 1;
     }
+}
+
+void appendoutput(char outputstring[])
+{
+    FILE *output = fopen(OUTPUTFILE, "a");
+    if (output == NULL)
+    {
+        return;
+    }
+    fprintf(output, "%s\n", outputstring);
+    printf("%s", outputstring);
+    fclose(output);
 }

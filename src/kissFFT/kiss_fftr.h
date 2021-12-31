@@ -6,6 +6,12 @@
  *  See COPYING file for more information.
  */
 
+/**
+* @file kiss_fftr.h
+* @author Mark Borgerding
+* @ingroup kissFFT
+*/
+
 #ifndef KISS_FTR_H
 #define KISS_FTR_H
 

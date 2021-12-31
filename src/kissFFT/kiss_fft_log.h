@@ -6,6 +6,12 @@
  *  See COPYING file for more information.
  */
 
+/**
+* @file kiss_fft_log.h
+* @author Mark Borgerding
+* @ingroup kissFFT
+*/
+
 #ifndef kiss_fft_log_h
 #define kiss_fft_log_h
 

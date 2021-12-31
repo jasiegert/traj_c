@@ -45,9 +45,15 @@ int linregress_array(int n, float ar[n][2], float start_point, float end_point, 
     return 0;
 }
 
-int savecsv(char *outputname, int col_no, int row_no, float outputarray[col_no][row_no])
+int savecsv(char *outputname, int col_no, int row_no, float outputarray[col_no][row_no], char *headerstring)
 {
     FILE *output = fopen(outputname, "w");
+
+    if (headerstring != NULL)
+    {
+        fputs(headerstring, output);
+        fputs("\n", output);
+    }
 
     for (int i = 0; i < col_no; i++)
     {
