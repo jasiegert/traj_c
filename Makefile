@@ -35,4 +35,4 @@ docs/html/index.html: $(SRCS) $(HEADERS) .Doxyfile src/doxygen_modules.h README.
 	doxygen .Doxyfile
 
 openmanual:
-	open docs/html/index.html
+	see docs/html/index.html
