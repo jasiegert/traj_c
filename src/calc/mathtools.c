@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
-int linregress(int n, float x[n], float y[n], float start_point, float end_point, float *slope, float *intercept, float *R)
+void linregress(int n, float x[n], float y[n], float start_point, float end_point, float *slope, float *intercept, float *R)
 {
     float xsum = 0, x2sum = 0, ysum = 0, y2sum = 0, xysum = 0;
     int start_i = round(start_point * n);
@@ -19,11 +19,9 @@ int linregress(int n, float x[n], float y[n], float start_point, float end_point
     *slope = (diff_i * xysum - xsum * ysum) / (diff_i * x2sum - xsum * xsum);
     *intercept = (x2sum * ysum - xsum * xysum) / (diff_i * x2sum - xsum * xsum);
     *R = (diff_i * xysum - xsum * ysum) / (sqrt(diff_i * x2sum - xsum * xsum) * sqrt(diff_i * y2sum - ysum * ysum));
-
-    return 0;
 }
 
-int linregress_array(int n, float ar[n][2], float start_point, float end_point, float *slope, float *intercept, float *R)
+void linregress_array(int n, float ar[n][2], float start_point, float end_point, float *slope, float *intercept, float *R)
 {
     float xsum = 0.0, x2sum = 0.0, ysum = 0.0, y2sum = 0.0, xysum = 0.0;
     int start_i = round(start_point * n);
@@ -41,13 +39,15 @@ int linregress_array(int n, float ar[n][2], float start_point, float end_point, 
     *slope = (diff_i * xysum - xsum * ysum) / (diff_i * x2sum - xsum * xsum);
     *intercept = (x2sum * ysum - xsum * xysum) / (diff_i * x2sum - xsum * xsum);
     *R = (diff_i * xysum - xsum * ysum) / (sqrt(diff_i * x2sum - xsum * xsum) * sqrt(diff_i * y2sum - ysum * ysum));
-
-    return 0;
 }
 
 int savecsv(char *outputname, int col_no, int row_no, float outputarray[col_no][row_no], char *headerstring)
 {
     FILE *output = fopen(outputname, "w");
+    if (output == NULL)
+    {
+        return 1;
+    }
 
     if (headerstring != NULL)
     {

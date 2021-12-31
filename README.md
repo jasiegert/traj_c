@@ -2,6 +2,14 @@
 
 This is a tool used to analyze a trajectory, the result of a molecular dynamics (MD) simulation. If you're unfamiliar with this field, you might want to check out the [Theoretical Background](docs/THEORY.md).
 
+# CS50 final project #
+
+Author: Johnny Alexander Jimenez Siegert
+
+City: Halle
+
+Country: Germany
+
 # Installation #
 
 In order to build the executable, simply invoke `make`. This will build all the necessary object files and an executable traj_analyzer. You can remove the object files with `make clean`.
@@ -91,6 +99,6 @@ The content of the example input file is as follows:
 
 # License #
 
-This project comes with a [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause) license. Feel free to include (whole or in parts), modify or distribute it with your own projects, as long as you retain the information specified in the [license file](LICENSE).
+This project comes with a [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause) license. Feel free to include (whole or in parts), modify or distribute it with your own projects, as long as you retain the information specified in the [license file](../../LICENSE).
 
-I have included parts of the [kissFFT](https://github.com/mborgerding/kissfft) project by Mark Borgerding, which comes with a BSD-3-clause as well. For more information see the [license file](src/kissFFT/COPYING) in src/kissfft/.
+I have included parts of the [kissFFT](https://github.com/mborgerding/kissfft) project by Mark Borgerding, which comes with a BSD-3-clause as well. For more information see the [license file](../../src/kissFFT/COPYING) in src/kissfft/.
