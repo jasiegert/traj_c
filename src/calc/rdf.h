@@ -27,7 +27,7 @@
 * @param[out] output output string to be passed into stdout and output file.
 */
 int rdf_overall(
-                int frame_no, \ 
+                int frame_no, \
                 int atom_no, \
                 float traj[frame_no][atom_no][3], \
                 float pbc[3][3], \
