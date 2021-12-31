@@ -3,6 +3,7 @@
 * @brief Functions to read/write trajectories from/to xyz-files.
 * @ingroup TrajectoryIO 
 * @warning Currently only supports xyz-files. Other common file formats might be added later on.
+* @todo Collect frame_no (int), atom_no (int), traj (float*), atom (int*) and pbc (float[3][3]) in one struct -> should be a bit cleaner, since they're always passed around together anyways.
 */
 
 #ifndef READTRAJEC_H
