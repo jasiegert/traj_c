@@ -59,7 +59,7 @@ int msd_overall(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int
     no_to_element(target_atom, atom_name);
     if (output != NULL)
     {
-        sprintf(output, "\tmsd %s %i %f\n\tFound %i %s atoms.\n\tDiffusion coefficient: %f (R^2 = %f)\n", atom_name, resolution, timerange, target_atom_no, atom_name,  D, R * R);
+        sprintf(output, "\tmsd %s %i %f\n\tFound %i %s atoms.\n\tDiffusion coefficient: %f A²/ps (R^2 = %f)\n", atom_name, resolution, timerange, target_atom_no, atom_name,  D, R * R);
     }
 
     return 0;
@@ -172,7 +172,7 @@ int msd_fft(int frame_no, int atom_no, const float traj[frame_no][atom_no][3], c
     no_to_element(target_atom, atom_name);
     if (output != NULL)
     {
-        sprintf(output, "\tmsd_fft %s %f\n\tFound %i %s atoms.\n\tDiffusion coefficient: %f (R^2 = %f)\n", atom_name, timerange, target_atom_no, atom_name,  D, R * R);
+        sprintf(output, "\tmsd_fft %s %f\n\tFound %i %s atoms.\n\tDiffusion coefficient: %f A²/ps (R^2 = %f)\n", atom_name, timerange, target_atom_no, atom_name,  D, R * R);
     }
 
     free(fft_buffer);

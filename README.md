@@ -91,6 +91,6 @@ The content of the example input file is as follows:
 
 # License #
 
-This project comes with a [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause) license. Feel free to include (whole or in parts), modify or distribute it with your own projects, as long as you retain the information specified in the [license file](LICENSE).
+This project comes with a [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause) license. Feel free to include (whole or in parts), modify or distribute it with your own projects, as long as you retain the information specified in the [license file](../../LICENSE).
 
-I have included parts of the [kissFFT](https://github.com/mborgerding/kissfft) project by Mark Borgerding, which comes with a BSD-3-clause as well. For more information see the [license file](src/kissFFT/COPYING) in src/kissfft/.
+I have included parts of the [kissFFT](https://github.com/mborgerding/kissfft) project by Mark Borgerding, which comes with a BSD-3-clause as well. For more information see the [license file](../../src/kissFFT/COPYING) in src/kissfft/.

@@ -165,19 +165,28 @@ int readdat(char *datname, int *frame_no_pointer, int *atom_no_pointer, float **
         return 1;
     }
     
-    if ( fread(atom_no_pointer, sizeof(int), 1, trajdat) != 1 || fread(frame_no_pointer, sizeof(int), 1, trajdat) != 1)
+    if ( fread(atom_no_pointer, sizeof(int), 1, trajdat) != 1 \
+         || \
+         fread(frame_no_pointer, sizeof(int), 1, trajdat) != 1 \
+       )
     {
         printf("Invalid dat-file. Will be overwritten.\n");
         return 1;
     }
+
     // Allocate trajectory and atom arrays
     int atom_no = *atom_no_pointer, frame_no = *frame_no_pointer;
+    if ( atom_no <= 0 || frame_no <= 0)
+    {
+        printf("Invalid dat-file. Will be overwritten.\n");
+        return 1;
+    }
     *atom_pointer = malloc(sizeof(int) * atom_no);
     *trajectory_pointer = malloc(sizeof(float) * frame_no * atom_no * 3);
     // Read atom numbers and coordinates from dat-file
-    if ( fread(*atom_pointer, sizeof(int), atom_no, trajdat) != atom_no \
+    if ( fread(*atom_pointer, sizeof(int), atom_no, trajdat) != (size_t) atom_no \
          || \
-         fread(*trajectory_pointer, sizeof(float), frame_no * atom_no * 3, trajdat) != frame_no * atom_no * 3)
+         fread(*trajectory_pointer, sizeof(float), frame_no * atom_no * 3, trajdat) != (size_t) frame_no * atom_no * 3)
     {
         printf("Invalid dat-file. Will be overwritten.\n");
         return 1;

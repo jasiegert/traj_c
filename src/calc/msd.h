@@ -19,6 +19,8 @@
 * @param[in] timerange fraction of trajectory length, up to which correlation times will be generated.
 * @param[out] msd array holding correlation time and corresponding MSD in each row.
 * @param[out] output string to be printed and added to output file.
+*
+* @warning Requires unwrapped trajectory!
 */
 int msd_overall(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no], int target_atom, int resolution, float timerange, float msd[resolution][2], char *output);
 /**
@@ -32,6 +34,8 @@ int msd_overall(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int
 * @param[in] timerange fraction of trajectory length, up to which correlation times will be generated.
 * @param[out] msd array holding correlation time and corresponding MSD in each row.
 * @param[out] output string to be printed and added to output file.
+*
+* @warning Requires unwrapped trajectory!
 */
 int msd_fft(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no], int target_atom, float timerange, float msd[frame_no][2], char *output);
 
