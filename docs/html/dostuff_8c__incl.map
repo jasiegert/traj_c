@@ -1,0 +1,15 @@
+<map id="src/dostuff.c" name="src/dostuff.c">
+<area shape="rect" id="node1" title=" " alt="" coords="529,5,631,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,72,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="97,80,167,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="191,80,262,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="287,80,351,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="375,80,443,107"/>
+<area shape="rect" id="node7" href="$dostuff_8h.html" title="Main control unit of the project, which is compiled into the executable." alt="" coords="467,80,546,107"/>
+<area shape="rect" id="node8" href="$read__trajec_8h.html" title="Functions to read/write trajectories from/to xyz&#45;files." alt="" coords="570,80,737,107"/>
+<area shape="rect" id="node9" href="$chemistry_8h.html" title="Functions to get information on elements and do simple trajectory calculations." alt="" coords="761,80,919,107"/>
+<area shape="rect" id="node10" href="$mathtools_8h.html" title="Function prototypes for simple mathematical functions." alt="" coords="943,80,1073,107"/>
+<area shape="rect" id="node11" href="$msd_8h.html" title="Functions to compute the mean square displacement (MSD) of a certain atom type in a trajectory." alt="" coords="1098,80,1190,107"/>
+<area shape="rect" id="node12" href="$rdf_8h.html" title="Functions to compute the radial distribution function (RDF) in a trajectory." alt="" coords="1214,80,1295,107"/>
+<area shape="rect" id="node13" href="$oacf_8h.html" title="Functions to compute the orientational auto&#45;correlation function (OACF) of a certain atom type in a t..." alt="" coords="1320,80,1411,107"/>
+</map>
