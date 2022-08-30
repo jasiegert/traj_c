@@ -24,6 +24,8 @@ int get_atom_and_frame_no(char *name, int *atom_no, int *frame_no);
 
 void skipline(FILE *f);
 
+int countlines(FILE *f);
+
 /**
 * @brief Reads content of an xyz-file or dat-file into a 3D-array.
 *

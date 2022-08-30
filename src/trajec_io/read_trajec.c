@@ -24,17 +24,13 @@ int get_atom_and_frame_no(char *name, int *atom_no, int *frame_no)
     }
     // Count line_no
     rewind(xyz);
-    int line_no = 0;
-    while (fscanf(xyz, " %*[^\n] \n") != EOF)
-    {
-        line_no++;
-    }
+    int line_no = countlines(xyz);
 
     // Calculate frame_no
     *frame_no = line_no / (*atom_no + 2);
     if (*frame_no * (*atom_no + 2) != line_no)
     {
-        printf("xyz-file is not correctly formatted (line_no is not divisible by atom_no + 2).");
+        printf("xyz-file is not correctly formatted (line_no [%i] is not divisible by atom_no [%i] + 2). Frame no: %i", line_no, *atom_no, *frame_no);
         fclose(xyz);
         return 1;
     }
@@ -42,6 +38,24 @@ int get_atom_and_frame_no(char *name, int *atom_no, int *frame_no)
     printf("Found %i atoms and %i frames.\n", *atom_no, *frame_no);
     fclose(xyz);
     return 0;
+}
+
+int countlines(FILE *f)
+{
+    // Save current position in file f
+    unsigned long position = ftell(f);
+    // Go through entire file and count newline characters
+    rewind(f);
+    int line_no = 0;
+    char ch;
+    while((ch=fgetc(f))!=EOF) {
+      if(ch=='\n')
+         line_no++;
+    }
+    // Return file to its starting position
+    fseek(f, position, SEEK_SET);
+
+    return line_no;
 }
 
 void skipline(FILE *f)
