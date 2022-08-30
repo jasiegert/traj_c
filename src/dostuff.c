@@ -102,10 +102,15 @@ int main(int argc, char *argv[])
     while (line != NULL)
     {
         c_start = clock();
-        if ( docalc(frame_no, atom_no, trajcom, pbc, atom, line) == 0)
+        int calc_status = docalc(frame_no, atom_no, trajcom, pbc, atom, line);
+        if ( calc_status == 0)
         {
             c_end = clock();
             printf("\ttook %f s in CPU time.\n\n", (double)(c_end - c_start) / CLOCKS_PER_SEC);
+        }
+        else if (calc_status == -1)
+        {
+            // do nothing, most likely because it's an empty line or a comment
         }
         else
         {
@@ -126,7 +131,7 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
     char calc_name[10];
     if ( (sscanf(line, "%s %*[^\n] ", calc_name) == 0) || ( calc_name[0] == '#'))
     {
-        return 1;
+        return -1;
     }
     printf("%s\n", line);
 

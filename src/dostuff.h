@@ -6,14 +6,14 @@
 
 
 /**
-* @brief Parses input file and dispatches appropriate
+* @brief Parses a line from the input file and dispatches appropriate calculation.
 * @param[in] frame_no number of frames in trajectory.
 * @param[in] atom_no number of atoms in trajectory.
 * @param[in] traj coordinates of the trajectory as a 3D array.
 * @param[in] pbc periodic boundary conditions with one cell vector in each row.
 * @param[in] atom atomic numbers of all atoms in the trajectory.
 * @param[in] line input line to be parsed.
-* @return int 1 if something went wrong, otherwise 0
+* @return int -1 if the line is to be ignored (empty or comment), 1 if a calculation fails and otherwise 0
 */
 int docalc(
             int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line
