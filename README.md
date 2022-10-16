@@ -1,8 +1,12 @@
-# Trajectory analyzer #
+## Trajectory analyzer #
 
-This is a tool used to analyze a trajectory, the result of a molecular dynamics (MD) simulation. If you're unfamiliar with this field, you might want to check out the [Theoretical Background](docs/THEORY.md).
+This is a tool used to analyze a trajectory, the result of a molecular dynamics (MD) simulation. It's primariliy written for use in bash shell under a linux-based OS.
 
-# Installation #
+The documentation should ideally be read in a browser beginning with docs/html/index.html. As a shorthand you can open this file with: `make openmanual`. The documentation can also be rebuilt with doxygen via: `make manual`.
+
+I've written this tool with a background in computational chemistry. If you're unfamiliar with this field, you might want to check out the [Theoretical Background](docs/THEORY.md).
+
+## Installation #
 
 In order to build the executable, simply invoke `make`. This will build all the necessary object files and an executable traj_analyzer. You can remove the object files with `make clean`.
 Compilation can be sped up using the `-j N` option, where N is the number of CPU cores. On a system with 4 cores, you could therefore run:
@@ -12,7 +16,7 @@ Compilation can be sped up using the `-j N` option, where N is the number of CPU
 
 If you wish to remove all compiled files including the executable, run `make remove`.
 
-# Usage #
+## Usage #
 
 The executable traj_analyzer expects three arguments:
 - Trajectory (.xyz)
@@ -21,7 +25,7 @@ The executable traj_analyzer expects three arguments:
 
 - pbc file
 
-    A text file containing the periodic boundary conditions. The first three lines must contain three numbers seperated by a space each.
+    A text file containing the periodic boundary conditions. The first three lines must contain three numbers seperated by a space each (further lines will be ignored).
 
 - input file
 
@@ -29,13 +33,13 @@ The executable traj_analyzer expects three arguments:
 
 With these three, you can invoke the program as:
 
-    traj_analyzer trajectory.xyz pbc.txt input.txt
+    traj_analyzer trajectory.xyz pbc-file input-file
 
-# Warning #
+## Warning ##
 
 Currently only orthogonal periodic boundary conditions are supported. Support for non-orthogonal cells will be part of the next update.
 
-# Example #
+## Example #
 
 A small example is included in the directory example/. It contains the necessary inputs for a simple calculation:
 - Trajectory: example/traj/CDP_224.xyz
@@ -60,7 +64,7 @@ cd results;
 
 These commands have been collected in example/example.sh, once inside the example/ directory you can run `bash example.sh`. The results will be stored in the directory example/results. For reference the same functions have been computed using the free program package [TRAVIS](http://www.travis-analyzer.de/). The csv-files with the same name in results/ and reference/ should be just about the same (within margin of error).
 
-# Calculations #
+## Calculations #
 
 Currently three types of calculations are supported: mean square displacement (MSD), radial distribution function (RDF) and orientational auto-correlation function (OACF). 
 
@@ -93,7 +97,7 @@ The content of the example input file is as follows:
     rdf_inter O O P 300 0 4
     oacf P O 100 0.
 
-# License #
+## License #
 
 This project comes with a [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause) license. Feel free to include (whole or in parts), modify or distribute it with your own projects, as long as you retain the information specified in the [license file](../../LICENSE).
 

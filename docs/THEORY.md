@@ -2,7 +2,9 @@
 
 ## Molecular Dynamics ##
 
-Molecular Dynamics (MD) is a computer simulation technique used to study the movement of atoms and molecules, often used in the fields of theoretical chemistry and solid-state physics. 
+Molecular Dynamics (MD) is a computer simulation technique used to study the movement of atoms and molecules, often used in the fields of theoretical chemistry and solid-state physics. It allows us to find numerical solutions to the equations of motion. Most commonly Born-Oppenheimer MD (BOMD) are applied, in which the atoms get treated via classical mechanics. For a certain geometry an approximation of the Schrödinger equation is solved, the resulting forces are applied for a short time span (the time step, often on the order of 1 fs) and the atoms moved, before beginning anew. 
+
+Naturally only a limited number of atoms can be simulated. Putting these atoms into a vacuum or constraining them with a set of impenetrable walls would have a strong influence on the system, which would distort its properties. In order to approximate the infinitely large bulk phase, a simulation box with periodic boundary conditions is used. These boundary conditions define a parallelepiped, which contains all simulated atoms. Should an atom try to leave the simulation box, it will simply reappear on the opposite site. In effect the simulation box is repeated infinitely often in all directions.
 
 The result of such simulations are trajectories. A trajectory is in essence a way to represent the movement of atoms (or other particles) through three-dimensional space. The most accessable visualisation of a trajectory is a video showing the movement of atoms through space. As an example a water molecule at 350 K over the course of 100 fs might look like this:
 

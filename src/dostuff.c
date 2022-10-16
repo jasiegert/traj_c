@@ -1,15 +1,10 @@
-/**
-* @file dostuff.c
-* @author Johnny Alexander Jimenez Siegert
-* @brief Main control unit of the project, which is compiled into the executable.
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <math.h>
 
+#include "dostuff.h"
 #include "trajec_io/read_trajec.h"
 #include "trajec_io/chemistry.h"
 #include "calc/mathtools.h"
@@ -21,26 +16,6 @@
 #define OUTSTRINGLENGTH 100
 #define XYZ_NAME_MAX 20
 
-int docalc(
-            int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line
-            );
-int calc_msd(
-            int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line
-            );
-int calc_msd_fft(
-            int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line
-            );
-int calc_rdf(
-            int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line
-            );
-int calc_rdf_inter(
-            int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line
-            );
-int calc_oacf(
-            int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line
-            );
-
-void appendoutput(char outputstring[]);
 
 int main(int argc, char *argv[])
 {
@@ -63,7 +38,7 @@ int main(int argc, char *argv[])
         return 1;
     }
     fseek (calc_file, 0, SEEK_END);
-    int calc_length = ftell(calc_file);
+    size_t calc_length = ftell(calc_file);
     fseek (calc_file, 0, SEEK_SET);
     char calc_dump[calc_length + 1];
     if (fread (calc_dump, 1, calc_length, calc_file) != calc_length)
@@ -122,15 +97,20 @@ int main(int argc, char *argv[])
     fprintf(output, "Trajectory: %s\nPBC-file: %s\n", name, pbc_dat);
     fclose(output);
 
-    // Parse input
+    // Parse input line by line and perform calculation
     char* line = strtok(calc_dump, "\n");
     while (line != NULL)
     {
         c_start = clock();
-        if ( docalc(frame_no, atom_no, trajcom, pbc, atom, line) == 0)
+        int calc_status = docalc(frame_no, atom_no, trajcom, pbc, atom, line);
+        if ( calc_status == 0)
         {
             c_end = clock();
             printf("\ttook %f s in CPU time.\n\n", (double)(c_end - c_start) / CLOCKS_PER_SEC);
+        }
+        else if (calc_status == -1)
+        {
+            // do nothing, most likely because it's an empty line or a comment
         }
         else
         {
@@ -147,22 +127,23 @@ int main(int argc, char *argv[])
 
 int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line)
 {
-    // Take first string as calc_name
+    // Take first string as calc_name, skip lines that are empty or start with '#'
     char calc_name[10];
     if ( (sscanf(line, "%s %*[^\n] ", calc_name) == 0) || ( calc_name[0] == '#'))
     {
-        return 1;
+        return -1;
     }
     printf("%s\n", line);
+
     // Check whether calc_name matches any predefined calculation name, which currently are:
-    // msd, msd_fft, rdf, rdf_inter, oacf
+    // msd, msd_fft, rdf, rdf_inter, oacf, removecom
     if (strcmp(calc_name, "msd") == 0)
     {
-        return calc_msd(frame_no, atom_no, traj, pbc, atom, line);
+        return calc_msd(frame_no, atom_no, traj, atom, line);
     }
     else if (strcmp(calc_name, "msd_fft") == 0)
     {
-        return calc_msd_fft(frame_no, atom_no, traj, pbc, atom, line);
+        return calc_msd_fft(frame_no, atom_no, traj, atom, line);
     }
     else if (strcmp(calc_name, "rdf") == 0)
     {
@@ -199,7 +180,7 @@ int docalc(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pb
 }
 
 
-int calc_msd(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line)
+int calc_msd(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no], char* line)
 {
     // Set default values for resolution and timerange
     printf("\tMSD calculation\n");
@@ -230,7 +211,6 @@ int calc_msd(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float 
         char headerstring[] = "# time / ps\t\t\tMSD / A²";
         savecsv(outputcsv, msd_len, 2, msd, headerstring);
 
-
         appendoutput(msd_output);
 
         free(msd);
@@ -243,7 +223,7 @@ int calc_msd(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float 
     }
 }
 
-int calc_msd_fft(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char* line)
+int calc_msd_fft(int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no], char* line)
 {
     // Set default values for resolution and timerange
     printf("\tMSD calculation (FFT)\n");

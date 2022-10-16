@@ -24,17 +24,13 @@ int get_atom_and_frame_no(char *name, int *atom_no, int *frame_no)
     }
     // Count line_no
     rewind(xyz);
-    int line_no = 0;
-    while (fscanf(xyz, " %*[^\n] \n") != EOF)
-    {
-        line_no++;
-    }
+    int line_no = countlines(xyz);
 
     // Calculate frame_no
     *frame_no = line_no / (*atom_no + 2);
     if (*frame_no * (*atom_no + 2) != line_no)
     {
-        printf("xyz-file is not correctly formatted (line_no is not divisible by atom_no + 2).");
+        printf("xyz-file is not correctly formatted (line_no [%i] is not divisible by atom_no [%i] + 2). Frame no: %i", line_no, *atom_no, *frame_no);
         fclose(xyz);
         return 1;
     }
@@ -42,6 +38,24 @@ int get_atom_and_frame_no(char *name, int *atom_no, int *frame_no)
     printf("Found %i atoms and %i frames.\n", *atom_no, *frame_no);
     fclose(xyz);
     return 0;
+}
+
+int countlines(FILE *f)
+{
+    // Save current position in file f
+    unsigned long position = ftell(f);
+    // Go through entire file and count newline characters
+    rewind(f);
+    int line_no = 0;
+    char ch;
+    while((ch=fgetc(f))!=EOF) {
+      if(ch=='\n')
+         line_no++;
+    }
+    // Return file to its starting position
+    fseek(f, position, SEEK_SET);
+
+    return line_no;
 }
 
 void skipline(FILE *f)
@@ -165,19 +179,28 @@ int readdat(char *datname, int *frame_no_pointer, int *atom_no_pointer, float **
         return 1;
     }
     
-    if ( fread(atom_no_pointer, sizeof(int), 1, trajdat) != 1 || fread(frame_no_pointer, sizeof(int), 1, trajdat) != 1)
+    if ( fread(atom_no_pointer, sizeof(int), 1, trajdat) != 1 \
+         || \
+         fread(frame_no_pointer, sizeof(int), 1, trajdat) != 1 \
+       )
     {
         printf("Invalid dat-file. Will be overwritten.\n");
         return 1;
     }
+
     // Allocate trajectory and atom arrays
     int atom_no = *atom_no_pointer, frame_no = *frame_no_pointer;
+    if ( atom_no <= 0 || frame_no <= 0)
+    {
+        printf("Invalid dat-file. Will be overwritten.\n");
+        return 1;
+    }
     *atom_pointer = malloc(sizeof(int) * atom_no);
     *trajectory_pointer = malloc(sizeof(float) * frame_no * atom_no * 3);
     // Read atom numbers and coordinates from dat-file
-    if ( fread(*atom_pointer, sizeof(int), atom_no, trajdat) != atom_no \
+    if ( fread(*atom_pointer, sizeof(int), atom_no, trajdat) != (size_t) atom_no \
          || \
-         fread(*trajectory_pointer, sizeof(float), frame_no * atom_no * 3, trajdat) != frame_no * atom_no * 3)
+         fread(*trajectory_pointer, sizeof(float), frame_no * atom_no * 3, trajdat) != (size_t) frame_no * atom_no * 3)
     {
         printf("Invalid dat-file. Will be overwritten.\n");
         return 1;
