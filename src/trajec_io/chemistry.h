@@ -8,6 +8,20 @@
 #ifndef CHEMISTRY_H
 #define CHEMISTRY_H
 
+typedef struct atominfo
+{
+    int atom_no;
+    float atom_mass;
+    char symbol[3];
+} atominfo;
+
+/**
+* @brief Fills a preallocated atominfo struct with information corresponding to a supplied atomic number.
+* @param[in] atom_no atomic number
+* @param[out] this_atom atominfo struct containing atomic number, atomic mass and element symbol
+* @return 0 if atom number was found in range 1 to 118, otherwise 1
+*/
+int no_to_atominfo(int atom_no, atominfo *this_atom);
 
 /**
 * @brief Returns the atomic number for a given element name.
