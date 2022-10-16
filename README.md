@@ -31,6 +31,10 @@ With these three, you can invoke the program as:
 
     traj_analyzer trajectory.xyz pbc.txt input.txt
 
+# Warning #
+
+Currently only orthogonal periodic boundary conditions are supported. Support for non-orthogonal cells will be part of the next update.
+
 # Example #
 
 A small example is included in the directory example/. It contains the necessary inputs for a simple calculation:

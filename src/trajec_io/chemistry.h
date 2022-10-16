@@ -55,6 +55,23 @@ float no_to_mass(int atom_no);
 float pbc_dist(float coord_1[3], float coord_2[3], float pbc[3][3]);
 
 /**
+* @brief Calculates the distance between two points in real space following the minimum image convention in an orthogonal box.
+* @param[in] coord_1, coord_2 Cartesian coordinates of each point.
+* @param[in] pbc periodic boundary conditions represented as 3 cell vectors stacked into a 3x3 matrix, off-diagonal elements must be zero.
+* @return (float) distance between the two points.
+*/
+float pbc_dist_orthogonal(float coord_1[3], float coord_2[3], float pbc[3][3]);
+
+/**
+* @brief Calculates the distance between two points in real space following the minimum image convention.
+* @param[in] coord_1, coord_2 Cartesian coordinates of each point.
+* @param[in] pbc periodic boundary conditions represented as 3 cell vectors stacked into a 3x3 matrix, off-diagonal elements must be zero.
+* @return (float) distance between the two points.
+* @warning placeholder only, not yet implemented
+*/
+float pbc_dist_triclinic(float coord_1[3], float coord_2[3], float pbc[3][3]);
+
+/**
 * @brief Finds the closest atom ("neighbor") to a given point in a frame.
 *
 * Given a point and a frame (list of atom coordinates), returns the index of the entry in frame with the lowest distance to the point.\n

@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 #include "chemistry.h"
@@ -180,8 +181,27 @@ float no_to_mass(int atom_no)
     }
 }
 
-
 float pbc_dist(float coord_1[3], float coord_2[3], float pbc[3][3])
+{
+    float dist;
+    if ((pbc[0][1] != 0) || (pbc[0][2] != 0) || (pbc[1][0] != 0) || (pbc[1][2] != 0) || (pbc[2][0] != 0) || (pbc[2][1] != 0))
+    {
+        dist = pbc_dist_triclinic(coord_1, coord_2, pbc);
+    }
+    else
+    {
+        dist = pbc_dist_orthogonal(coord_1, coord_2, pbc);
+    }
+    return dist;
+}
+
+float pbc_dist_triclinic(float coord_1[3], float coord_2[3], float pbc[3][3])
+{
+        printf("Non-orthogonal PBCs are not supported yet. Sorry!\n");
+        exit(1);
+}
+
+float pbc_dist_orthogonal(float coord_1[3], float coord_2[3], float pbc[3][3])
 {
     float diff[3];
     float dist = 0;
