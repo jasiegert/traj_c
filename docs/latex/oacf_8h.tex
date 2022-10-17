@@ -1,0 +1,67 @@
+\hypertarget{oacf_8h}{}\doxysection{src/calc/oacf.h File Reference}
+\label{oacf_8h}\index{src/calc/oacf.h@{src/calc/oacf.h}}
+
+
+Functions to compute the orientational auto-\/correlation function (OACF) of a certain atom type in a trajectory.  
+
+
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=166pt]{oacf_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{oacf_8h_a30bfc431e64579d862d726dfae29ccf1}{oacf\+\_\+overall}} (int frame\+\_\+no, int atom\+\_\+no, float traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]}, int atom\mbox{[}atom\+\_\+no\mbox{]}, float pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]}, int target\+\_\+atom\+\_\+1, int target\+\_\+atom\+\_\+2, int resolution, float timerange, float oacf\mbox{[}resolution\mbox{]}\mbox{[}2\mbox{]}, char $\ast$output)
+\begin{DoxyCompactList}\small\item\em Calculates the orientational auto-\/correlation function (OACF) of the bonds between atoms of the specified types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functions to compute the orientational auto-\/correlation function (OACF) of a certain atom type in a trajectory. 
+
+\begin{DoxyAuthor}{Author}
+Johnny Alexander Jimenez Siegert 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{oacf_8h_a30bfc431e64579d862d726dfae29ccf1}\label{oacf_8h_a30bfc431e64579d862d726dfae29ccf1}} 
+\index{oacf.h@{oacf.h}!oacf\_overall@{oacf\_overall}}
+\index{oacf\_overall@{oacf\_overall}!oacf.h@{oacf.h}}
+\doxysubsubsection{\texorpdfstring{oacf\_overall()}{oacf\_overall()}}
+{\footnotesize\ttfamily int oacf\+\_\+overall (\begin{DoxyParamCaption}\item[{int}]{frame\+\_\+no,  }\item[{int}]{atom\+\_\+no,  }\item[{float}]{traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]},  }\item[{int}]{atom\mbox{[}atom\+\_\+no\mbox{]},  }\item[{float}]{pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]},  }\item[{int}]{target\+\_\+atom\+\_\+1,  }\item[{int}]{target\+\_\+atom\+\_\+2,  }\item[{int}]{resolution,  }\item[{float}]{timerange,  }\item[{float}]{oacf\mbox{[}resolution\mbox{]}\mbox{[}2\mbox{]},  }\item[{char $\ast$}]{output }\end{DoxyParamCaption})}
+
+
+
+Calculates the orientational auto-\/correlation function (OACF) of the bonds between atoms of the specified types. 
+
+Calculates the auto-\/correlation function of the bonds between the specified atom types. One bond will be drawn from each atom of type 1 to its closest neighbor of type 2.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em frame\+\_\+no} & number of frames in trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom\+\_\+no} & number of atoms in trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em traj} & atom coordinates of the trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom} & atomic numbers of all atoms in the trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em pbc} & periodic boundary conditions as a 3x3 float array \\
+\hline
+\mbox{\texttt{ in}}  & {\em target\+\_\+atom\+\_\+1} & atomic number of the atom type, which will be the source of the bond. \\
+\hline
+\mbox{\texttt{ in}}  & {\em target\+\_\+atom\+\_\+2} & atomic number of the atom type, which will be the end of the bond. \\
+\hline
+\mbox{\texttt{ in}}  & {\em resolution} & number of correlation times to sample. \\
+\hline
+\mbox{\texttt{ in}}  & {\em timerange} & fraction of trajectory length, up to which correlation times will be generated. \\
+\hline
+\mbox{\texttt{ out}}  & {\em oacf} & array holding correlation time and corresponding auto-\/correlation in each row. \\
+\hline
+\mbox{\texttt{ out}}  & {\em output} & string to be printed and added to output file. \\
+\hline
+\end{DoxyParams}

@@ -95,6 +95,8 @@ Functions</h2></td></tr>
 <tr class="separator:a3c6d1f71e221b01cade9b0f92d4a0e50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28ba4e821d33b79b6a7b1f72cc944a42"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="read__trajec_8h.html#a28ba4e821d33b79b6a7b1f72cc944a42">skipline</a> (FILE *f)</td></tr>
 <tr class="separator:a28ba4e821d33b79b6a7b1f72cc944a42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a222227a9803ae7c2211bf9987fded71d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="read__trajec_8h.html#a222227a9803ae7c2211bf9987fded71d">countlines</a> (FILE *f)</td></tr>
+<tr class="separator:a222227a9803ae7c2211bf9987fded71d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a682f8020235937bff5fafc167f699bb9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="read__trajec_8h.html#a682f8020235937bff5fafc167f699bb9">readtraj</a> (char *name, int *frame_no_pointer, int *atom_no_pointer, float **trajectory_pointer, int **atom_pointer)</td></tr>
 <tr class="memdesc:a682f8020235937bff5fafc167f699bb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads content of an xyz-file or dat-file into a 3D-array.  <a href="read__trajec_8h.html#a682f8020235937bff5fafc167f699bb9">More...</a><br /></td></tr>
 <tr class="separator:a682f8020235937bff5fafc167f699bb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,6 +122,24 @@ Functions</h2></td></tr>
 <dl class="section warning"><dt>Warning</dt><dd>Currently only supports xyz-files. Other common file formats might be added later on. </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>Collect frame_no (int), atom_no (int), traj (float*), atom (int*) and pbc (float[3][3]) in one struct -&gt; should be a bit cleaner, since they're always passed around together anyways. </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a222227a9803ae7c2211bf9987fded71d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a222227a9803ae7c2211bf9987fded71d">&#9670;&nbsp;</a></span>countlines()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int countlines </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3c6d1f71e221b01cade9b0f92d4a0e50"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c6d1f71e221b01cade9b0f92d4a0e50">&#9670;&nbsp;</a></span>get_atom_and_frame_no()</h2>
 
@@ -318,7 +338,7 @@ Since atom is a 1D-array the pointer *atom_pointer can be used as is. For the tr
 <div class="line"><span class="keywordtype">int</span> *atom;</div>
 <div class="line"><a class="code" href="read__trajec_8c.html#a682f8020235937bff5fafc167f699bb9">readtraj</a>(<span class="keywordtype">char</span> *name, &amp;frame_no, &amp;atom_no, &amp;trajectory_pointer, &amp;atom);</div>
 <div class="line">float (*traj)[atom_no][3] = ( float (*)[atom_no][3] ) trajectory_pointer;</div>
-<div class="ttc" id="aread__trajec_8c_html_a682f8020235937bff5fafc167f699bb9"><div class="ttname"><a href="read__trajec_8c.html#a682f8020235937bff5fafc167f699bb9">readtraj</a></div><div class="ttdeci">int readtraj(char *name, int *frame_no_pointer, int *atom_no_pointer, float **trajectory_pointer, int **atom_pointer)</div><div class="ttdoc">Reads content of an xyz-file or dat-file into a 3D-array.</div><div class="ttdef"><b>Definition:</b> read_trajec.c:118</div></div>
+<div class="ttc" id="aread__trajec_8c_html_a682f8020235937bff5fafc167f699bb9"><div class="ttname"><a href="read__trajec_8c.html#a682f8020235937bff5fafc167f699bb9">readtraj</a></div><div class="ttdeci">int readtraj(char *name, int *frame_no_pointer, int *atom_no_pointer, float **trajectory_pointer, int **atom_pointer)</div><div class="ttdoc">Reads content of an xyz-file or dat-file into a 3D-array.</div><div class="ttdef"><b>Definition:</b> read_trajec.c:132</div></div>
 </div><!-- fragment --><dl class="section warning"><dt>Warning</dt><dd>Atom (*atom_pointer) and trajectory (*trajectory_pointer) will be malloc'd, remember to free them! </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

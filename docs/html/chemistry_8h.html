@@ -67,6 +67,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">chemistry.h File Reference<div class="ingroups"><a class="el" href="group__TrajectoryIO.html">Trajectory I/O</a></div></div>  </div>
@@ -80,19 +82,33 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="chemistry_8h__dep__incl.png" border="0" usemap="#asrc_2trajec__io_2chemistry_8hdep" alt=""/></div>
 <map name="asrc_2trajec__io_2chemistry_8hdep" id="asrc_2trajec__io_2chemistry_8hdep">
-<area shape="rect" title="Functions to get information on elements and do simple trajectory calculations." alt="" coords="243,5,423,32"/>
+<area shape="rect" title="Functions to get information on elements and do simple trajectory calculations." alt="" coords="306,5,486,32"/>
 <area shape="rect" href="msd_8c.html" title=" " alt="" coords="5,87,120,114"/>
 <area shape="rect" href="oacf_8c.html" title=" " alt="" coords="145,87,258,114"/>
 <area shape="rect" href="rdf_8c.html" title=" " alt="" coords="282,87,385,114"/>
 <area shape="rect" href="dostuff_8c.html" title=" " alt="" coords="409,87,511,114"/>
-<area shape="rect" href="read__trajec_8c.html" title=" " alt="" coords="535,80,670,121"/>
+<area shape="rect" href="chemistry_8c.html" title=" " alt="" coords="535,87,713,114"/>
+<area shape="rect" href="read__trajec_8c.html" title=" " alt="" coords="738,80,873,121"/>
 </map>
 </div>
 </div>
 <p><a href="chemistry_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structatominfo.html">atominfo</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a945e372d69f6239916115d76916c8f11"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structatominfo.html">atominfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chemistry_8h.html#a945e372d69f6239916115d76916c8f11">atominfo</a></td></tr>
+<tr class="separator:a945e372d69f6239916115d76916c8f11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a9e587bff6f154cc8be2ec2ee9c29bc58"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chemistry_8h.html#a9e587bff6f154cc8be2ec2ee9c29bc58">no_to_atominfo</a> (int atom_no, <a class="el" href="structatominfo.html">atominfo</a> *this_atom)</td></tr>
+<tr class="memdesc:a9e587bff6f154cc8be2ec2ee9c29bc58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills a preallocated atominfo struct with information corresponding to a supplied atomic number.  <a href="chemistry_8h.html#a9e587bff6f154cc8be2ec2ee9c29bc58">More...</a><br /></td></tr>
+<tr class="separator:a9e587bff6f154cc8be2ec2ee9c29bc58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16375b6a0c555fb30317ea301e5a7302"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chemistry_8h.html#a16375b6a0c555fb30317ea301e5a7302">element_to_no</a> (char *element)</td></tr>
 <tr class="memdesc:a16375b6a0c555fb30317ea301e5a7302"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the atomic number for a given element name.  <a href="chemistry_8h.html#a16375b6a0c555fb30317ea301e5a7302">More...</a><br /></td></tr>
 <tr class="separator:a16375b6a0c555fb30317ea301e5a7302"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -105,6 +121,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a943d08970a42acd0c72248fb0c9017f0"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chemistry_8h.html#a943d08970a42acd0c72248fb0c9017f0">pbc_dist</a> (float coord_1[3], float coord_2[3], float pbc[3][3])</td></tr>
 <tr class="memdesc:a943d08970a42acd0c72248fb0c9017f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the distance between two points in real space following the minimum image convention.  <a href="chemistry_8h.html#a943d08970a42acd0c72248fb0c9017f0">More...</a><br /></td></tr>
 <tr class="separator:a943d08970a42acd0c72248fb0c9017f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7b82059aea149236911e717c351d256"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chemistry_8h.html#ab7b82059aea149236911e717c351d256">pbc_dist_orthogonal</a> (float coord_1[3], float coord_2[3], float pbc[3][3])</td></tr>
+<tr class="memdesc:ab7b82059aea149236911e717c351d256"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the distance between two points in real space following the minimum image convention in an orthogonal box.  <a href="chemistry_8h.html#ab7b82059aea149236911e717c351d256">More...</a><br /></td></tr>
+<tr class="separator:ab7b82059aea149236911e717c351d256"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ca4572efe455440cbb57e28b8f70cd1"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chemistry_8h.html#a3ca4572efe455440cbb57e28b8f70cd1">pbc_dist_triclinic</a> (float coord_1[3], float coord_2[3], float pbc[3][3])</td></tr>
+<tr class="memdesc:a3ca4572efe455440cbb57e28b8f70cd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the distance between two points in real space following the minimum image convention.  <a href="chemistry_8h.html#a3ca4572efe455440cbb57e28b8f70cd1">More...</a><br /></td></tr>
+<tr class="separator:a3ca4572efe455440cbb57e28b8f70cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab7c9e465f9f6951a8ecb8f92f195283"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chemistry_8h.html#aab7c9e465f9f6951a8ecb8f92f195283">nextneighbor_in_traj</a> (float coord[3], int atom_no, float traj_frame[atom_no][3], int atom[atom_no], int atom_neighbor, float pbc[3][3])</td></tr>
 <tr class="memdesc:aab7c9e465f9f6951a8ecb8f92f195283"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the closest atom ("neighbor") to a given point in a frame.  <a href="chemistry_8h.html#aab7c9e465f9f6951a8ecb8f92f195283">More...</a><br /></td></tr>
 <tr class="separator:aab7c9e465f9f6951a8ecb8f92f195283"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -112,7 +134,22 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Functions to get information on elements and do simple trajectory calculations. </p>
 <dl class="section author"><dt>Author</dt><dd>Johnny Alexander Jimenez Siegert </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="a945e372d69f6239916115d76916c8f11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a945e372d69f6239916115d76916c8f11">&#9670;&nbsp;</a></span>atominfo</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structatominfo.html">atominfo</a> <a class="el" href="structatominfo.html">atominfo</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
 <a id="a16375b6a0c555fb30317ea301e5a7302"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a16375b6a0c555fb30317ea301e5a7302">&#9670;&nbsp;</a></span>element_to_no()</h2>
 
@@ -206,6 +243,44 @@ Distance is determined using <a class="el" href="chemistry_8h.html#a943d08970a42
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>index of the atom closest to the given point in traj_frame. -1 if none is found. </dd></dl>
+
+</div>
+</div>
+<a id="a9e587bff6f154cc8be2ec2ee9c29bc58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e587bff6f154cc8be2ec2ee9c29bc58">&#9670;&nbsp;</a></span>no_to_atominfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int no_to_atominfo </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>atom_no</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structatominfo.html">atominfo</a> *&#160;</td>
+          <td class="paramname"><em>this_atom</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fills a preallocated atominfo struct with information corresponding to a supplied atomic number. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">atom_no</td><td>atomic number </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">this_atom</td><td>atominfo struct containing atomic number, atomic mass and element symbol </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if atom number was found in range 1 to 118, otherwise 1 </dd></dl>
 
 </div>
 </div>
@@ -316,6 +391,95 @@ Distance is determined using <a class="el" href="chemistry_8h.html#a943d08970a42
 <dl class="section return"><dt>Returns</dt><dd>(float) distance between the two points. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>Currently only supports orthogonal pbc (ignores non-diagonal values). </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Add support for non-orthogonal pbc (as in rewrite it using matrix inversion and multiplication). </dd></dl>
+
+</div>
+</div>
+<a id="ab7b82059aea149236911e717c351d256"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7b82059aea149236911e717c351d256">&#9670;&nbsp;</a></span>pbc_dist_orthogonal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float pbc_dist_orthogonal </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>coord_1</em>[3], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>coord_2</em>[3], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>pbc</em>[3][3]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the distance between two points in real space following the minimum image convention in an orthogonal box. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">coord_1,coord_2</td><td>Cartesian coordinates of each point. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pbc</td><td>periodic boundary conditions represented as 3 cell vectors stacked into a 3x3 matrix, off-diagonal elements must be zero. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>(float) distance between the two points. </dd></dl>
+
+</div>
+</div>
+<a id="a3ca4572efe455440cbb57e28b8f70cd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ca4572efe455440cbb57e28b8f70cd1">&#9670;&nbsp;</a></span>pbc_dist_triclinic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float pbc_dist_triclinic </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>coord_1</em>[3], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>coord_2</em>[3], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>pbc</em>[3][3]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the distance between two points in real space following the minimum image convention. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">coord_1,coord_2</td><td>Cartesian coordinates of each point. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pbc</td><td>periodic boundary conditions represented as 3 cell vectors stacked into a 3x3 matrix, off-diagonal elements must be zero. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>(float) distance between the two points. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>placeholder only, not yet implemented </dd></dl>
 
 </div>
 </div>

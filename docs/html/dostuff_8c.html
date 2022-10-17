@@ -120,7 +120,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a0ddf1224851353fc92bfbff6f499fa97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dostuff_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main</a> (int argc, char *argv[])</td></tr>
 <tr class="separator:a0ddf1224851353fc92bfbff6f499fa97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29b3aabd5c4f44f85a5bb6f83b4ea1d1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dostuff_8c.html#a29b3aabd5c4f44f85a5bb6f83b4ea1d1">docalc</a> (int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], char *line)</td></tr>
-<tr class="memdesc:a29b3aabd5c4f44f85a5bb6f83b4ea1d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses input file and dispatches appropriate.  <a href="dostuff_8c.html#a29b3aabd5c4f44f85a5bb6f83b4ea1d1">More...</a><br /></td></tr>
+<tr class="memdesc:a29b3aabd5c4f44f85a5bb6f83b4ea1d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a line from the input file and dispatches appropriate calculation.  <a href="dostuff_8c.html#a29b3aabd5c4f44f85a5bb6f83b4ea1d1">More...</a><br /></td></tr>
 <tr class="separator:a29b3aabd5c4f44f85a5bb6f83b4ea1d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1c7aa621e8d6d228b6bbc78a98fdd6e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dostuff_8c.html#ad1c7aa621e8d6d228b6bbc78a98fdd6e">calc_msd</a> (int frame_no, int atom_no, float traj[frame_no][atom_no][3], int atom[atom_no], char *line)</td></tr>
 <tr class="memdesc:ad1c7aa621e8d6d228b6bbc78a98fdd6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles MSD calculation.  <a href="dostuff_8c.html#ad1c7aa621e8d6d228b6bbc78a98fdd6e">More...</a><br /></td></tr>
@@ -387,7 +387,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int 1 if something went wrong, otherwise 0 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int -1 if the line is to be ignored (empty or comment), 1 if a calculation fails and otherwise 0 </dd></dl>
 
 </div>
 </div>
@@ -453,7 +453,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int 1 if something went wrong, otherwise 0 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int -1 if the line is to be ignored (empty or comment), 1 if a calculation fails and otherwise 0 </dd></dl>
 
 </div>
 </div>
@@ -519,7 +519,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int 1 if something went wrong, otherwise 0 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int -1 if the line is to be ignored (empty or comment), 1 if a calculation fails and otherwise 0 </dd></dl>
 
 </div>
 </div>
@@ -573,7 +573,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Parses input file and dispatches appropriate. </p>
+<p>Parses a line from the input file and dispatches appropriate calculation. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">frame_no</td><td>number of frames in trajectory. </td></tr>
@@ -585,7 +585,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int 1 if something went wrong, otherwise 0 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int -1 if the line is to be ignored (empty or comment), 1 if a calculation fails and otherwise 0 </dd></dl>
 
 </div>
 </div>

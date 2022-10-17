@@ -1,0 +1,112 @@
+\hypertarget{rdf_8h}{}\doxysection{src/calc/rdf.h File Reference}
+\label{rdf_8h}\index{src/calc/rdf.h@{src/calc/rdf.h}}
+
+
+Functions to compute the radial distribution function (RDF) in a trajectory.  
+
+
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=158pt]{rdf_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{rdf_8h_a3cdf6df7c05ec96c5c2c25fe52807f71}{rdf\+\_\+overall}} (int frame\+\_\+no, int atom\+\_\+no, float traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]}, float pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]}, int atom\mbox{[}atom\+\_\+no\mbox{]}, int atom\+\_\+1, int atom\+\_\+2, float min\+\_\+distance, float max\+\_\+distance, int bin, float rdf\mbox{[}bin\mbox{]}\mbox{[}2\mbox{]}, char $\ast$output)
+\begin{DoxyCompactList}\small\item\em Calculates the RDF from a trajectory. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{rdf_8h_a278500470c149bef585459ce070841a1}{rdf\+\_\+intermolecular}} (int frame\+\_\+no, int atom\+\_\+no, float traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]}, float pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]}, int atom\mbox{[}atom\+\_\+no\mbox{]}, int atom\+\_\+1, int atom\+\_\+2, int atom\+\_\+central, float min\+\_\+distance, float max\+\_\+distance, int bin, float rdf\mbox{[}bin\mbox{]}\mbox{[}2\mbox{]}, char $\ast$output)
+\begin{DoxyCompactList}\small\item\em Calculates the intermolecular RDF from a trajectory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functions to compute the radial distribution function (RDF) in a trajectory. 
+
+\begin{DoxyAuthor}{Author}
+Johnny Alexander Jimenez Siegert 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{rdf_8h_a278500470c149bef585459ce070841a1}\label{rdf_8h_a278500470c149bef585459ce070841a1}} 
+\index{rdf.h@{rdf.h}!rdf\_intermolecular@{rdf\_intermolecular}}
+\index{rdf\_intermolecular@{rdf\_intermolecular}!rdf.h@{rdf.h}}
+\doxysubsubsection{\texorpdfstring{rdf\_intermolecular()}{rdf\_intermolecular()}}
+{\footnotesize\ttfamily int rdf\+\_\+intermolecular (\begin{DoxyParamCaption}\item[{int}]{frame\+\_\+no,  }\item[{int}]{atom\+\_\+no,  }\item[{float}]{traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]},  }\item[{float}]{pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]},  }\item[{int}]{atom\mbox{[}atom\+\_\+no\mbox{]},  }\item[{int}]{atom\+\_\+1,  }\item[{int}]{atom\+\_\+2,  }\item[{int}]{atom\+\_\+central,  }\item[{float}]{min\+\_\+distance,  }\item[{float}]{max\+\_\+distance,  }\item[{int}]{bin,  }\item[{float}]{rdf\mbox{[}bin\mbox{]}\mbox{[}2\mbox{]},  }\item[{char $\ast$}]{output }\end{DoxyParamCaption})}
+
+
+
+Calculates the intermolecular RDF from a trajectory. 
+
+Calculates the radial-\/distribution function for the two atom types passed. Distances will be binned into the specified number of bins between min and max distance. Atoms will be assigned to molecules based on their closest atom of specified central atom type. Distances between atoms within the same molecule will be discarded.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em frame\+\_\+no} & number of frames in trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom\+\_\+no} & number of atoms in trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em traj} & atom coordinates of the trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em pbc} & periodic boundary conditions as a 3x3 float array \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom} & atomic numbers of all atoms in the trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom\+\_\+1} & first atom type of the RDF pair. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom\+\_\+2} & second atom type of the RDF pair. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom\+\_\+central} & central atom type used to assign atoms to molecules. \\
+\hline
+\mbox{\texttt{ in}}  & {\em min\+\_\+distance} & smallest distance to consider. \\
+\hline
+\mbox{\texttt{ in}}  & {\em max\+\_\+distance} & largest distance to consider. \\
+\hline
+\mbox{\texttt{ in}}  & {\em bin} & number of bins and thus number of output values. \\
+\hline
+\mbox{\texttt{ out}}  & {\em rdf} & sampled distances (average of each bin) and corresponding RDF. \\
+\hline
+\mbox{\texttt{ out}}  & {\em output} & output string to be passed into stdout and output file. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{rdf_8h_a3cdf6df7c05ec96c5c2c25fe52807f71}\label{rdf_8h_a3cdf6df7c05ec96c5c2c25fe52807f71}} 
+\index{rdf.h@{rdf.h}!rdf\_overall@{rdf\_overall}}
+\index{rdf\_overall@{rdf\_overall}!rdf.h@{rdf.h}}
+\doxysubsubsection{\texorpdfstring{rdf\_overall()}{rdf\_overall()}}
+{\footnotesize\ttfamily int rdf\+\_\+overall (\begin{DoxyParamCaption}\item[{int}]{frame\+\_\+no,  }\item[{int}]{atom\+\_\+no,  }\item[{float}]{traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]},  }\item[{float}]{pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]},  }\item[{int}]{atom\mbox{[}atom\+\_\+no\mbox{]},  }\item[{int}]{atom\+\_\+1,  }\item[{int}]{atom\+\_\+2,  }\item[{float}]{min\+\_\+distance,  }\item[{float}]{max\+\_\+distance,  }\item[{int}]{bin,  }\item[{float}]{rdf\mbox{[}bin\mbox{]}\mbox{[}2\mbox{]},  }\item[{char $\ast$}]{output }\end{DoxyParamCaption})}
+
+
+
+Calculates the RDF from a trajectory. 
+
+Calculates the radial-\/distribution function for the two atom types passed. Distances will be binned into the specified number of bins between min and max distance.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em frame\+\_\+no} & number of frames in trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom\+\_\+no} & number of atoms in trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em traj} & atom coordinates of the trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em pbc} & periodic boundary conditions as a 3x3 float array \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom} & atomic numbers of all atoms in the trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom\+\_\+1} & first atom type of the RDF pair. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom\+\_\+2} & second atom type of the RDF pair. \\
+\hline
+\mbox{\texttt{ in}}  & {\em min\+\_\+distance} & smallest distance to consider. \\
+\hline
+\mbox{\texttt{ in}}  & {\em max\+\_\+distance} & largest distance to consider. \\
+\hline
+\mbox{\texttt{ in}}  & {\em bin} & number of bins and thus number of output values. \\
+\hline
+\mbox{\texttt{ out}}  & {\em rdf} & sampled distances (average of each bin) and corresponding RDF. \\
+\hline
+\mbox{\texttt{ out}}  & {\em output} & output string to be passed into stdout and output file. \\
+\hline
+\end{DoxyParams}

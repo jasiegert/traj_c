@@ -1,0 +1,92 @@
+\hypertarget{msd_8h}{}\doxysection{src/calc/msd.h File Reference}
+\label{msd_8h}\index{src/calc/msd.h@{src/calc/msd.h}}
+
+
+Functions to compute the mean square displacement (MSD) of a certain atom type in a trajectory.  
+
+
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=166pt]{msd_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{msd_8h_ac24a33a609ddb2fdb78e9227598ce3af}{msd\+\_\+overall}} (int frame\+\_\+no, int atom\+\_\+no, float traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]}, int atom\mbox{[}atom\+\_\+no\mbox{]}, int target\+\_\+atom, int resolution, float timerange, float msd\mbox{[}resolution\mbox{]}\mbox{[}2\mbox{]}, char $\ast$output)
+\begin{DoxyCompactList}\small\item\em Calculates the mean square displacement (MSD) of a certain atom type in a trajectory. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{msd_8h_aa89a54dc318616b7cc5be9d9f2a32957}{msd\+\_\+fft}} (int frame\+\_\+no, int atom\+\_\+no, float traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]}, int atom\mbox{[}atom\+\_\+no\mbox{]}, int target\+\_\+atom, float timerange, float msd\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}2\mbox{]}, char $\ast$output)
+\begin{DoxyCompactList}\small\item\em Calculates the mean square displacement (MSD) of a certain atom type in a trajectory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functions to compute the mean square displacement (MSD) of a certain atom type in a trajectory. 
+
+\begin{DoxyAuthor}{Author}
+Johnny Alexander Jimenez Siegert 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{msd_8h_aa89a54dc318616b7cc5be9d9f2a32957}\label{msd_8h_aa89a54dc318616b7cc5be9d9f2a32957}} 
+\index{msd.h@{msd.h}!msd\_fft@{msd\_fft}}
+\index{msd\_fft@{msd\_fft}!msd.h@{msd.h}}
+\doxysubsubsection{\texorpdfstring{msd\_fft()}{msd\_fft()}}
+{\footnotesize\ttfamily int msd\+\_\+fft (\begin{DoxyParamCaption}\item[{int}]{frame\+\_\+no,  }\item[{int}]{atom\+\_\+no,  }\item[{float}]{traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]},  }\item[{int}]{atom\mbox{[}atom\+\_\+no\mbox{]},  }\item[{int}]{target\+\_\+atom,  }\item[{float}]{timerange,  }\item[{float}]{msd\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}2\mbox{]},  }\item[{char $\ast$}]{output }\end{DoxyParamCaption})}
+
+
+
+Calculates the mean square displacement (MSD) of a certain atom type in a trajectory. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em frame\+\_\+no} & number of frames in trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom\+\_\+no} & number of atoms in trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em traj} & atom coordinates of the trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom} & atomic numbers of all atoms in the trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em target\+\_\+atom} & atomic number of the atom type, whose MSD should be calculated. \\
+\hline
+\mbox{\texttt{ in}}  & {\em timerange} & fraction of trajectory length, up to which correlation times will be generated. \\
+\hline
+\mbox{\texttt{ out}}  & {\em msd} & array holding correlation time and corresponding MSD in each row. \\
+\hline
+\mbox{\texttt{ out}}  & {\em output} & string to be printed and added to output file. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{msd_8h_ac24a33a609ddb2fdb78e9227598ce3af}\label{msd_8h_ac24a33a609ddb2fdb78e9227598ce3af}} 
+\index{msd.h@{msd.h}!msd\_overall@{msd\_overall}}
+\index{msd\_overall@{msd\_overall}!msd.h@{msd.h}}
+\doxysubsubsection{\texorpdfstring{msd\_overall()}{msd\_overall()}}
+{\footnotesize\ttfamily int msd\+\_\+overall (\begin{DoxyParamCaption}\item[{int}]{frame\+\_\+no,  }\item[{int}]{atom\+\_\+no,  }\item[{float}]{traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]},  }\item[{int}]{atom\mbox{[}atom\+\_\+no\mbox{]},  }\item[{int}]{target\+\_\+atom,  }\item[{int}]{resolution,  }\item[{float}]{timerange,  }\item[{float}]{msd\mbox{[}resolution\mbox{]}\mbox{[}2\mbox{]},  }\item[{char $\ast$}]{output }\end{DoxyParamCaption})}
+
+
+
+Calculates the mean square displacement (MSD) of a certain atom type in a trajectory. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em frame\+\_\+no} & number of frames in trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom\+\_\+no} & number of atoms in trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em traj} & atom coordinates of the trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom} & atomic numbers of all atoms in the trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em target\+\_\+atom} & atomic number of the atom type, whose MSD should be calculated. \\
+\hline
+\mbox{\texttt{ in}}  & {\em resolution} & number of correlation times to sample. \\
+\hline
+\mbox{\texttt{ in}}  & {\em timerange} & fraction of trajectory length, up to which correlation times will be generated. \\
+\hline
+\mbox{\texttt{ out}}  & {\em msd} & array holding correlation time and corresponding MSD in each row. \\
+\hline
+\mbox{\texttt{ out}}  & {\em output} & string to be printed and added to output file. \\
+\hline
+\end{DoxyParams}

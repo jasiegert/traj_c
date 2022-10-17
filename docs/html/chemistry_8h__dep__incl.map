@@ -1,8 +1,9 @@
 <map id="src/trajec_io/chemistry.h" name="src/trajec_io/chemistry.h">
-<area shape="rect" id="node1" title="Functions to get information on elements and do simple trajectory calculations." alt="" coords="243,5,423,32"/>
+<area shape="rect" id="node1" title="Functions to get information on elements and do simple trajectory calculations." alt="" coords="306,5,486,32"/>
 <area shape="rect" id="node2" href="$msd_8c.html" title=" " alt="" coords="5,87,120,114"/>
 <area shape="rect" id="node3" href="$oacf_8c.html" title=" " alt="" coords="145,87,258,114"/>
 <area shape="rect" id="node4" href="$rdf_8c.html" title=" " alt="" coords="282,87,385,114"/>
 <area shape="rect" id="node5" href="$dostuff_8c.html" title=" " alt="" coords="409,87,511,114"/>
-<area shape="rect" id="node6" href="$read__trajec_8c.html" title=" " alt="" coords="535,80,670,121"/>
+<area shape="rect" id="node6" href="$chemistry_8c.html" title=" " alt="" coords="535,87,713,114"/>
+<area shape="rect" id="node7" href="$read__trajec_8c.html" title=" " alt="" coords="738,80,873,121"/>
 </map>

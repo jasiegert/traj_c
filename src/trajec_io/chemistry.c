@@ -204,14 +204,19 @@ float pbc_dist_triclinic(float coord_1[3], float coord_2[3], float pbc[3][3])
         diff[i] = coord_1[i] - coord_2[i];
     }
     matrix33_inverse(pbc, inv_pbc);
-    matrix33_vector3_multiplication(inv_pbc, diff, rel_diff);
+    // experimental
+    float pbcT[3][3], inv_pbcT[3][3];
+    matrix33_transpose(pbc, pbcT);
+    matrix33_transpose(inv_pbc, inv_pbcT);
+    //
+    matrix33_vector3_multiplication(inv_pbcT, diff, rel_diff);
     // These loops can be fused for some speedup
     // 
     for (int i = 0; i < 3; i++)
     {
         rel_diff[i] -= round(rel_diff[i]);
     }
-    matrix33_vector3_multiplication(pbc, rel_diff, diff);
+    matrix33_vector3_multiplication(pbcT, rel_diff, diff);
     float distance2 = 0;
     for (int i = 0; i < 3; i++)
     {

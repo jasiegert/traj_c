@@ -8,11 +8,6 @@
 #ifndef MATRICES_H
 #define MATRICES_H
 
-/**
-* @brief Finds cofactor matrix to a given 3x3 matrix.
-* @param[in] mat original matrix
-* @param[out] cofactors cofactor matrix
-*/
 void matrix33_adjoint(float mat[3][3], float adj[3][3]);
 void matrix33_transpose(float mat[3][3], float transpose[3][3]);
 void matrix33_multiplication(float a[3][3], float b[3][3], float c[3][3]);

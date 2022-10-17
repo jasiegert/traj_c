@@ -1,0 +1,236 @@
+\hypertarget{read__trajec_8c}{}\doxysection{src/trajec\+\_\+io/read\+\_\+trajec.c File Reference}
+\label{read__trajec_8c}\index{src/trajec\_io/read\_trajec.c@{src/trajec\_io/read\_trajec.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}chemistry.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}read\+\_\+trajec.\+h\char`\"{}}\newline
+Include dependency graph for read\+\_\+trajec.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{read__trajec_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{read__trajec_8c_a3c6d1f71e221b01cade9b0f92d4a0e50}{get\+\_\+atom\+\_\+and\+\_\+frame\+\_\+no}} (char $\ast$name, int $\ast$atom\+\_\+no, int $\ast$frame\+\_\+no)
+\begin{DoxyCompactList}\small\item\em Counts number of atoms and frames in an xyz-\/file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{read__trajec_8c_a28ba4e821d33b79b6a7b1f72cc944a42}{skipline}} (FILE $\ast$f)
+\item 
+int \mbox{\hyperlink{read__trajec_8c_af31f65142114a5aeed9d8e7db587d2d0}{readxyz}} (char $\ast$name, int $\ast$frame\+\_\+no\+\_\+pointer, int $\ast$atom\+\_\+no\+\_\+pointer, float $\ast$$\ast$trajectory\+\_\+pointer, int $\ast$$\ast$atom\+\_\+pointer)
+\begin{DoxyCompactList}\small\item\em Reads content of an xyz-\/file into a 3D-\/array. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{read__trajec_8c_a682f8020235937bff5fafc167f699bb9}{readtraj}} (char $\ast$name, int $\ast$frame\+\_\+no\+\_\+pointer, int $\ast$atom\+\_\+no\+\_\+pointer, float $\ast$$\ast$trajectory\+\_\+pointer, int $\ast$$\ast$atom\+\_\+pointer)
+\begin{DoxyCompactList}\small\item\em Reads content of an xyz-\/file or dat-\/file into a 3D-\/array. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{read__trajec_8c_a0a6bb87b70d1861153d70f671bd4117f}{readdat}} (char $\ast$datname, int $\ast$frame\+\_\+no\+\_\+pointer, int $\ast$atom\+\_\+no\+\_\+pointer, float $\ast$$\ast$trajectory\+\_\+pointer, int $\ast$$\ast$atom\+\_\+pointer)
+\begin{DoxyCompactList}\small\item\em Reads content of an auxiliary dat-\/file into a 3D-\/array. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{read__trajec_8c_a80ae9d3db42cfd36c139612240d245e6}{readpbc}} (char $\ast$name, float pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]})
+\begin{DoxyCompactList}\small\item\em Reads file containing periodic boundary conditions into array. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{read__trajec_8c_a672f3802fe413e9f17beccee67d52292}{removecom}} (int frame\+\_\+no, int atom\+\_\+no, float traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]}, int atom\mbox{[}atom\+\_\+no\mbox{]}, float trajcom\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]})
+\begin{DoxyCompactList}\small\item\em Removes center of mass movement from a trajectory. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{read__trajec_8c_a62cc15b7e5e2c932b48a4b5c1b47a4ee}{writexyz}} (char $\ast$name, int frame\+\_\+no, int atom\+\_\+no, float traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]}, int atom\mbox{[}atom\+\_\+no\mbox{]})
+\begin{DoxyCompactList}\small\item\em Writes trajectory (atom labels and coordinates) into an xyz-\/file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{read__trajec_8c_a3c6d1f71e221b01cade9b0f92d4a0e50}\label{read__trajec_8c_a3c6d1f71e221b01cade9b0f92d4a0e50}} 
+\index{read\_trajec.c@{read\_trajec.c}!get\_atom\_and\_frame\_no@{get\_atom\_and\_frame\_no}}
+\index{get\_atom\_and\_frame\_no@{get\_atom\_and\_frame\_no}!read\_trajec.c@{read\_trajec.c}}
+\doxysubsubsection{\texorpdfstring{get\_atom\_and\_frame\_no()}{get\_atom\_and\_frame\_no()}}
+{\footnotesize\ttfamily int get\+\_\+atom\+\_\+and\+\_\+frame\+\_\+no (\begin{DoxyParamCaption}\item[{char $\ast$}]{name,  }\item[{int $\ast$}]{atom\+\_\+no,  }\item[{int $\ast$}]{frame\+\_\+no }\end{DoxyParamCaption})}
+
+
+
+Counts number of atoms and frames in an xyz-\/file. 
+
+Each frame should consist of 2 comment lines followed by atom\+\_\+no entries.~\newline
+Number of atoms will be counted in the first frame. Frame number will be determined by counting the lines and dividing by line number per frame (atom\+\_\+no + 2).
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em name} & path to the xyz-\/file. \\
+\hline
+\mbox{\texttt{ out}}  & {\em atom\+\_\+no} & number of atoms. \\
+\hline
+\mbox{\texttt{ out}}  & {\em frame\+\_\+no} & number of frames. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if something went wrong (e.\+g. file can\textquotesingle{}t be opened or is not properly formatted), otherwise 0. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{read__trajec_8c_a0a6bb87b70d1861153d70f671bd4117f}\label{read__trajec_8c_a0a6bb87b70d1861153d70f671bd4117f}} 
+\index{read\_trajec.c@{read\_trajec.c}!readdat@{readdat}}
+\index{readdat@{readdat}!read\_trajec.c@{read\_trajec.c}}
+\doxysubsubsection{\texorpdfstring{readdat()}{readdat()}}
+{\footnotesize\ttfamily int readdat (\begin{DoxyParamCaption}\item[{char $\ast$}]{datname,  }\item[{int $\ast$}]{frame\+\_\+no\+\_\+pointer,  }\item[{int $\ast$}]{atom\+\_\+no\+\_\+pointer,  }\item[{float $\ast$$\ast$}]{trajectory\+\_\+pointer,  }\item[{int $\ast$$\ast$}]{atom\+\_\+pointer }\end{DoxyParamCaption})}
+
+
+
+Reads content of an auxiliary dat-\/file into a 3D-\/array. 
+
+Reads dat-\/file. For usage see \mbox{\hyperlink{read__trajec_8h_a682f8020235937bff5fafc167f699bb9}{readtraj}}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em datname} & path to the xyz-\/file. \\
+\hline
+\mbox{\texttt{ in}}  & {\em frame\+\_\+no\+\_\+pointer} & number of frames in the trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom\+\_\+no\+\_\+pointer} & number of atoms in the trajectory \\
+\hline
+\mbox{\texttt{ out}}  & {\em trajectory\+\_\+pointer} & 3D-\/array to hold the trajectory coordinates. \\
+\hline
+\mbox{\texttt{ out}}  & {\em atom\+\_\+pointer} & atomic numbers of atoms in the trajectory in the same order as they appear in the first frame. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 1 if a problem occured, otherwise 0. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{read__trajec_8c_a80ae9d3db42cfd36c139612240d245e6}\label{read__trajec_8c_a80ae9d3db42cfd36c139612240d245e6}} 
+\index{read\_trajec.c@{read\_trajec.c}!readpbc@{readpbc}}
+\index{readpbc@{readpbc}!read\_trajec.c@{read\_trajec.c}}
+\doxysubsubsection{\texorpdfstring{readpbc()}{readpbc()}}
+{\footnotesize\ttfamily int readpbc (\begin{DoxyParamCaption}\item[{char $\ast$}]{name,  }\item[{float}]{pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Reads file containing periodic boundary conditions into array. 
+
+Periodic boundary conditions have to be represented as three vectors. The file passed to this function should contain one vector represented as three floats on each line. Additional lines will be ignored.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em name} & path to the file. \\
+\hline
+\mbox{\texttt{ out}}  & {\em pbc} & 3x3 array containing each pbc vector as a row. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if a problem occured, otherwise 0. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{read__trajec_8c_a682f8020235937bff5fafc167f699bb9}\label{read__trajec_8c_a682f8020235937bff5fafc167f699bb9}} 
+\index{read\_trajec.c@{read\_trajec.c}!readtraj@{readtraj}}
+\index{readtraj@{readtraj}!read\_trajec.c@{read\_trajec.c}}
+\doxysubsubsection{\texorpdfstring{readtraj()}{readtraj()}}
+{\footnotesize\ttfamily int readtraj (\begin{DoxyParamCaption}\item[{char $\ast$}]{name,  }\item[{int $\ast$}]{frame\+\_\+no\+\_\+pointer,  }\item[{int $\ast$}]{atom\+\_\+no\+\_\+pointer,  }\item[{float $\ast$$\ast$}]{trajectory\+\_\+pointer,  }\item[{int $\ast$$\ast$}]{atom\+\_\+pointer }\end{DoxyParamCaption})}
+
+
+
+Reads content of an xyz-\/file or dat-\/file into a 3D-\/array. 
+
+Reads a trajectory from an xyz-\/file. If an auxiliary dat-\/file (with .xyz replaced by .dat) exists, it will be used instead, otherwise it will be generated.~\newline
+Since atom is a 1D-\/array the pointer $\ast$atom\+\_\+pointer can be used as is. For the trajectory casting to a 3D-\/array might be useful\+:~\newline
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{float} *trajectory\_pointer;}
+\DoxyCodeLine{\textcolor{keywordtype}{int} frame\_no, atom\_no;}
+\DoxyCodeLine{\textcolor{keywordtype}{int} *atom;}
+\DoxyCodeLine{\mbox{\hyperlink{read__trajec_8c_a682f8020235937bff5fafc167f699bb9}{readtraj}}(\textcolor{keywordtype}{char} *name, \&frame\_no, \&atom\_no, \&trajectory\_pointer, \&atom);}
+\DoxyCodeLine{float (*traj)[atom\_no][3] = ( float (*)[atom\_no][3] ) trajectory\_pointer;}
+
+\end{DoxyCode}
+
+
+\begin{DoxyWarning}{Warning}
+Atom ($\ast$atom\+\_\+pointer) and trajectory ($\ast$trajectory\+\_\+pointer) will be malloc\textquotesingle{}d, remember to free them! 
+\end{DoxyWarning}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em name} & path to the xyz-\/file. \\
+\hline
+\mbox{\texttt{ in}}  & {\em frame\+\_\+no\+\_\+pointer} & number of frames in the trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom\+\_\+no\+\_\+pointer} & number of atoms in the trajectory \\
+\hline
+\mbox{\texttt{ out}}  & {\em trajectory\+\_\+pointer} & 3D-\/array to hold the trajectory coordinates. \\
+\hline
+\mbox{\texttt{ out}}  & {\em atom\+\_\+pointer} & atomic numbers of atoms in the trajectory in the same order as they appear in the first frame. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 1 if a problem occured, otherwise 0. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{read__trajec_8c_af31f65142114a5aeed9d8e7db587d2d0}\label{read__trajec_8c_af31f65142114a5aeed9d8e7db587d2d0}} 
+\index{read\_trajec.c@{read\_trajec.c}!readxyz@{readxyz}}
+\index{readxyz@{readxyz}!read\_trajec.c@{read\_trajec.c}}
+\doxysubsubsection{\texorpdfstring{readxyz()}{readxyz()}}
+{\footnotesize\ttfamily int readxyz (\begin{DoxyParamCaption}\item[{char $\ast$}]{name,  }\item[{int $\ast$}]{frame\+\_\+no\+\_\+pointer,  }\item[{int $\ast$}]{atom\+\_\+no\+\_\+pointer,  }\item[{float $\ast$$\ast$}]{trajectory\+\_\+pointer,  }\item[{int $\ast$$\ast$}]{atom\+\_\+pointer }\end{DoxyParamCaption})}
+
+
+
+Reads content of an xyz-\/file into a 3D-\/array. 
+
+Reads xyz-\/file. For usage see \mbox{\hyperlink{read__trajec_8h_a682f8020235937bff5fafc167f699bb9}{readtraj}}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em name} & path to the xyz-\/file. \\
+\hline
+\mbox{\texttt{ in}}  & {\em frame\+\_\+no\+\_\+pointer} & number of frames in the trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom\+\_\+no\+\_\+pointer} & number of atoms in the trajectory \\
+\hline
+\mbox{\texttt{ out}}  & {\em trajectory\+\_\+pointer} & 3D-\/array to hold the trajectory coordinates. \\
+\hline
+\mbox{\texttt{ out}}  & {\em atom\+\_\+pointer} & atomic numbers of atoms in the trajectory in the same order as they appear in the first frame. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 1 if a problem occured, otherwise 0. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{read__trajec_8c_a672f3802fe413e9f17beccee67d52292}\label{read__trajec_8c_a672f3802fe413e9f17beccee67d52292}} 
+\index{read\_trajec.c@{read\_trajec.c}!removecom@{removecom}}
+\index{removecom@{removecom}!read\_trajec.c@{read\_trajec.c}}
+\doxysubsubsection{\texorpdfstring{removecom()}{removecom()}}
+{\footnotesize\ttfamily int removecom (\begin{DoxyParamCaption}\item[{int}]{frame\+\_\+no,  }\item[{int}]{atom\+\_\+no,  }\item[{float}]{traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]},  }\item[{int}]{atom\mbox{[}atom\+\_\+no\mbox{]},  }\item[{float}]{trajcom\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Removes center of mass movement from a trajectory. 
+
+Removes center of mass movement from the trajectory by setting the center of mass to (0, 0, 0) in each frame. This is necessary to correctly calculate the mean-\/square displacement.~\newline
+Source (traj) and target (trajcom) can be the same.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em frame\+\_\+no} & number of frames in the trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom\+\_\+no} & number of atoms in trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em traj} & coordinates of all atoms. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom} & atomic numbers of all atoms. \\
+\hline
+\mbox{\texttt{ out}}  & {\em trajcom} & coordinates of all atoms with the center of mass set to (0, 0, 0) in each frame. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{read__trajec_8c_a28ba4e821d33b79b6a7b1f72cc944a42}\label{read__trajec_8c_a28ba4e821d33b79b6a7b1f72cc944a42}} 
+\index{read\_trajec.c@{read\_trajec.c}!skipline@{skipline}}
+\index{skipline@{skipline}!read\_trajec.c@{read\_trajec.c}}
+\doxysubsubsection{\texorpdfstring{skipline()}{skipline()}}
+{\footnotesize\ttfamily void skipline (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{f }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{read__trajec_8c_a62cc15b7e5e2c932b48a4b5c1b47a4ee}\label{read__trajec_8c_a62cc15b7e5e2c932b48a4b5c1b47a4ee}} 
+\index{read\_trajec.c@{read\_trajec.c}!writexyz@{writexyz}}
+\index{writexyz@{writexyz}!read\_trajec.c@{read\_trajec.c}}
+\doxysubsubsection{\texorpdfstring{writexyz()}{writexyz()}}
+{\footnotesize\ttfamily int writexyz (\begin{DoxyParamCaption}\item[{char $\ast$}]{name,  }\item[{int}]{frame\+\_\+no,  }\item[{int}]{atom\+\_\+no,  }\item[{float}]{traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]},  }\item[{int}]{atom\mbox{[}atom\+\_\+no\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Writes trajectory (atom labels and coordinates) into an xyz-\/file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em name} & path to the file, which should be written. \\
+\hline
+\mbox{\texttt{ in}}  & {\em frame\+\_\+no} & number of frames in the trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom\+\_\+no} & number of atoms in the trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em traj} & coordinates. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom} & atomic numbers. \\
+\hline
+\end{DoxyParams}

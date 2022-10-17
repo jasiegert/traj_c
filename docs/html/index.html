@@ -66,24 +66,18 @@ $(function() {
 <div class="title">Trajectory analyzer </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a> </p>
-<h1><a class="anchor" id="autotoc_md1"></a>
-CS50 final project</h1>
-<p>Author: Johnny Alexander Jimenez Siegert</p>
-<p>City: Halle (Saale)</p>
-<p>Country: Germany</p>
-<p>Video demo: <a href="https://youtu.be/846dDKsV6Go">Youtube</a>.</p>
-<h1><a class="anchor" id="autotoc_md2"></a>
-Trajectory analyzer</h1>
-<p>This is a tool used to analyze a trajectory, the result of a molecular dynamics (MD) simulation. It's primariliy written for use in bash shell under a linux-based OS.</p>
+<div class="textblock"><p><a class="anchor" id="md_README"></a> This is a tool used to analyze a trajectory, the result of a molecular dynamics (MD) simulation. It's primariliy written for use in bash shell under a linux-based OS.</p>
 <p>The documentation should ideally be read in a browser beginning with docs/html/index.html. As a shorthand you can open this file with: <code>make openmanual</code>. The documentation can also be rebuilt with doxygen via: <code>make manual</code>.</p>
 <p>I've written this tool with a background in computational chemistry. If you're unfamiliar with this field, you might want to check out the <a class="el" href="md_docs_THEORY.html">Theoretical Background</a>.</p>
-<h1><a class="anchor" id="autotoc_md3"></a>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Warning</h1>
+<p>This program is still under development. It's mostly meant for analysis of simple trajectories, where all atoms of the same element are chemically equivalent and can be evaluated as a group. If you require a more powerful tool, you might want to check out <a href="http://www.travis-analyzer.de/">TRAVIS</a>, the program that inspired this project.</p>
+<h1><a class="anchor" id="autotoc_md2"></a>
 Installation</h1>
 <p>In order to build the executable, simply invoke <code>make</code>. This will build all the necessary object files and an executable traj_analyzer. You can remove the object files with <code>make clean</code>. Compilation can be sped up using the <code>-j N</code> option, where N is the number of CPU cores. On a system with 4 cores, you could therefore run: </p><pre class="fragment">make -j 4
 make clean
 </pre><p> If you wish to remove all compiled files including the executable, run <code>make remove</code>.</p>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md3"></a>
 Usage</h1>
 <p>The executable traj_analyzer expects three arguments:</p><ul>
 <li><p class="startli">Trajectory (.xyz)</p>
@@ -97,7 +91,7 @@ Usage</h1>
 </li>
 </ul>
 <p>With these three, you can invoke the program as: </p><pre class="fragment">traj_analyzer trajectory.xyz pbc-file input-file
-</pre> <h1><a class="anchor" id="autotoc_md5"></a>
+</pre> <h1><a class="anchor" id="autotoc_md4"></a>
 Example</h1>
 <p>A small example is included in the directory example/. It contains the necessary inputs for a simple calculation:</p><ul>
 <li><p class="startli">Trajectory: example/traj/CDP_224.xyz</p>
@@ -115,7 +109,7 @@ Example</h1>
 <div class="line">cd results;</div>
 <div class="line">../../traj_analyzer ../traj/CDP_224_small.xyz ../traj/pbc_CDP_224 ../calc.inp;</div>
 </div><!-- fragment --><p>These commands have been collected in example/example.sh, once inside the example/ directory you can run <code>bash example.sh</code>. The results will be stored in the directory example/results. For reference the same functions have been computed using the free program package <a href="http://www.travis-analyzer.de/">TRAVIS</a>. The csv-files with the same name in results/ and reference/ should be just about the same (within margin of error).</p>
-<h1><a class="anchor" id="autotoc_md6"></a>
+<h1><a class="anchor" id="autotoc_md5"></a>
 Calculations</h1>
 <p>Currently three types of calculations are supported: mean square displacement (MSD), radial distribution function (RDF) and orientational auto-correlation function (OACF).</p>
 <p>Each function requires either one (MSD) or two (RDF, OACF) obligatory arguments. The remaining arguments are optional and will be assumed to be their default values, if not specified. All calculations with arguments are:</p>
@@ -141,7 +135,7 @@ Calculations</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Min distances   </td><td class="markdownTableBodyNone">0   </td><td class="markdownTableBodyNone">Minimum distance to bin.    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Max distances   </td><td class="markdownTableBodyNone">4   </td><td class="markdownTableBodyNone">Maximum distance to bin.    </td></tr>
+<td class="markdownTableBodyNone">Max distances   </td><td class="markdownTableBodyNone">4   </td><td class="markdownTableBodyNone">Maximum distance to bin. Must be below half of the smallest for non-orthorhombic boxes, results for larger distances might be wrong.    </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone" rowspan="4">oacf   </td><td class="markdownTableBodyNone">Atom type 1   </td><td class="markdownTableBodyNone">-   </td><td class="markdownTableBodyNone">First atom type, which will be the start of the rotating vector.    </td></tr>
 <tr class="markdownTableRowEven">
@@ -157,7 +151,7 @@ msd_fft H 0.3
 rdf O O 300 0 4
 rdf_inter O O P 300 0 4
 oacf P O 100 0.
-</pre> <h1><a class="anchor" id="autotoc_md7"></a>
+</pre> <h1><a class="anchor" id="autotoc_md6"></a>
 License</h1>
 <p>This project comes with a <a href="https://opensource.org/licenses/BSD-3-Clause">BSD-3-Clause</a> license. Feel free to include (whole or in parts), modify or distribute it with your own projects, as long as you retain the information specified in the <a href="../../LICENSE">license file</a>.</p>
 <p>I have included parts of the <a href="https://github.com/mborgerding/kissfft">kissFFT</a> project by Mark Borgerding, which comes with a BSD-3-clause as well. For more information see the <a href="../../src/kissFFT/COPYING">license file</a> in src/kissfft/. </p>

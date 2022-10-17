@@ -66,13 +66,13 @@ $(function() {
 <div class="title">Theoretical Background </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md9"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md8"></a>
 Molecular Dynamics</h1>
 <p>Molecular Dynamics (MD) is a computer simulation technique used to study the movement of atoms and molecules, often used in the fields of theoretical chemistry and solid-state physics. It allows us to find numerical solutions to the equations of motion. Most commonly Born-Oppenheimer MD (BOMD) are applied, in which the atoms get treated via classical mechanics. For a certain geometry an approximation of the Schrödinger equation is solved, the resulting forces are applied for a short time span (the time step, often on the order of 1 fs) and the atoms moved, before beginning anew.</p>
 <p>Naturally only a limited number of atoms can be simulated. Putting these atoms into a vacuum or constraining them with a set of impenetrable walls would have a strong influence on the system, which would distort its properties. In order to approximate the infinitely large bulk phase, a simulation box with periodic boundary conditions is used. These boundary conditions define a parallelepiped, which contains all simulated atoms. Should an atom try to leave the simulation box, it will simply reappear on the opposite site. In effect the simulation box is repeated infinitely often in all directions.</p>
 <p>The result of such simulations are trajectories. A trajectory is in essence a way to represent the movement of atoms (or other particles) through three-dimensional space. The most accessable visualisation of a trajectory is a video showing the movement of atoms through space. As an example a water molecule at 350 K over the course of 100 fs might look like this:</p>
 <p><img src="water.gif" alt="" width="150" class="inline"/></p>
-<h1><a class="anchor" id="autotoc_md10"></a>
+<h1><a class="anchor" id="autotoc_md9"></a>
 Trajectories</h1>
 <p>Trajectories can be represented in a multitude of file formats. For this program I have chosen to support the .xyz file format. Trajectories of this format are for example produced by the free software packages <a href="https://www.cp2k.org/">CP2K</a> and <a href="https://orcaforum.kofo.mpg.de/app.php/portal">ORCA</a>.</p>
 <p>Files of the .xyz format generally follow this structue: </p><pre class="fragment">number of atoms
@@ -94,9 +94,9 @@ H  0.758602  0.000000 -0.504284
 </pre> </td><td><img src="water.png" alt="" width="150" class="inline"/> </td></tr>
 </table>
 <p>This shows the water molecule at some specific point in time. In order to show its evolution through time, the same syntax can be repeated with updated coordinates as often as necessary.</p>
-<h1><a class="anchor" id="autotoc_md11"></a>
+<h1><a class="anchor" id="autotoc_md10"></a>
 Calculations</h1>
-<h2><a class="anchor" id="autotoc_md12"></a>
+<h2><a class="anchor" id="autotoc_md11"></a>
 Mean-square displacement</h2>
 <p>The mean-square displacement (MSD) is a measure of the average mobility of atoms (or any structure with a set of coordinates) over short time spans, called correlation times or lag times. The MSD for a correlation time <img class="formulaInl" alt="$\tau$" src="form_0.png" width="8" height="6"/> is the squared distance between the coordinates before <img class="formulaInl" alt="$\vec{r}(t)$" src="form_1.png" width="20" height="14"/> and after <img class="formulaInl" alt="$\vec{r}(t+\tau)$" src="form_2.png" width="43" height="14"/> the correlation time, averaged over all atoms <img class="formulaInl" alt="$i$" src="form_3.png" width="5" height="9"/> and time windows <img class="formulaInl" alt="$t$" src="form_4.png" width="5" height="9"/> to <img class="formulaInl" alt="$t+\tau$" src="form_5.png" width="28" height="10"/>:</p>
 <p class="formulaDsp">
@@ -108,14 +108,14 @@ Mean-square displacement</h2>
 <img class="formulaDsp" alt="\[ D = \lim_{\tau \rightarrow \infty} \frac{1}{6\tau} MSD(\tau) \]" src="form_7.png" width="119" height="26"/>
 </p>
 <p>Accordingly a linear fit is applied to the calculated MSD- <img class="formulaInl" alt="$\tau$" src="form_0.png" width="8" height="6"/>-values and a sixth of the slope is returned as the diffusion coefficient. In general the MSD shows good linearity only for sufficiently high correlation times, which is why the linear fit is only applied to the second half of the sampled correlation times.</p>
-<h2><a class="anchor" id="autotoc_md13"></a>
+<h2><a class="anchor" id="autotoc_md12"></a>
 Radial-distribution function</h2>
 <p>The radial-distribution function (RDF) <img class="formulaInl" alt="$g_{ab}(r)$" src="form_8.png" width="33" height="14"/> is defined as the probability of finding a particle of type b at a distance <img class="formulaInl" alt="$r$" src="form_9.png" width="8" height="6"/> from a particle of type a relative to the uniform density, which would occur if all particles were distributed uniformly in the simulation cell:</p>
 <p class="formulaDsp">
 <img class="formulaDsp" alt="\[ g_{ab}(r) = \frac{V}{N_a \cdot N_b} \sum_{i=1}^{N_a} \sum_{j=1}^{N_b} \left&lt; \delta \left( r - \left| \vec{r}_i(t) - \vec{r}_j(t) \right| \right) \right&gt;_t \]" src="form_10.png" width="259" height="40"/>
 </p>
 <p>Since a real trajectory can only give a limited sample size, the delta distribution is replaced by a binning function, which sorts the occuring distances into equidistant bins. A peak in the RDF plot might indicate the association of particles, e.g. ions due to electrostatic interaction or atoms within a molecule due to covalent bonding.</p>
-<h2><a class="anchor" id="autotoc_md14"></a>
+<h2><a class="anchor" id="autotoc_md13"></a>
 Orientational auto-correlation function</h2>
 <p>The orientational auto-correlation function (OACF) <img class="formulaInl" alt="$ g_{ab} (\tau) $" src="form_11.png" width="33" height="14"/> is a measure of the rotational dynamics of a vector <img class="formulaInl" alt="$ \vec{x}_i $" src="form_12.png" width="11" height="13"/>. This vector is the connection between each atom of type a and the atom of type b closest to it, which usually represents a bond. The auto-correlation function is then:</p>
 <p class="formulaDsp">

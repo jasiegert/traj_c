@@ -4,7 +4,7 @@ CC = gcc
 CFLAGS = -Wextra -Wall -O3 -march=native
 LIBS = -lm  # links math.h
 SRCDIR = src/
-SRCFILES = dostuff.c trajec_io/read_trajec.c trajec_io/chemistry.c calc/mathtools.c calc/msd.c calc/rdf.c calc/oacf.c kissFFT/kiss_fft.c kissFFT/kiss_fftr.c
+SRCFILES = dostuff.c trajec_io/read_trajec.c trajec_io/chemistry.c trajec_io/matrices_and_vectors.c calc/mathtools.c calc/msd.c calc/rdf.c calc/oacf.c kissFFT/kiss_fft.c kissFFT/kiss_fftr.c
 
 HEADERS = $(SRCFILES:%.c=$(SRCDIR)%.h)
 INCLUDE = $(SRCDIR:%=-I%)

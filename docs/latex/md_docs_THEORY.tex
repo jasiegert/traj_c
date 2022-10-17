@@ -1,0 +1,55 @@
+\hypertarget{md_docs_THEORY_autotoc_md8}{}\doxysection{Molecular Dynamics}\label{md_docs_THEORY_autotoc_md8}
+Molecular Dynamics (MD) is a computer simulation technique used to study the movement of atoms and molecules, often used in the fields of theoretical chemistry and solid-\/state physics.
+
+The result of such simulations are trajectories. A trajectory is in essence a way to represent the movement of atoms (or other particles) through three-\/dimensional space. The most accessable visualisation of a trajectory is a video showing the movement of atoms through space. As an example a water molecule at 350 K over the course of 100 fs might look like this\+:
+
+\hypertarget{md_docs_THEORY_autotoc_md9}{}\doxysection{Trajectories}\label{md_docs_THEORY_autotoc_md9}
+Trajectories can be represented in a multitude of file formats. For this program I have chosen to support the .xyz file format. Trajectories of this format are for example produced by the free software packages \href{https://www.cp2k.org/}{\texttt{ CP2K}} and \href{https://orcaforum.kofo.mpg.de/app.php/portal}{\texttt{ ORCA}}.
+
+Files of the .xyz format generally follow this structue\+: \begin{DoxyVerb}number of atoms
+(comment line)
+chemical symbol      x-coordinate    y-coordinate    z-coordinate
+chemical symbol      x-coordinate    y-coordinate    z-coordinate
+chemical symbol      x-coordinate    y-coordinate    z-coordinate
+.
+.
+.
+\end{DoxyVerb}
+ As a simple example, a water molecule could be represented as\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\begin{DoxyVerb}3
+my water molecule
+O  0.000000  0.000000  0.000000
+H  0.758602  0.000000  0.504284
+H  0.758602  0.000000 -0.504284
+\end{DoxyVerb}
+ & \\\cline{1-2}
+\end{longtabu}
+
+
+This shows the water molecule at some specific point in time. In order to show its evolution through time, the same syntax can be repeated with updated coordinates as often as necessary.\hypertarget{md_docs_THEORY_autotoc_md10}{}\doxysection{Calculations}\label{md_docs_THEORY_autotoc_md10}
+\hypertarget{md_docs_THEORY_autotoc_md11}{}\doxysubsection{Mean-\/square displacement}\label{md_docs_THEORY_autotoc_md11}
+The mean-\/square displacement (MSD) is a measure of the average mobility of atoms (or any structure with a set of coordinates) over short time spans, called correlation times or lag times. The MSD for a correlation time $\tau$ is the squared distance between the coordinates before $\vec{r}(t)$ and after $\vec{r}(t+\tau)$ the correlation time, averaged over all atoms $i$ and time windows $t$ to $t+\tau$\+:
+
+\[ MSD(\tau) = \left< \left| \vec{r}_i (t + \tau) - \vec{r}_i (t) \right| ^2 \right> _ {t, i} \]
+
+All time windows are assumed to be completely uncorrelated to each other and will be used to calculate the MSD. For example for a trajectory with 100 time steps and a correlation time of 10 time steps, the MSD(10 time steps) will be the average of 90 time windows starting with 1 to 11 and ending with 90 to 100. For large correlation times, the number of time windows will thus decrease, which leads to higher statistical noise. Correlation times should therefore generally be given an upper limit much lower than the overall length of the trajectory.
+
+From the MSD the diffusion coefficient can be calculated via\+:
+
+\[ D = \lim_{\tau \rightarrow \infty} \frac{1}{6\tau} MSD(\tau) \]
+
+Accordingly a linear fit is applied to the calculated MSD-\/ $\tau$-\/values and a sixth of the slope is returned as the diffusion coefficient. In general the MSD shows good linearity only for sufficiently high correlation times, which is why the linear fit is only applied to the second half of the sampled correlation times.\hypertarget{md_docs_THEORY_autotoc_md12}{}\doxysubsection{Radial-\/distribution function}\label{md_docs_THEORY_autotoc_md12}
+The radial-\/distribution function (RDF) $g_{ab}(r)$ is defined as the probability of finding a particle of type b at a distance $r$ from a particle of type a relative to the uniform density, which would occur if all particles were distributed uniformly in the simulation cell\+:
+
+\[ g_{ab}(r) = \frac{V}{N_a \cdot N_b} \sum_{i=1}^{N_a} \sum_{j=1}^{N_b} \left< \delta \left( r - \left| \vec{r}_i(t) - \vec{r}_j(t) \right| \right) \right>_t \]
+
+Since a real trajectory can only give a limited sample size, the delta distribution is replaced by a binning function, which sorts the occuring distances into equidistant bins. A peak in the RDF plot might indicate the association of particles, e.\+g. ions due to electrostatic interaction or atoms within a molecule due to covalent bonding.\hypertarget{md_docs_THEORY_autotoc_md13}{}\doxysubsection{Orientational auto-\/correlation function}\label{md_docs_THEORY_autotoc_md13}
+The orientational auto-\/correlation function (OACF) $ g_{ab} (\tau) $ is a measure of the rotational dynamics of a vector $ \vec{x}_i $. This vector is the connection between each atom of type a and the atom of type b closest to it, which usually represents a bond. The auto-\/correlation function is then\+:
+
+\[ \vec{x}_i = \vec{r}_{a, i} - \vec{r}_{b, i} \]
+
+\[ g(\tau) = \left< \vec{x}_i (t) \cdot \vec{x}_i (t+\tau) \right> \] 

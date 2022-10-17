@@ -1,0 +1,66 @@
+\hypertarget{mathtools_8c}{}\doxysection{src/calc/mathtools.c File Reference}
+\label{mathtools_8c}\index{src/calc/mathtools.c@{src/calc/mathtools.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+Include dependency graph for mathtools.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{mathtools_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{mathtools_8c_a30c6a3c1e39af892755740337b49ecd3}{linregress}} (int n, float x\mbox{[}n\mbox{]}, float y\mbox{[}n\mbox{]}, float start\+\_\+point, float end\+\_\+point, float $\ast$slope, float $\ast$intercept, float $\ast$R)
+\begin{DoxyCompactList}\small\item\em Apply linear regression on data supplied as two 1D float arrays. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{mathtools_8c_a2f54b58e1efbafd78a77ac55f1f3ae17}{linregress\+\_\+array}} (int n, float ar\mbox{[}n\mbox{]}\mbox{[}2\mbox{]}, float start\+\_\+point, float end\+\_\+point, float $\ast$slope, float $\ast$intercept, float $\ast$R)
+\item 
+int \mbox{\hyperlink{mathtools_8c_ac9090c3ca1aa648fc1842337c2f691da}{savecsv}} (char $\ast$outputname, int col\+\_\+no, int row\+\_\+no, float outputarray\mbox{[}col\+\_\+no\mbox{]}\mbox{[}row\+\_\+no\mbox{]}, char $\ast$headerstring)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{mathtools_8c_a30c6a3c1e39af892755740337b49ecd3}\label{mathtools_8c_a30c6a3c1e39af892755740337b49ecd3}} 
+\index{mathtools.c@{mathtools.c}!linregress@{linregress}}
+\index{linregress@{linregress}!mathtools.c@{mathtools.c}}
+\doxysubsubsection{\texorpdfstring{linregress()}{linregress()}}
+{\footnotesize\ttfamily int linregress (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{float}]{x\mbox{[}n\mbox{]},  }\item[{float}]{y\mbox{[}n\mbox{]},  }\item[{float}]{start\+\_\+point,  }\item[{float}]{end\+\_\+point,  }\item[{float $\ast$}]{slope,  }\item[{float $\ast$}]{intercept,  }\item[{float $\ast$}]{R }\end{DoxyParamCaption})}
+
+
+
+Apply linear regression on data supplied as two 1D float arrays. 
+
+Applies a linear regression to the data points supplied as x and y. Only fit data in an interval defined by start\+\_\+point and end\+\_\+point.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em n} & Number of points in the data. \\
+\hline
+\mbox{\texttt{ in}}  & {\em x} & x-\/values of each data point. \\
+\hline
+\mbox{\texttt{ in}}  & {\em y} & y-\/values of each data point. \\
+\hline
+\mbox{\texttt{ in}}  & {\em start\+\_\+point} & starting point expressed as fraction of total length, data points up until that point will be ignored. \\
+\hline
+\mbox{\texttt{ in}}  & {\em end\+\_\+point} & end point expressed as fraction of total length, data points beyond that point will be ignored. \\
+\hline
+\mbox{\texttt{ out}}  & {\em slope} & slope of the linear fit. \\
+\hline
+\mbox{\texttt{ out}}  & {\em intercept} & intercept with the y-\/axis of the linear fit. \\
+\hline
+\mbox{\texttt{ out}}  & {\em R} & sum of all squared differences between data points and linear regression -\/$>$ measure of \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mathtools_8c_a2f54b58e1efbafd78a77ac55f1f3ae17}\label{mathtools_8c_a2f54b58e1efbafd78a77ac55f1f3ae17}} 
+\index{mathtools.c@{mathtools.c}!linregress\_array@{linregress\_array}}
+\index{linregress\_array@{linregress\_array}!mathtools.c@{mathtools.c}}
+\doxysubsubsection{\texorpdfstring{linregress\_array()}{linregress\_array()}}
+{\footnotesize\ttfamily int linregress\+\_\+array (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{float}]{ar\mbox{[}n\mbox{]}\mbox{[}2\mbox{]},  }\item[{float}]{start\+\_\+point,  }\item[{float}]{end\+\_\+point,  }\item[{float $\ast$}]{slope,  }\item[{float $\ast$}]{intercept,  }\item[{float $\ast$}]{R }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{mathtools_8c_ac9090c3ca1aa648fc1842337c2f691da}\label{mathtools_8c_ac9090c3ca1aa648fc1842337c2f691da}} 
+\index{mathtools.c@{mathtools.c}!savecsv@{savecsv}}
+\index{savecsv@{savecsv}!mathtools.c@{mathtools.c}}
+\doxysubsubsection{\texorpdfstring{savecsv()}{savecsv()}}
+{\footnotesize\ttfamily int savecsv (\begin{DoxyParamCaption}\item[{char $\ast$}]{outputname,  }\item[{int}]{col\+\_\+no,  }\item[{int}]{row\+\_\+no,  }\item[{float}]{outputarray\mbox{[}col\+\_\+no\mbox{]}\mbox{[}row\+\_\+no\mbox{]},  }\item[{char $\ast$}]{headerstring }\end{DoxyParamCaption})}
+

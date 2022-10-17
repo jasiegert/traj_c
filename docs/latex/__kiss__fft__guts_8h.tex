@@ -1,0 +1,228 @@
+\hypertarget{__kiss__fft__guts_8h}{}\doxysection{src/kiss\+FFT/\+\_\+kiss\+\_\+fft\+\_\+guts.h File Reference}
+\label{__kiss__fft__guts_8h}\index{src/kissFFT/\_kiss\_fft\_guts.h@{src/kissFFT/\_kiss\_fft\_guts.h}}
+{\ttfamily \#include \char`\"{}kiss\+\_\+fft.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}kiss\+\_\+fft\+\_\+log.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+Include dependency graph for \+\_\+kiss\+\_\+fft\+\_\+guts.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{__kiss__fft__guts_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{__kiss__fft__guts_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structkiss__fft__state}{kiss\+\_\+fft\+\_\+state}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{__kiss__fft__guts_8h_af176a125e008eb443996cf0f83cc135c}{MAXFACTORS}}~32
+\item 
+\#define \mbox{\hyperlink{__kiss__fft__guts_8h_a944e08f3916c56a9697bbfed458eaa94}{S\+\_\+\+MUL}}(a,  b)~( (a)$\ast$(b) )
+\item 
+\#define \mbox{\hyperlink{__kiss__fft__guts_8h_ab5092aa032092f1057feca5fbea40758}{C\+\_\+\+MUL}}(m,  a,  b)
+\item 
+\#define \mbox{\hyperlink{__kiss__fft__guts_8h_a05e11bb1e8e815dd7bdd199060b7555a}{C\+\_\+\+FIXDIV}}(c,  div)~/$\ast$ NOOP $\ast$/
+\item 
+\#define \mbox{\hyperlink{__kiss__fft__guts_8h_a958da96ff02cad6be35cafa3019804b5}{C\+\_\+\+MULBYSCALAR}}(c,  s)
+\item 
+\#define \mbox{\hyperlink{__kiss__fft__guts_8h_a664c056b2a7093f88391d7db3558aa24}{CHECK\+\_\+\+OVERFLOW\+\_\+\+OP}}(a,  op,  b)~/$\ast$ noop $\ast$/
+\item 
+\#define \mbox{\hyperlink{__kiss__fft__guts_8h_a1f70747639c855259a0965de768e030a}{C\+\_\+\+ADD}}(res,  a,  b)
+\item 
+\#define \mbox{\hyperlink{__kiss__fft__guts_8h_a8c00bd9702f25a8514402a3779b3bdda}{C\+\_\+\+SUB}}(res,  a,  b)
+\item 
+\#define \mbox{\hyperlink{__kiss__fft__guts_8h_a2042ee8c6fb9306eb20d62e6506446aa}{C\+\_\+\+ADDTO}}(res,  a)
+\item 
+\#define \mbox{\hyperlink{__kiss__fft__guts_8h_aa3f448e1963492dfc145fc391cbedd27}{C\+\_\+\+SUBFROM}}(res,  a)
+\item 
+\#define \mbox{\hyperlink{__kiss__fft__guts_8h_a2e780e8fe86d9c3e7b6a469f61aaf5d1}{KISS\+\_\+\+FFT\+\_\+\+COS}}(phase)~(\mbox{\hyperlink{kiss__fft_8h_a4d9bf2d6a2ce1b061545a16faf77d337}{kiss\+\_\+fft\+\_\+scalar}}) cos(phase)
+\item 
+\#define \mbox{\hyperlink{__kiss__fft__guts_8h_a2d4fc93cde15512f1946f364d5271dd3}{KISS\+\_\+\+FFT\+\_\+\+SIN}}(phase)~(\mbox{\hyperlink{kiss__fft_8h_a4d9bf2d6a2ce1b061545a16faf77d337}{kiss\+\_\+fft\+\_\+scalar}}) sin(phase)
+\item 
+\#define \mbox{\hyperlink{__kiss__fft__guts_8h_a0b812a30fdb0c530a90a18d1692fab6c}{HALF\+\_\+\+OF}}(x)~((x)$\ast$((\mbox{\hyperlink{kiss__fft_8h_a4d9bf2d6a2ce1b061545a16faf77d337}{kiss\+\_\+fft\+\_\+scalar}}).\+5))
+\item 
+\#define \mbox{\hyperlink{__kiss__fft__guts_8h_ac7852abdf2dc5ed4538551be6d1dd20b}{kf\+\_\+cexp}}(x,  phase)
+\item 
+\#define \mbox{\hyperlink{__kiss__fft__guts_8h_ac1abb41ecdedd05dda5d1ce83b67a704}{pcpx}}(c)~    \mbox{\hyperlink{kiss__fft__log_8h_a839ae15e8f6d48d8185c37314ddd7f23}{KISS\+\_\+\+FFT\+\_\+\+DEBUG}}(\char`\"{}\%g + \%gi\textbackslash{}n\char`\"{},(double)((c)-\/$>$r),(double)((c)-\/$>$i))
+\item 
+\#define \mbox{\hyperlink{__kiss__fft__guts_8h_abd992e9886fb74f97bf0b6e057fe08a5}{KISS\+\_\+\+FFT\+\_\+\+TMP\+\_\+\+ALLOC}}(nbytes)~\mbox{\hyperlink{kiss__fft_8h_aa6e24524bfa0247ac606c950e43a9a4d}{KISS\+\_\+\+FFT\+\_\+\+MALLOC}}(nbytes)
+\item 
+\#define \mbox{\hyperlink{__kiss__fft__guts_8h_ab915c572fe96a51a3528b7419248b655}{KISS\+\_\+\+FFT\+\_\+\+TMP\+\_\+\+FREE}}(ptr)~\mbox{\hyperlink{kiss__fft_8h_a167bff53d1f15bc13289353390b7faae}{KISS\+\_\+\+FFT\+\_\+\+FREE}}(ptr)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Mark Borgerding 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{__kiss__fft__guts_8h_a1f70747639c855259a0965de768e030a}\label{__kiss__fft__guts_8h_a1f70747639c855259a0965de768e030a}} 
+\index{\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}!C\_ADD@{C\_ADD}}
+\index{C\_ADD@{C\_ADD}!\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}}
+\doxysubsubsection{\texorpdfstring{C\_ADD}{C\_ADD}}
+{\footnotesize\ttfamily \#define C\+\_\+\+ADD(\begin{DoxyParamCaption}\item[{}]{res,  }\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{        CHECK\_OVERFLOW\_OP((a).r,+,(b).r)\(\backslash\)}
+\DoxyCodeLine{        CHECK\_OVERFLOW\_OP((a).i,+,(b).i)\(\backslash\)}
+\DoxyCodeLine{        (res).r=(a).r+(b).r;  (res).i=(a).i+(b).i; \(\backslash\)}
+\DoxyCodeLine{    \}\textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{__kiss__fft__guts_8h_a2042ee8c6fb9306eb20d62e6506446aa}\label{__kiss__fft__guts_8h_a2042ee8c6fb9306eb20d62e6506446aa}} 
+\index{\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}!C\_ADDTO@{C\_ADDTO}}
+\index{C\_ADDTO@{C\_ADDTO}!\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}}
+\doxysubsubsection{\texorpdfstring{C\_ADDTO}{C\_ADDTO}}
+{\footnotesize\ttfamily \#define C\+\_\+\+ADDTO(\begin{DoxyParamCaption}\item[{}]{res,  }\item[{}]{a }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{        CHECK\_OVERFLOW\_OP((res).r,+,(a).r)\(\backslash\)}
+\DoxyCodeLine{        CHECK\_OVERFLOW\_OP((res).i,+,(a).i)\(\backslash\)}
+\DoxyCodeLine{        (res).r += (a).r;  (res).i += (a).i;\(\backslash\)}
+\DoxyCodeLine{    \}\textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{__kiss__fft__guts_8h_a05e11bb1e8e815dd7bdd199060b7555a}\label{__kiss__fft__guts_8h_a05e11bb1e8e815dd7bdd199060b7555a}} 
+\index{\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}!C\_FIXDIV@{C\_FIXDIV}}
+\index{C\_FIXDIV@{C\_FIXDIV}!\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}}
+\doxysubsubsection{\texorpdfstring{C\_FIXDIV}{C\_FIXDIV}}
+{\footnotesize\ttfamily \#define C\+\_\+\+FIXDIV(\begin{DoxyParamCaption}\item[{}]{c,  }\item[{}]{div }\end{DoxyParamCaption})~/$\ast$ NOOP $\ast$/}
+
+\mbox{\Hypertarget{__kiss__fft__guts_8h_ab5092aa032092f1057feca5fbea40758}\label{__kiss__fft__guts_8h_ab5092aa032092f1057feca5fbea40758}} 
+\index{\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}!C\_MUL@{C\_MUL}}
+\index{C\_MUL@{C\_MUL}!\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}}
+\doxysubsubsection{\texorpdfstring{C\_MUL}{C\_MUL}}
+{\footnotesize\ttfamily \#define C\+\_\+\+MUL(\begin{DoxyParamCaption}\item[{}]{m,  }\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do}\{ (m).r = (a).r*(b).r -\/ (a).i*(b).i;\(\backslash\)}
+\DoxyCodeLine{        (m).i = (a).r*(b).i + (a).i*(b).r; \}\textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{__kiss__fft__guts_8h_a958da96ff02cad6be35cafa3019804b5}\label{__kiss__fft__guts_8h_a958da96ff02cad6be35cafa3019804b5}} 
+\index{\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}!C\_MULBYSCALAR@{C\_MULBYSCALAR}}
+\index{C\_MULBYSCALAR@{C\_MULBYSCALAR}!\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}}
+\doxysubsubsection{\texorpdfstring{C\_MULBYSCALAR}{C\_MULBYSCALAR}}
+{\footnotesize\ttfamily \#define C\+\_\+\+MULBYSCALAR(\begin{DoxyParamCaption}\item[{}]{c,  }\item[{}]{s }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do}\{ (c).r *= (s);\(\backslash\)}
+\DoxyCodeLine{        (c).i *= (s); \}\textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{__kiss__fft__guts_8h_a8c00bd9702f25a8514402a3779b3bdda}\label{__kiss__fft__guts_8h_a8c00bd9702f25a8514402a3779b3bdda}} 
+\index{\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}!C\_SUB@{C\_SUB}}
+\index{C\_SUB@{C\_SUB}!\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}}
+\doxysubsubsection{\texorpdfstring{C\_SUB}{C\_SUB}}
+{\footnotesize\ttfamily \#define C\+\_\+\+SUB(\begin{DoxyParamCaption}\item[{}]{res,  }\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{        CHECK\_OVERFLOW\_OP((a).r,-\/,(b).r)\(\backslash\)}
+\DoxyCodeLine{        CHECK\_OVERFLOW\_OP((a).i,-\/,(b).i)\(\backslash\)}
+\DoxyCodeLine{        (res).r=(a).r-\/(b).r;  (res).i=(a).i-\/(b).i; \(\backslash\)}
+\DoxyCodeLine{    \}\textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{__kiss__fft__guts_8h_aa3f448e1963492dfc145fc391cbedd27}\label{__kiss__fft__guts_8h_aa3f448e1963492dfc145fc391cbedd27}} 
+\index{\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}!C\_SUBFROM@{C\_SUBFROM}}
+\index{C\_SUBFROM@{C\_SUBFROM}!\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}}
+\doxysubsubsection{\texorpdfstring{C\_SUBFROM}{C\_SUBFROM}}
+{\footnotesize\ttfamily \#define C\+\_\+\+SUBFROM(\begin{DoxyParamCaption}\item[{}]{res,  }\item[{}]{a }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \{\(\backslash\)}
+\DoxyCodeLine{        CHECK\_OVERFLOW\_OP((res).r,-\/,(a).r)\(\backslash\)}
+\DoxyCodeLine{        CHECK\_OVERFLOW\_OP((res).i,-\/,(a).i)\(\backslash\)}
+\DoxyCodeLine{        (res).r -\/= (a).r;  (res).i -\/= (a).i; \(\backslash\)}
+\DoxyCodeLine{    \}\textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{__kiss__fft__guts_8h_a664c056b2a7093f88391d7db3558aa24}\label{__kiss__fft__guts_8h_a664c056b2a7093f88391d7db3558aa24}} 
+\index{\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}!CHECK\_OVERFLOW\_OP@{CHECK\_OVERFLOW\_OP}}
+\index{CHECK\_OVERFLOW\_OP@{CHECK\_OVERFLOW\_OP}!\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}}
+\doxysubsubsection{\texorpdfstring{CHECK\_OVERFLOW\_OP}{CHECK\_OVERFLOW\_OP}}
+{\footnotesize\ttfamily \#define CHECK\+\_\+\+OVERFLOW\+\_\+\+OP(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{op,  }\item[{}]{b }\end{DoxyParamCaption})~/$\ast$ noop $\ast$/}
+
+\mbox{\Hypertarget{__kiss__fft__guts_8h_a0b812a30fdb0c530a90a18d1692fab6c}\label{__kiss__fft__guts_8h_a0b812a30fdb0c530a90a18d1692fab6c}} 
+\index{\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}!HALF\_OF@{HALF\_OF}}
+\index{HALF\_OF@{HALF\_OF}!\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}}
+\doxysubsubsection{\texorpdfstring{HALF\_OF}{HALF\_OF}}
+{\footnotesize\ttfamily \#define HALF\+\_\+\+OF(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~((x)$\ast$((\mbox{\hyperlink{kiss__fft_8h_a4d9bf2d6a2ce1b061545a16faf77d337}{kiss\+\_\+fft\+\_\+scalar}}).\+5))}
+
+\mbox{\Hypertarget{__kiss__fft__guts_8h_ac7852abdf2dc5ed4538551be6d1dd20b}\label{__kiss__fft__guts_8h_ac7852abdf2dc5ed4538551be6d1dd20b}} 
+\index{\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}!kf\_cexp@{kf\_cexp}}
+\index{kf\_cexp@{kf\_cexp}!\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}}
+\doxysubsubsection{\texorpdfstring{kf\_cexp}{kf\_cexp}}
+{\footnotesize\ttfamily \#define kf\+\_\+cexp(\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{phase }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do}\{ \(\backslash\)}
+\DoxyCodeLine{        (x)-\/>r = \mbox{\hyperlink{__kiss__fft__guts_8h_a2e780e8fe86d9c3e7b6a469f61aaf5d1}{KISS\_FFT\_COS}}(phase);\(\backslash\)}
+\DoxyCodeLine{        (x)-\/>i = \mbox{\hyperlink{__kiss__fft__guts_8h_a2d4fc93cde15512f1946f364d5271dd3}{KISS\_FFT\_SIN}}(phase);\(\backslash\)}
+\DoxyCodeLine{    \}\textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{__kiss__fft__guts_8h_a2e780e8fe86d9c3e7b6a469f61aaf5d1}\label{__kiss__fft__guts_8h_a2e780e8fe86d9c3e7b6a469f61aaf5d1}} 
+\index{\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}!KISS\_FFT\_COS@{KISS\_FFT\_COS}}
+\index{KISS\_FFT\_COS@{KISS\_FFT\_COS}!\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}}
+\doxysubsubsection{\texorpdfstring{KISS\_FFT\_COS}{KISS\_FFT\_COS}}
+{\footnotesize\ttfamily \#define KISS\+\_\+\+FFT\+\_\+\+COS(\begin{DoxyParamCaption}\item[{}]{phase }\end{DoxyParamCaption})~(\mbox{\hyperlink{kiss__fft_8h_a4d9bf2d6a2ce1b061545a16faf77d337}{kiss\+\_\+fft\+\_\+scalar}}) cos(phase)}
+
+\mbox{\Hypertarget{__kiss__fft__guts_8h_a2d4fc93cde15512f1946f364d5271dd3}\label{__kiss__fft__guts_8h_a2d4fc93cde15512f1946f364d5271dd3}} 
+\index{\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}!KISS\_FFT\_SIN@{KISS\_FFT\_SIN}}
+\index{KISS\_FFT\_SIN@{KISS\_FFT\_SIN}!\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}}
+\doxysubsubsection{\texorpdfstring{KISS\_FFT\_SIN}{KISS\_FFT\_SIN}}
+{\footnotesize\ttfamily \#define KISS\+\_\+\+FFT\+\_\+\+SIN(\begin{DoxyParamCaption}\item[{}]{phase }\end{DoxyParamCaption})~(\mbox{\hyperlink{kiss__fft_8h_a4d9bf2d6a2ce1b061545a16faf77d337}{kiss\+\_\+fft\+\_\+scalar}}) sin(phase)}
+
+\mbox{\Hypertarget{__kiss__fft__guts_8h_abd992e9886fb74f97bf0b6e057fe08a5}\label{__kiss__fft__guts_8h_abd992e9886fb74f97bf0b6e057fe08a5}} 
+\index{\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}!KISS\_FFT\_TMP\_ALLOC@{KISS\_FFT\_TMP\_ALLOC}}
+\index{KISS\_FFT\_TMP\_ALLOC@{KISS\_FFT\_TMP\_ALLOC}!\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}}
+\doxysubsubsection{\texorpdfstring{KISS\_FFT\_TMP\_ALLOC}{KISS\_FFT\_TMP\_ALLOC}}
+{\footnotesize\ttfamily \#define KISS\+\_\+\+FFT\+\_\+\+TMP\+\_\+\+ALLOC(\begin{DoxyParamCaption}\item[{}]{nbytes }\end{DoxyParamCaption})~\mbox{\hyperlink{kiss__fft_8h_aa6e24524bfa0247ac606c950e43a9a4d}{KISS\+\_\+\+FFT\+\_\+\+MALLOC}}(nbytes)}
+
+\mbox{\Hypertarget{__kiss__fft__guts_8h_ab915c572fe96a51a3528b7419248b655}\label{__kiss__fft__guts_8h_ab915c572fe96a51a3528b7419248b655}} 
+\index{\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}!KISS\_FFT\_TMP\_FREE@{KISS\_FFT\_TMP\_FREE}}
+\index{KISS\_FFT\_TMP\_FREE@{KISS\_FFT\_TMP\_FREE}!\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}}
+\doxysubsubsection{\texorpdfstring{KISS\_FFT\_TMP\_FREE}{KISS\_FFT\_TMP\_FREE}}
+{\footnotesize\ttfamily \#define KISS\+\_\+\+FFT\+\_\+\+TMP\+\_\+\+FREE(\begin{DoxyParamCaption}\item[{}]{ptr }\end{DoxyParamCaption})~\mbox{\hyperlink{kiss__fft_8h_a167bff53d1f15bc13289353390b7faae}{KISS\+\_\+\+FFT\+\_\+\+FREE}}(ptr)}
+
+\mbox{\Hypertarget{__kiss__fft__guts_8h_af176a125e008eb443996cf0f83cc135c}\label{__kiss__fft__guts_8h_af176a125e008eb443996cf0f83cc135c}} 
+\index{\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}!MAXFACTORS@{MAXFACTORS}}
+\index{MAXFACTORS@{MAXFACTORS}!\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}}
+\doxysubsubsection{\texorpdfstring{MAXFACTORS}{MAXFACTORS}}
+{\footnotesize\ttfamily \#define MAXFACTORS~32}
+
+\mbox{\Hypertarget{__kiss__fft__guts_8h_ac1abb41ecdedd05dda5d1ce83b67a704}\label{__kiss__fft__guts_8h_ac1abb41ecdedd05dda5d1ce83b67a704}} 
+\index{\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}!pcpx@{pcpx}}
+\index{pcpx@{pcpx}!\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}}
+\doxysubsubsection{\texorpdfstring{pcpx}{pcpx}}
+{\footnotesize\ttfamily \#define pcpx(\begin{DoxyParamCaption}\item[{}]{c }\end{DoxyParamCaption})~    \mbox{\hyperlink{kiss__fft__log_8h_a839ae15e8f6d48d8185c37314ddd7f23}{KISS\+\_\+\+FFT\+\_\+\+DEBUG}}(\char`\"{}\%g + \%gi\textbackslash{}n\char`\"{},(double)((c)-\/$>$r),(double)((c)-\/$>$i))}
+
+\mbox{\Hypertarget{__kiss__fft__guts_8h_a944e08f3916c56a9697bbfed458eaa94}\label{__kiss__fft__guts_8h_a944e08f3916c56a9697bbfed458eaa94}} 
+\index{\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}!S\_MUL@{S\_MUL}}
+\index{S\_MUL@{S\_MUL}!\_kiss\_fft\_guts.h@{\_kiss\_fft\_guts.h}}
+\doxysubsubsection{\texorpdfstring{S\_MUL}{S\_MUL}}
+{\footnotesize\ttfamily \#define S\+\_\+\+MUL(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})~( (a)$\ast$(b) )}
+

@@ -1,0 +1,133 @@
+\hypertarget{dostuff_8c}{}\doxysection{src/dostuff.c File Reference}
+\label{dostuff_8c}\index{src/dostuff.c@{src/dostuff.c}}
+
+
+Main control unit of the project, which is compiled into the executable.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}trajec\+\_\+io/read\+\_\+trajec.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}trajec\+\_\+io/chemistry.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}calc/mathtools.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}calc/msd.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}calc/rdf.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}calc/oacf.\+h\char`\"{}}\newline
+Include dependency graph for dostuff.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dostuff_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{dostuff_8c_ac676a257cce4559ff00773faf44d6b98}{OUTPUTFILE}}~\char`\"{}traj\+\_\+analysis.\+out\char`\"{}
+\item 
+\#define \mbox{\hyperlink{dostuff_8c_a51df2c693138275efd1298eba847a304}{OUTSTRINGLENGTH}}~100
+\item 
+\#define \mbox{\hyperlink{dostuff_8c_a2dbf15c737fdd3bca5e28887c40a1aec}{XYZ\+\_\+\+NAME\+\_\+\+MAX}}~20
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{dostuff_8c_a29b3aabd5c4f44f85a5bb6f83b4ea1d1}{docalc}} (int frame\+\_\+no, int atom\+\_\+no, float traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]}, float pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]}, int atom\mbox{[}atom\+\_\+no\mbox{]}, char $\ast$line)
+\item 
+int \mbox{\hyperlink{dostuff_8c_afeb07ad9bec7b5174b5317eaa50f431e}{calc\+\_\+msd}} (int frame\+\_\+no, int atom\+\_\+no, float traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]}, float pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]}, int atom\mbox{[}atom\+\_\+no\mbox{]}, char $\ast$line)
+\item 
+int \mbox{\hyperlink{dostuff_8c_ab2e109faa2a37ae7db713541480a09b3}{calc\+\_\+msd\+\_\+fft}} (int frame\+\_\+no, int atom\+\_\+no, float traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]}, float pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]}, int atom\mbox{[}atom\+\_\+no\mbox{]}, char $\ast$line)
+\item 
+int \mbox{\hyperlink{dostuff_8c_acf5661f290458f07eaa8b4870217e470}{calc\+\_\+rdf}} (int frame\+\_\+no, int atom\+\_\+no, float traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]}, float pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]}, int atom\mbox{[}atom\+\_\+no\mbox{]}, char $\ast$line)
+\item 
+int \mbox{\hyperlink{dostuff_8c_a15356b52b8350541134a8d4ad6a1e653}{calc\+\_\+rdf\+\_\+inter}} (int frame\+\_\+no, int atom\+\_\+no, float traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]}, float pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]}, int atom\mbox{[}atom\+\_\+no\mbox{]}, char $\ast$line)
+\item 
+int \mbox{\hyperlink{dostuff_8c_a8ed7481b362a52347c32d7a9d25282fa}{calc\+\_\+oacf}} (int frame\+\_\+no, int atom\+\_\+no, float traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]}, float pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]}, int atom\mbox{[}atom\+\_\+no\mbox{]}, char $\ast$line)
+\item 
+void \mbox{\hyperlink{dostuff_8c_addc9ddceee3b0b9d15c428ac636c6021}{appendoutput}} (char outputstring\mbox{[}$\,$\mbox{]})
+\item 
+int \mbox{\hyperlink{dostuff_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main control unit of the project, which is compiled into the executable. 
+
+\begin{DoxyAuthor}{Author}
+Johnny Alexander Jimenez Siegert 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{dostuff_8c_ac676a257cce4559ff00773faf44d6b98}\label{dostuff_8c_ac676a257cce4559ff00773faf44d6b98}} 
+\index{dostuff.c@{dostuff.c}!OUTPUTFILE@{OUTPUTFILE}}
+\index{OUTPUTFILE@{OUTPUTFILE}!dostuff.c@{dostuff.c}}
+\doxysubsubsection{\texorpdfstring{OUTPUTFILE}{OUTPUTFILE}}
+{\footnotesize\ttfamily \#define OUTPUTFILE~\char`\"{}traj\+\_\+analysis.\+out\char`\"{}}
+
+\mbox{\Hypertarget{dostuff_8c_a51df2c693138275efd1298eba847a304}\label{dostuff_8c_a51df2c693138275efd1298eba847a304}} 
+\index{dostuff.c@{dostuff.c}!OUTSTRINGLENGTH@{OUTSTRINGLENGTH}}
+\index{OUTSTRINGLENGTH@{OUTSTRINGLENGTH}!dostuff.c@{dostuff.c}}
+\doxysubsubsection{\texorpdfstring{OUTSTRINGLENGTH}{OUTSTRINGLENGTH}}
+{\footnotesize\ttfamily \#define OUTSTRINGLENGTH~100}
+
+\mbox{\Hypertarget{dostuff_8c_a2dbf15c737fdd3bca5e28887c40a1aec}\label{dostuff_8c_a2dbf15c737fdd3bca5e28887c40a1aec}} 
+\index{dostuff.c@{dostuff.c}!XYZ\_NAME\_MAX@{XYZ\_NAME\_MAX}}
+\index{XYZ\_NAME\_MAX@{XYZ\_NAME\_MAX}!dostuff.c@{dostuff.c}}
+\doxysubsubsection{\texorpdfstring{XYZ\_NAME\_MAX}{XYZ\_NAME\_MAX}}
+{\footnotesize\ttfamily \#define XYZ\+\_\+\+NAME\+\_\+\+MAX~20}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{dostuff_8c_addc9ddceee3b0b9d15c428ac636c6021}\label{dostuff_8c_addc9ddceee3b0b9d15c428ac636c6021}} 
+\index{dostuff.c@{dostuff.c}!appendoutput@{appendoutput}}
+\index{appendoutput@{appendoutput}!dostuff.c@{dostuff.c}}
+\doxysubsubsection{\texorpdfstring{appendoutput()}{appendoutput()}}
+{\footnotesize\ttfamily void appendoutput (\begin{DoxyParamCaption}\item[{char}]{outputstring\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{dostuff_8c_afeb07ad9bec7b5174b5317eaa50f431e}\label{dostuff_8c_afeb07ad9bec7b5174b5317eaa50f431e}} 
+\index{dostuff.c@{dostuff.c}!calc\_msd@{calc\_msd}}
+\index{calc\_msd@{calc\_msd}!dostuff.c@{dostuff.c}}
+\doxysubsubsection{\texorpdfstring{calc\_msd()}{calc\_msd()}}
+{\footnotesize\ttfamily int calc\+\_\+msd (\begin{DoxyParamCaption}\item[{int}]{frame\+\_\+no,  }\item[{int}]{atom\+\_\+no,  }\item[{float}]{traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]},  }\item[{float}]{pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]},  }\item[{int}]{atom\mbox{[}atom\+\_\+no\mbox{]},  }\item[{char $\ast$}]{line }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{dostuff_8c_ab2e109faa2a37ae7db713541480a09b3}\label{dostuff_8c_ab2e109faa2a37ae7db713541480a09b3}} 
+\index{dostuff.c@{dostuff.c}!calc\_msd\_fft@{calc\_msd\_fft}}
+\index{calc\_msd\_fft@{calc\_msd\_fft}!dostuff.c@{dostuff.c}}
+\doxysubsubsection{\texorpdfstring{calc\_msd\_fft()}{calc\_msd\_fft()}}
+{\footnotesize\ttfamily int calc\+\_\+msd\+\_\+fft (\begin{DoxyParamCaption}\item[{int}]{frame\+\_\+no,  }\item[{int}]{atom\+\_\+no,  }\item[{float}]{traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]},  }\item[{float}]{pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]},  }\item[{int}]{atom\mbox{[}atom\+\_\+no\mbox{]},  }\item[{char $\ast$}]{line }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{dostuff_8c_a8ed7481b362a52347c32d7a9d25282fa}\label{dostuff_8c_a8ed7481b362a52347c32d7a9d25282fa}} 
+\index{dostuff.c@{dostuff.c}!calc\_oacf@{calc\_oacf}}
+\index{calc\_oacf@{calc\_oacf}!dostuff.c@{dostuff.c}}
+\doxysubsubsection{\texorpdfstring{calc\_oacf()}{calc\_oacf()}}
+{\footnotesize\ttfamily int calc\+\_\+oacf (\begin{DoxyParamCaption}\item[{int}]{frame\+\_\+no,  }\item[{int}]{atom\+\_\+no,  }\item[{float}]{traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]},  }\item[{float}]{pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]},  }\item[{int}]{atom\mbox{[}atom\+\_\+no\mbox{]},  }\item[{char $\ast$}]{line }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{dostuff_8c_acf5661f290458f07eaa8b4870217e470}\label{dostuff_8c_acf5661f290458f07eaa8b4870217e470}} 
+\index{dostuff.c@{dostuff.c}!calc\_rdf@{calc\_rdf}}
+\index{calc\_rdf@{calc\_rdf}!dostuff.c@{dostuff.c}}
+\doxysubsubsection{\texorpdfstring{calc\_rdf()}{calc\_rdf()}}
+{\footnotesize\ttfamily int calc\+\_\+rdf (\begin{DoxyParamCaption}\item[{int}]{frame\+\_\+no,  }\item[{int}]{atom\+\_\+no,  }\item[{float}]{traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]},  }\item[{float}]{pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]},  }\item[{int}]{atom\mbox{[}atom\+\_\+no\mbox{]},  }\item[{char $\ast$}]{line }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{dostuff_8c_a15356b52b8350541134a8d4ad6a1e653}\label{dostuff_8c_a15356b52b8350541134a8d4ad6a1e653}} 
+\index{dostuff.c@{dostuff.c}!calc\_rdf\_inter@{calc\_rdf\_inter}}
+\index{calc\_rdf\_inter@{calc\_rdf\_inter}!dostuff.c@{dostuff.c}}
+\doxysubsubsection{\texorpdfstring{calc\_rdf\_inter()}{calc\_rdf\_inter()}}
+{\footnotesize\ttfamily int calc\+\_\+rdf\+\_\+inter (\begin{DoxyParamCaption}\item[{int}]{frame\+\_\+no,  }\item[{int}]{atom\+\_\+no,  }\item[{float}]{traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]},  }\item[{float}]{pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]},  }\item[{int}]{atom\mbox{[}atom\+\_\+no\mbox{]},  }\item[{char $\ast$}]{line }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{dostuff_8c_a29b3aabd5c4f44f85a5bb6f83b4ea1d1}\label{dostuff_8c_a29b3aabd5c4f44f85a5bb6f83b4ea1d1}} 
+\index{dostuff.c@{dostuff.c}!docalc@{docalc}}
+\index{docalc@{docalc}!dostuff.c@{dostuff.c}}
+\doxysubsubsection{\texorpdfstring{docalc()}{docalc()}}
+{\footnotesize\ttfamily int docalc (\begin{DoxyParamCaption}\item[{int}]{frame\+\_\+no,  }\item[{int}]{atom\+\_\+no,  }\item[{float}]{traj\mbox{[}frame\+\_\+no\mbox{]}\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]},  }\item[{float}]{pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]},  }\item[{int}]{atom\mbox{[}atom\+\_\+no\mbox{]},  }\item[{char $\ast$}]{line }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{dostuff_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{dostuff_8c_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{dostuff.c@{dostuff.c}!main@{main}}
+\index{main@{main}!dostuff.c@{dostuff.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+

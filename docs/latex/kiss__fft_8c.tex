@@ -1,0 +1,56 @@
+\hypertarget{kiss__fft_8c}{}\doxysection{src/kiss\+FFT/kiss\+\_\+fft.c File Reference}
+\label{kiss__fft_8c}\index{src/kissFFT/kiss\_fft.c@{src/kissFFT/kiss\_fft.c}}
+{\ttfamily \#include \char`\"{}\+\_\+kiss\+\_\+fft\+\_\+guts.\+h\char`\"{}}\newline
+Include dependency graph for kiss\+\_\+fft.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kiss__fft_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{kiss__fft_8h_ab8c364e12d4cbde47dca54eb4bc3ce79}{kiss\+\_\+fft\+\_\+cfg}} \mbox{\hyperlink{kiss__fft_8c_ab5ad1560b58375ec071da45401911358}{kiss\+\_\+fft\+\_\+alloc}} (int nfft, int inverse\+\_\+fft, void $\ast$mem, size\+\_\+t $\ast$lenmem)
+\item 
+void \mbox{\hyperlink{kiss__fft_8c_aec345dab68815f4c5c2904978626d877}{kiss\+\_\+fft\+\_\+stride}} (\mbox{\hyperlink{kiss__fft_8h_ab8c364e12d4cbde47dca54eb4bc3ce79}{kiss\+\_\+fft\+\_\+cfg}} st, const \mbox{\hyperlink{structkiss__fft__cpx}{kiss\+\_\+fft\+\_\+cpx}} $\ast$fin, \mbox{\hyperlink{structkiss__fft__cpx}{kiss\+\_\+fft\+\_\+cpx}} $\ast$fout, int in\+\_\+stride)
+\item 
+void \mbox{\hyperlink{kiss__fft_8c_ab36e2bb33b74c1a7eabe3271d0916030}{kiss\+\_\+fft}} (\mbox{\hyperlink{kiss__fft_8h_ab8c364e12d4cbde47dca54eb4bc3ce79}{kiss\+\_\+fft\+\_\+cfg}} cfg, const \mbox{\hyperlink{structkiss__fft__cpx}{kiss\+\_\+fft\+\_\+cpx}} $\ast$fin, \mbox{\hyperlink{structkiss__fft__cpx}{kiss\+\_\+fft\+\_\+cpx}} $\ast$fout)
+\item 
+void \mbox{\hyperlink{kiss__fft_8c_aab7972365fc8f30a13eed91fa29172ba}{kiss\+\_\+fft\+\_\+cleanup}} (void)
+\item 
+int \mbox{\hyperlink{kiss__fft_8c_a26b8ac31a43a356943061318831508e9}{kiss\+\_\+fft\+\_\+next\+\_\+fast\+\_\+size}} (int n)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{kiss__fft_8c_ab36e2bb33b74c1a7eabe3271d0916030}\label{kiss__fft_8c_ab36e2bb33b74c1a7eabe3271d0916030}} 
+\index{kiss\_fft.c@{kiss\_fft.c}!kiss\_fft@{kiss\_fft}}
+\index{kiss\_fft@{kiss\_fft}!kiss\_fft.c@{kiss\_fft.c}}
+\doxysubsubsection{\texorpdfstring{kiss\_fft()}{kiss\_fft()}}
+{\footnotesize\ttfamily void kiss\+\_\+fft (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{kiss__fft_8h_ab8c364e12d4cbde47dca54eb4bc3ce79}{kiss\+\_\+fft\+\_\+cfg}}}]{cfg,  }\item[{const \mbox{\hyperlink{structkiss__fft__cpx}{kiss\+\_\+fft\+\_\+cpx}} $\ast$}]{fin,  }\item[{\mbox{\hyperlink{structkiss__fft__cpx}{kiss\+\_\+fft\+\_\+cpx}} $\ast$}]{fout }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kiss__fft_8c_ab5ad1560b58375ec071da45401911358}\label{kiss__fft_8c_ab5ad1560b58375ec071da45401911358}} 
+\index{kiss\_fft.c@{kiss\_fft.c}!kiss\_fft\_alloc@{kiss\_fft\_alloc}}
+\index{kiss\_fft\_alloc@{kiss\_fft\_alloc}!kiss\_fft.c@{kiss\_fft.c}}
+\doxysubsubsection{\texorpdfstring{kiss\_fft\_alloc()}{kiss\_fft\_alloc()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{kiss__fft_8h_ab8c364e12d4cbde47dca54eb4bc3ce79}{kiss\+\_\+fft\+\_\+cfg}} kiss\+\_\+fft\+\_\+alloc (\begin{DoxyParamCaption}\item[{int}]{nfft,  }\item[{int}]{inverse\+\_\+fft,  }\item[{void $\ast$}]{mem,  }\item[{size\+\_\+t $\ast$}]{lenmem }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kiss__fft_8c_aab7972365fc8f30a13eed91fa29172ba}\label{kiss__fft_8c_aab7972365fc8f30a13eed91fa29172ba}} 
+\index{kiss\_fft.c@{kiss\_fft.c}!kiss\_fft\_cleanup@{kiss\_fft\_cleanup}}
+\index{kiss\_fft\_cleanup@{kiss\_fft\_cleanup}!kiss\_fft.c@{kiss\_fft.c}}
+\doxysubsubsection{\texorpdfstring{kiss\_fft\_cleanup()}{kiss\_fft\_cleanup()}}
+{\footnotesize\ttfamily void kiss\+\_\+fft\+\_\+cleanup (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kiss__fft_8c_a26b8ac31a43a356943061318831508e9}\label{kiss__fft_8c_a26b8ac31a43a356943061318831508e9}} 
+\index{kiss\_fft.c@{kiss\_fft.c}!kiss\_fft\_next\_fast\_size@{kiss\_fft\_next\_fast\_size}}
+\index{kiss\_fft\_next\_fast\_size@{kiss\_fft\_next\_fast\_size}!kiss\_fft.c@{kiss\_fft.c}}
+\doxysubsubsection{\texorpdfstring{kiss\_fft\_next\_fast\_size()}{kiss\_fft\_next\_fast\_size()}}
+{\footnotesize\ttfamily int kiss\+\_\+fft\+\_\+next\+\_\+fast\+\_\+size (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kiss__fft_8c_aec345dab68815f4c5c2904978626d877}\label{kiss__fft_8c_aec345dab68815f4c5c2904978626d877}} 
+\index{kiss\_fft.c@{kiss\_fft.c}!kiss\_fft\_stride@{kiss\_fft\_stride}}
+\index{kiss\_fft\_stride@{kiss\_fft\_stride}!kiss\_fft.c@{kiss\_fft.c}}
+\doxysubsubsection{\texorpdfstring{kiss\_fft\_stride()}{kiss\_fft\_stride()}}
+{\footnotesize\ttfamily void kiss\+\_\+fft\+\_\+stride (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{kiss__fft_8h_ab8c364e12d4cbde47dca54eb4bc3ce79}{kiss\+\_\+fft\+\_\+cfg}}}]{st,  }\item[{const \mbox{\hyperlink{structkiss__fft__cpx}{kiss\+\_\+fft\+\_\+cpx}} $\ast$}]{fin,  }\item[{\mbox{\hyperlink{structkiss__fft__cpx}{kiss\+\_\+fft\+\_\+cpx}} $\ast$}]{fout,  }\item[{int}]{in\+\_\+stride }\end{DoxyParamCaption})}
+

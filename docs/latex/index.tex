@@ -1,0 +1,92 @@
+\label{index_md_README}%
+\Hypertarget{index_md_README}%
+ This is a tool used to analyze a trajectory, the result of a molecular dynamics (MD) simulation. If you\textquotesingle{}re unfamiliar with this field, you might want to check out the \mbox{\hyperlink{md_docs_THEORY}{Theoretical Background}}.\hypertarget{index_autotoc_md1}{}\doxysection{Installation}\label{index_autotoc_md1}
+In order to build the executable, simply invoke {\ttfamily make}. This will build all the necessary object files and an executable traj\+\_\+analyzer. You can remove the object files with {\ttfamily make clean}. Compilation can be sped up using the {\ttfamily -\/j N} option, where N is the number of CPU cores. On a system with 4 cores, you could therefore run\+: \begin{DoxyVerb}make -j 4
+make clean
+\end{DoxyVerb}
+ If you wish to remove all compiled files including the executable, run {\ttfamily make remove}.\hypertarget{index_autotoc_md2}{}\doxysection{Usage}\label{index_autotoc_md2}
+The executable traj\+\_\+analyzer expects three arguments\+:
+\begin{DoxyItemize}
+\item Trajectory (.xyz)
+
+A trajectory, usually produced by a molecular dynamics software. One timestep is assumed to represent 0.\+5 fs. Currently only the xyz file format is supported.
+\item pbc file
+
+A text file containing the periodic boundary conditions. The first three lines must contain three numbers seperated by a space each.
+\item input file
+
+A text file containing on each line the name of a calculation followed by its parameters.
+\end{DoxyItemize}
+
+With these three, you can invoke the program as\+: \begin{DoxyVerb}traj_analyzer trajectory.xyz pbc.txt input.txt
+\end{DoxyVerb}
+ \hypertarget{index_autotoc_md3}{}\doxysection{Warning}\label{index_autotoc_md3}
+Currently only orthogonal periodic boundary conditions are supported. Support for non-\/orthogonal cells will be part of the next update.\hypertarget{index_autotoc_md4}{}\doxysection{Example}\label{index_autotoc_md4}
+A small example is included in the directory example/. It contains the necessary inputs for a simple calculation\+:
+\begin{DoxyItemize}
+\item Trajectory\+: example/traj/\+CDP\+\_\+224.\+xyz
+
+Trajectory of cesium dihydrogen phosphate (CDP) over 1000 timesteps.
+\item pbc file\+: example/traj/pbc\+\_\+\+CDP\+\_\+224
+
+Periodic boundary conditions of the CDP simulation (corresponding to 2x2x4 elementary units of CDP).
+\item input file\+: example/calc.\+inp
+
+Example input file covering every supported calculation.
+\end{DoxyItemize}
+
+Once inside the example/ directory, the calculation can be invoked as\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mkdir results; }
+\DoxyCodeLine{cd results;}
+\DoxyCodeLine{../../traj\_analyzer ../traj/CDP\_224\_small.xyz ../traj/pbc\_CDP\_224 ../calc.inp;}
+
+\end{DoxyCode}
+
+
+These commands have been collected in example/example.\+sh, once inside the example/ directory you can run {\ttfamily bash example.\+sh}. The results will be stored in the directory example/results. For reference the same functions have been computed using the free program package \href{http://www.travis-analyzer.de/}{\texttt{ TRAVIS}}. The csv-\/files with the same name in results/ and reference/ should be just about the same (within margin of error).\hypertarget{index_autotoc_md5}{}\doxysection{Calculations}\label{index_autotoc_md5}
+Currently three types of calculations are supported\+: mean square displacement (MSD), radial distribution function (RDF) and orientational auto-\/correlation function (OACF).
+
+Each function requires either one (MSD) or two (RDF, OACF) obligatory arguments. The remaining arguments are optional and will be assumed to be their default values, if not specified. All calculations with arguments are\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Calulcation   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Parameters   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Default   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Calulcation   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Parameters   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Default   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-4}
+\endhead
+\multirow{3}{*}{msd   }&Atom type   &-\/   &The atom type, whose MSD shall be calculated. Only obligatory argument.    \\\cline{2-4}
+&Resolution   &100   &Number of correlation times to be sampled. Higher resolution might give a more accurate and less jagged result, but will also increase calculation time.    \\\cline{2-4}
+&Time depth   &0.\+3   &Correlation times will be sampled up until this fraction of the total trajectory length. Higher time depth will give more data by sampling a larger range of correlation times, but the additionally sampled range will be less reliable.    \\\cline{1-4}
+\multirow{2}{*}{msd\+\_\+fft   }&Atom type   &-\/   &The atom type, whose MSD shall be calculated. Only obligatory argument.    \\\cline{2-4}
+&Time depth   &0.\+3   &Correlation times will be sampled up until this fraction of the total trajectory length. Higher time depth will give more data by sampling a larger range of correlation times, but the additionally sampled range will be less reliable.    \\\cline{1-4}
+\multirow{5}{*}{rdf (rdf\+\_\+inter)   }&Atom type 1   &-\/   &First atom type in the rdf-\/pair.    \\\cline{2-4}
+&Atom type 2   &-\/   &Second atom type in the rdf-\/pair.    \\\cline{2-4}
+&Bins   &300   &Number of bins, into which the distances will be sorted. More bins might give slightly more accurate results.    \\\cline{2-4}
+&Min distances   &0   &Minimum distance to bin.    \\\cline{2-4}
+&Max distances   &4   &Maximum distance to bin.    \\\cline{1-4}
+\multirow{4}{*}{oacf   }&Atom type 1   &-\/   &First atom type, which will be the start of the rotating vector.    \\\cline{2-4}
+&Atom type 2   &-\/   &Second atom type, of which the closest neighbors to the atoms of type 1 will be the end of the rotating vector.    \\\cline{2-4}
+&Resolution   &100   &Number of correlation times to be sampled. Higher resolution might give a more accurate and less jagged result, but will also increase calculation time.    \\\cline{2-4}
+&Time depth   &0.\+3   &Correlation times will be sampled up until this fraction of the total trajectory length. Higher time depth will give more data by sampling a larger range of correlation times, but the additionally sampled range will be less reliable.   \\\cline{1-4}
+\end{longtabu}
+
+
+The input file must contain one line for each calculation to be performed. Each line should contain a calculation name followed by its arguments. Empty lines and lines beginning with \# are ignored.
+
+The content of the example input file is as follows\+: \begin{DoxyVerb}msd H 100 0.3
+msd_fft H 0.3
+rdf O O 300 0 4
+rdf_inter O O P 300 0 4
+oacf P O 100 0.
+\end{DoxyVerb}
+ \hypertarget{index_autotoc_md6}{}\doxysection{License}\label{index_autotoc_md6}
+This project comes with a \href{https://opensource.org/licenses/BSD-3-Clause}{\texttt{ BSD-\/3-\/\+Clause}} license. Feel free to include (whole or in parts), modify or distribute it with your own projects, as long as you retain the information specified in the \href{../../LICENSE}{\texttt{ license file}}.
+
+I have included parts of the \href{https://github.com/mborgerding/kissfft}{\texttt{ kiss\+FFT}} project by Mark Borgerding, which comes with a BSD-\/3-\/clause as well. For more information see the \href{../../src/kissFFT/COPYING}{\texttt{ license file}} in src/kissfft/. 

@@ -1,0 +1,81 @@
+\hypertarget{kiss__fftr_8h}{}\doxysection{src/kiss\+FFT/kiss\+\_\+fftr.h File Reference}
+\label{kiss__fftr_8h}\index{src/kissFFT/kiss\_fftr.h@{src/kissFFT/kiss\_fftr.h}}
+{\ttfamily \#include \char`\"{}kiss\+\_\+fft.\+h\char`\"{}}\newline
+Include dependency graph for kiss\+\_\+fftr.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{kiss__fftr_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{kiss__fftr_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{kiss__fftr_8h_a6885422c822dff503165060c22779559}{kiss\+\_\+fftr\+\_\+free}}~\mbox{\hyperlink{kiss__fft_8h_a167bff53d1f15bc13289353390b7faae}{KISS\+\_\+\+FFT\+\_\+\+FREE}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structkiss__fftr__state}{kiss\+\_\+fftr\+\_\+state}} $\ast$ \mbox{\hyperlink{kiss__fftr_8h_a9770a73a2aed969522b253322d069fb8}{kiss\+\_\+fftr\+\_\+cfg}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{kiss__fftr_8h_a9770a73a2aed969522b253322d069fb8}{kiss\+\_\+fftr\+\_\+cfg}} \mbox{\hyperlink{kiss__fft_8h_ae7ec87347f23bdc1d68b8b98cf7d1eb6}{KISS\+\_\+\+FFT\+\_\+\+API}} \mbox{\hyperlink{kiss__fftr_8h_adc2cf0360ae1647c0d5c903dcff8c442}{kiss\+\_\+fftr\+\_\+alloc}} (int nfft, int inverse\+\_\+fft, void $\ast$mem, size\+\_\+t $\ast$lenmem)
+\item 
+void \mbox{\hyperlink{kiss__fft_8h_ae7ec87347f23bdc1d68b8b98cf7d1eb6}{KISS\+\_\+\+FFT\+\_\+\+API}} \mbox{\hyperlink{kiss__fftr_8h_ab68dd0e80e493c9dd1d57926a1ecfb86}{kiss\+\_\+fftr}} (\mbox{\hyperlink{kiss__fftr_8h_a9770a73a2aed969522b253322d069fb8}{kiss\+\_\+fftr\+\_\+cfg}} cfg, const \mbox{\hyperlink{kiss__fft_8h_a4d9bf2d6a2ce1b061545a16faf77d337}{kiss\+\_\+fft\+\_\+scalar}} $\ast$timedata, \mbox{\hyperlink{structkiss__fft__cpx}{kiss\+\_\+fft\+\_\+cpx}} $\ast$freqdata)
+\item 
+void \mbox{\hyperlink{kiss__fft_8h_ae7ec87347f23bdc1d68b8b98cf7d1eb6}{KISS\+\_\+\+FFT\+\_\+\+API}} \mbox{\hyperlink{kiss__fftr_8h_a8b865459adff3e5bd659cacec6f32c21}{kiss\+\_\+fftri}} (\mbox{\hyperlink{kiss__fftr_8h_a9770a73a2aed969522b253322d069fb8}{kiss\+\_\+fftr\+\_\+cfg}} cfg, const \mbox{\hyperlink{structkiss__fft__cpx}{kiss\+\_\+fft\+\_\+cpx}} $\ast$freqdata, \mbox{\hyperlink{kiss__fft_8h_a4d9bf2d6a2ce1b061545a16faf77d337}{kiss\+\_\+fft\+\_\+scalar}} $\ast$timedata)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Mark Borgerding 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{kiss__fftr_8h_a6885422c822dff503165060c22779559}\label{kiss__fftr_8h_a6885422c822dff503165060c22779559}} 
+\index{kiss\_fftr.h@{kiss\_fftr.h}!kiss\_fftr\_free@{kiss\_fftr\_free}}
+\index{kiss\_fftr\_free@{kiss\_fftr\_free}!kiss\_fftr.h@{kiss\_fftr.h}}
+\doxysubsubsection{\texorpdfstring{kiss\_fftr\_free}{kiss\_fftr\_free}}
+{\footnotesize\ttfamily \#define kiss\+\_\+fftr\+\_\+free~\mbox{\hyperlink{kiss__fft_8h_a167bff53d1f15bc13289353390b7faae}{KISS\+\_\+\+FFT\+\_\+\+FREE}}}
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{kiss__fftr_8h_a9770a73a2aed969522b253322d069fb8}\label{kiss__fftr_8h_a9770a73a2aed969522b253322d069fb8}} 
+\index{kiss\_fftr.h@{kiss\_fftr.h}!kiss\_fftr\_cfg@{kiss\_fftr\_cfg}}
+\index{kiss\_fftr\_cfg@{kiss\_fftr\_cfg}!kiss\_fftr.h@{kiss\_fftr.h}}
+\doxysubsubsection{\texorpdfstring{kiss\_fftr\_cfg}{kiss\_fftr\_cfg}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structkiss__fftr__state}{kiss\+\_\+fftr\+\_\+state}}$\ast$ \mbox{\hyperlink{kiss__fftr_8h_a9770a73a2aed969522b253322d069fb8}{kiss\+\_\+fftr\+\_\+cfg}}}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{kiss__fftr_8h_ab68dd0e80e493c9dd1d57926a1ecfb86}\label{kiss__fftr_8h_ab68dd0e80e493c9dd1d57926a1ecfb86}} 
+\index{kiss\_fftr.h@{kiss\_fftr.h}!kiss\_fftr@{kiss\_fftr}}
+\index{kiss\_fftr@{kiss\_fftr}!kiss\_fftr.h@{kiss\_fftr.h}}
+\doxysubsubsection{\texorpdfstring{kiss\_fftr()}{kiss\_fftr()}}
+{\footnotesize\ttfamily void \mbox{\hyperlink{kiss__fft_8h_ae7ec87347f23bdc1d68b8b98cf7d1eb6}{KISS\+\_\+\+FFT\+\_\+\+API}} kiss\+\_\+fftr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{kiss__fftr_8h_a9770a73a2aed969522b253322d069fb8}{kiss\+\_\+fftr\+\_\+cfg}}}]{cfg,  }\item[{const \mbox{\hyperlink{kiss__fft_8h_a4d9bf2d6a2ce1b061545a16faf77d337}{kiss\+\_\+fft\+\_\+scalar}} $\ast$}]{timedata,  }\item[{\mbox{\hyperlink{structkiss__fft__cpx}{kiss\+\_\+fft\+\_\+cpx}} $\ast$}]{freqdata }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kiss__fftr_8h_adc2cf0360ae1647c0d5c903dcff8c442}\label{kiss__fftr_8h_adc2cf0360ae1647c0d5c903dcff8c442}} 
+\index{kiss\_fftr.h@{kiss\_fftr.h}!kiss\_fftr\_alloc@{kiss\_fftr\_alloc}}
+\index{kiss\_fftr\_alloc@{kiss\_fftr\_alloc}!kiss\_fftr.h@{kiss\_fftr.h}}
+\doxysubsubsection{\texorpdfstring{kiss\_fftr\_alloc()}{kiss\_fftr\_alloc()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{kiss__fftr_8h_a9770a73a2aed969522b253322d069fb8}{kiss\+\_\+fftr\+\_\+cfg}} \mbox{\hyperlink{kiss__fft_8h_ae7ec87347f23bdc1d68b8b98cf7d1eb6}{KISS\+\_\+\+FFT\+\_\+\+API}} kiss\+\_\+fftr\+\_\+alloc (\begin{DoxyParamCaption}\item[{int}]{nfft,  }\item[{int}]{inverse\+\_\+fft,  }\item[{void $\ast$}]{mem,  }\item[{size\+\_\+t $\ast$}]{lenmem }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kiss__fftr_8h_a8b865459adff3e5bd659cacec6f32c21}\label{kiss__fftr_8h_a8b865459adff3e5bd659cacec6f32c21}} 
+\index{kiss\_fftr.h@{kiss\_fftr.h}!kiss\_fftri@{kiss\_fftri}}
+\index{kiss\_fftri@{kiss\_fftri}!kiss\_fftr.h@{kiss\_fftr.h}}
+\doxysubsubsection{\texorpdfstring{kiss\_fftri()}{kiss\_fftri()}}
+{\footnotesize\ttfamily void \mbox{\hyperlink{kiss__fft_8h_ae7ec87347f23bdc1d68b8b98cf7d1eb6}{KISS\+\_\+\+FFT\+\_\+\+API}} kiss\+\_\+fftri (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{kiss__fftr_8h_a9770a73a2aed969522b253322d069fb8}{kiss\+\_\+fftr\+\_\+cfg}}}]{cfg,  }\item[{const \mbox{\hyperlink{structkiss__fft__cpx}{kiss\+\_\+fft\+\_\+cpx}} $\ast$}]{freqdata,  }\item[{\mbox{\hyperlink{kiss__fft_8h_a4d9bf2d6a2ce1b061545a16faf77d337}{kiss\+\_\+fft\+\_\+scalar}} $\ast$}]{timedata }\end{DoxyParamCaption})}
+

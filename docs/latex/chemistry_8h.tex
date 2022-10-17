@@ -1,0 +1,237 @@
+\hypertarget{chemistry_8h}{}\doxysection{src/trajec\+\_\+io/chemistry.h File Reference}
+\label{chemistry_8h}\index{src/trajec\_io/chemistry.h@{src/trajec\_io/chemistry.h}}
+
+
+Functions to get information on elements and do simple trajectory calculations.  
+
+
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{chemistry_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structatominfo}{atominfo}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structatominfo}{atominfo}} \mbox{\hyperlink{chemistry_8h_a945e372d69f6239916115d76916c8f11}{atominfo}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{chemistry_8h_a9e587bff6f154cc8be2ec2ee9c29bc58}{no\+\_\+to\+\_\+atominfo}} (int atom\+\_\+no, \mbox{\hyperlink{structatominfo}{atominfo}} $\ast$this\+\_\+atom)
+\begin{DoxyCompactList}\small\item\em Fills a preallocated atominfo struct with information corresponding to a supplied atomic number. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{chemistry_8h_a16375b6a0c555fb30317ea301e5a7302}{element\+\_\+to\+\_\+no}} (char $\ast$element)
+\begin{DoxyCompactList}\small\item\em Returns the atomic number for a given element name. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{chemistry_8h_a737f40cc90d3d1a8d08a41ccf945373a}{no\+\_\+to\+\_\+element}} (int atom\+\_\+no, char $\ast$element)
+\begin{DoxyCompactList}\small\item\em Finds the element symbol corresponding to an atomic number. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{chemistry_8h_a8ecd485156733c0604b88c26d00cfb32}{no\+\_\+to\+\_\+mass}} (int atom\+\_\+no)
+\begin{DoxyCompactList}\small\item\em Returns the atomic mass for a given element. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{chemistry_8h_a943d08970a42acd0c72248fb0c9017f0}{pbc\+\_\+dist}} (float coord\+\_\+1\mbox{[}3\mbox{]}, float coord\+\_\+2\mbox{[}3\mbox{]}, float pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]})
+\begin{DoxyCompactList}\small\item\em Calculates the distance between two points in real space following the minimum image convention. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{chemistry_8h_ab7b82059aea149236911e717c351d256}{pbc\+\_\+dist\+\_\+orthogonal}} (float coord\+\_\+1\mbox{[}3\mbox{]}, float coord\+\_\+2\mbox{[}3\mbox{]}, float pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]})
+\begin{DoxyCompactList}\small\item\em Calculates the distance between two points in real space following the minimum image convention in an orthogonal box. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{chemistry_8h_a3ca4572efe455440cbb57e28b8f70cd1}{pbc\+\_\+dist\+\_\+triclinic}} (float coord\+\_\+1\mbox{[}3\mbox{]}, float coord\+\_\+2\mbox{[}3\mbox{]}, float pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]})
+\begin{DoxyCompactList}\small\item\em Calculates the distance between two points in real space following the minimum image convention. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{chemistry_8h_aab7c9e465f9f6951a8ecb8f92f195283}{nextneighbor\+\_\+in\+\_\+traj}} (float coord\mbox{[}3\mbox{]}, int atom\+\_\+no, float traj\+\_\+frame\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]}, int atom\mbox{[}atom\+\_\+no\mbox{]}, int atom\+\_\+neighbor, float pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]})
+\begin{DoxyCompactList}\small\item\em Finds the closest atom (\char`\"{}neighbor\char`\"{}) to a given point in a frame. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functions to get information on elements and do simple trajectory calculations. 
+
+\begin{DoxyAuthor}{Author}
+Johnny Alexander Jimenez Siegert 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{chemistry_8h_a945e372d69f6239916115d76916c8f11}\label{chemistry_8h_a945e372d69f6239916115d76916c8f11}} 
+\index{chemistry.h@{chemistry.h}!atominfo@{atominfo}}
+\index{atominfo@{atominfo}!chemistry.h@{chemistry.h}}
+\doxysubsubsection{\texorpdfstring{atominfo}{atominfo}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structatominfo}{atominfo}} \mbox{\hyperlink{structatominfo}{atominfo}}}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{chemistry_8h_a16375b6a0c555fb30317ea301e5a7302}\label{chemistry_8h_a16375b6a0c555fb30317ea301e5a7302}} 
+\index{chemistry.h@{chemistry.h}!element\_to\_no@{element\_to\_no}}
+\index{element\_to\_no@{element\_to\_no}!chemistry.h@{chemistry.h}}
+\doxysubsubsection{\texorpdfstring{element\_to\_no()}{element\_to\_no()}}
+{\footnotesize\ttfamily int element\+\_\+to\+\_\+no (\begin{DoxyParamCaption}\item[{char $\ast$}]{element }\end{DoxyParamCaption})}
+
+
+
+Returns the atomic number for a given element name. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em element} & string containing the element symbol (capitalized) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(int) atomic number 
+\end{DoxyReturn}
+\mbox{\Hypertarget{chemistry_8h_aab7c9e465f9f6951a8ecb8f92f195283}\label{chemistry_8h_aab7c9e465f9f6951a8ecb8f92f195283}} 
+\index{chemistry.h@{chemistry.h}!nextneighbor\_in\_traj@{nextneighbor\_in\_traj}}
+\index{nextneighbor\_in\_traj@{nextneighbor\_in\_traj}!chemistry.h@{chemistry.h}}
+\doxysubsubsection{\texorpdfstring{nextneighbor\_in\_traj()}{nextneighbor\_in\_traj()}}
+{\footnotesize\ttfamily int nextneighbor\+\_\+in\+\_\+traj (\begin{DoxyParamCaption}\item[{float}]{coord\mbox{[}3\mbox{]},  }\item[{int}]{atom\+\_\+no,  }\item[{float}]{traj\+\_\+frame\mbox{[}atom\+\_\+no\mbox{]}\mbox{[}3\mbox{]},  }\item[{int}]{atom\mbox{[}atom\+\_\+no\mbox{]},  }\item[{int}]{atom\+\_\+neighbor,  }\item[{float}]{pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Finds the closest atom (\char`\"{}neighbor\char`\"{}) to a given point in a frame. 
+
+Given a point and a frame (list of atom coordinates), returns the index of the entry in frame with the lowest distance to the point.~\newline
+If atom\+\_\+neighbor is not 0, then only neighbors with it as atomic number may be returned. If 0, then all atoms are eligible.~\newline
+Distance is determined using \mbox{\hyperlink{chemistry_8h_a943d08970a42acd0c72248fb0c9017f0}{pbc\+\_\+dist}} (see limitations there).
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em coord} & coordinates of the point, whose nearest neighbor should be found. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom\+\_\+no} & number of atoms in the frame. \\
+\hline
+\mbox{\texttt{ in}}  & {\em traj\+\_\+frame} & frame from the trajectory. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom} & atomic numbers of all atoms in frame. \\
+\hline
+\mbox{\texttt{ in}}  & {\em atom\+\_\+neighbor} & atomic number of neighbor, which should be returned. Set to 0 to accept all atom types. \\
+\hline
+\mbox{\texttt{ in}}  & {\em pbc} & periodic boundary conditions. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+index of the atom closest to the given point in traj\+\_\+frame. -\/1 if none is found. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{chemistry_8h_a9e587bff6f154cc8be2ec2ee9c29bc58}\label{chemistry_8h_a9e587bff6f154cc8be2ec2ee9c29bc58}} 
+\index{chemistry.h@{chemistry.h}!no\_to\_atominfo@{no\_to\_atominfo}}
+\index{no\_to\_atominfo@{no\_to\_atominfo}!chemistry.h@{chemistry.h}}
+\doxysubsubsection{\texorpdfstring{no\_to\_atominfo()}{no\_to\_atominfo()}}
+{\footnotesize\ttfamily int no\+\_\+to\+\_\+atominfo (\begin{DoxyParamCaption}\item[{int}]{atom\+\_\+no,  }\item[{\mbox{\hyperlink{structatominfo}{atominfo}} $\ast$}]{this\+\_\+atom }\end{DoxyParamCaption})}
+
+
+
+Fills a preallocated atominfo struct with information corresponding to a supplied atomic number. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em atom\+\_\+no} & atomic number \\
+\hline
+\mbox{\texttt{ out}}  & {\em this\+\_\+atom} & atominfo struct containing atomic number, atomic mass and element symbol \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if atom number was found in range 1 to 118, otherwise 1 
+\end{DoxyReturn}
+\mbox{\Hypertarget{chemistry_8h_a737f40cc90d3d1a8d08a41ccf945373a}\label{chemistry_8h_a737f40cc90d3d1a8d08a41ccf945373a}} 
+\index{chemistry.h@{chemistry.h}!no\_to\_element@{no\_to\_element}}
+\index{no\_to\_element@{no\_to\_element}!chemistry.h@{chemistry.h}}
+\doxysubsubsection{\texorpdfstring{no\_to\_element()}{no\_to\_element()}}
+{\footnotesize\ttfamily int no\+\_\+to\+\_\+element (\begin{DoxyParamCaption}\item[{int}]{atom\+\_\+no,  }\item[{char $\ast$}]{element }\end{DoxyParamCaption})}
+
+
+
+Finds the element symbol corresponding to an atomic number. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em atom\+\_\+no} & atomic number. \\
+\hline
+\mbox{\texttt{ out}}  & {\em element} & string containing the element symbol (capitalized) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{chemistry_8h_a8ecd485156733c0604b88c26d00cfb32}\label{chemistry_8h_a8ecd485156733c0604b88c26d00cfb32}} 
+\index{chemistry.h@{chemistry.h}!no\_to\_mass@{no\_to\_mass}}
+\index{no\_to\_mass@{no\_to\_mass}!chemistry.h@{chemistry.h}}
+\doxysubsubsection{\texorpdfstring{no\_to\_mass()}{no\_to\_mass()}}
+{\footnotesize\ttfamily float no\+\_\+to\+\_\+mass (\begin{DoxyParamCaption}\item[{int}]{atom\+\_\+no }\end{DoxyParamCaption})}
+
+
+
+Returns the atomic mass for a given element. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em atom\+\_\+no} & atomic number of the element. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float atomic mass of the element (mass of an atom in atomic mass unit u). 
+\end{DoxyReturn}
+\mbox{\Hypertarget{chemistry_8h_a943d08970a42acd0c72248fb0c9017f0}\label{chemistry_8h_a943d08970a42acd0c72248fb0c9017f0}} 
+\index{chemistry.h@{chemistry.h}!pbc\_dist@{pbc\_dist}}
+\index{pbc\_dist@{pbc\_dist}!chemistry.h@{chemistry.h}}
+\doxysubsubsection{\texorpdfstring{pbc\_dist()}{pbc\_dist()}}
+{\footnotesize\ttfamily float pbc\+\_\+dist (\begin{DoxyParamCaption}\item[{float}]{coord\+\_\+1\mbox{[}3\mbox{]},  }\item[{float}]{coord\+\_\+2\mbox{[}3\mbox{]},  }\item[{float}]{pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Calculates the distance between two points in real space following the minimum image convention. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em coord\+\_\+1,coord\+\_\+2} & Cartesian coordinates of each point. \\
+\hline
+\mbox{\texttt{ in}}  & {\em pbc} & periodic boundary conditions represented as 3 cell vectors stacked into a 3x3 matrix. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(float) distance between the two points. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+Currently only supports orthogonal pbc (ignores non-\/diagonal values). 
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Add support for non-\/orthogonal pbc (as in rewrite it using matrix inversion and multiplication). \end{DoxyRefDesc}
+\mbox{\Hypertarget{chemistry_8h_ab7b82059aea149236911e717c351d256}\label{chemistry_8h_ab7b82059aea149236911e717c351d256}} 
+\index{chemistry.h@{chemistry.h}!pbc\_dist\_orthogonal@{pbc\_dist\_orthogonal}}
+\index{pbc\_dist\_orthogonal@{pbc\_dist\_orthogonal}!chemistry.h@{chemistry.h}}
+\doxysubsubsection{\texorpdfstring{pbc\_dist\_orthogonal()}{pbc\_dist\_orthogonal()}}
+{\footnotesize\ttfamily float pbc\+\_\+dist\+\_\+orthogonal (\begin{DoxyParamCaption}\item[{float}]{coord\+\_\+1\mbox{[}3\mbox{]},  }\item[{float}]{coord\+\_\+2\mbox{[}3\mbox{]},  }\item[{float}]{pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Calculates the distance between two points in real space following the minimum image convention in an orthogonal box. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em coord\+\_\+1,coord\+\_\+2} & Cartesian coordinates of each point. \\
+\hline
+\mbox{\texttt{ in}}  & {\em pbc} & periodic boundary conditions represented as 3 cell vectors stacked into a 3x3 matrix, off-\/diagonal elements must be zero. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(float) distance between the two points. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{chemistry_8h_a3ca4572efe455440cbb57e28b8f70cd1}\label{chemistry_8h_a3ca4572efe455440cbb57e28b8f70cd1}} 
+\index{chemistry.h@{chemistry.h}!pbc\_dist\_triclinic@{pbc\_dist\_triclinic}}
+\index{pbc\_dist\_triclinic@{pbc\_dist\_triclinic}!chemistry.h@{chemistry.h}}
+\doxysubsubsection{\texorpdfstring{pbc\_dist\_triclinic()}{pbc\_dist\_triclinic()}}
+{\footnotesize\ttfamily float pbc\+\_\+dist\+\_\+triclinic (\begin{DoxyParamCaption}\item[{float}]{coord\+\_\+1\mbox{[}3\mbox{]},  }\item[{float}]{coord\+\_\+2\mbox{[}3\mbox{]},  }\item[{float}]{pbc\mbox{[}3\mbox{]}\mbox{[}3\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Calculates the distance between two points in real space following the minimum image convention. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em coord\+\_\+1,coord\+\_\+2} & Cartesian coordinates of each point. \\
+\hline
+\mbox{\texttt{ in}}  & {\em pbc} & periodic boundary conditions represented as 3 cell vectors stacked into a 3x3 matrix, off-\/diagonal elements must be zero. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+(float) distance between the two points. 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+placeholder only, not yet implemented 
+\end{DoxyWarning}
