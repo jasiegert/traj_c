@@ -86,26 +86,31 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a964fad039322cc58aa2574e2be0aa17e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matrices__and__vectors_8h.html#a964fad039322cc58aa2574e2be0aa17e">matrix33_adjoint</a> (float mat[3][3], float adj[3][3])</td></tr>
-<tr class="separator:a964fad039322cc58aa2574e2be0aa17e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a94a803cbc2307ac743ac8fd98a3163"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matrices__and__vectors_8h.html#a2a94a803cbc2307ac743ac8fd98a3163">matrix33_cofactors</a> (float mat[3][3], float cof[3][3])</td></tr>
+<tr class="memdesc:a2a94a803cbc2307ac743ac8fd98a3163"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates cofactor matrix.  <a href="matrices__and__vectors_8h.html#a2a94a803cbc2307ac743ac8fd98a3163">More...</a><br /></td></tr>
+<tr class="separator:a2a94a803cbc2307ac743ac8fd98a3163"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03e4217ed67dd8185ddf865194198a78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matrices__and__vectors_8h.html#a03e4217ed67dd8185ddf865194198a78">matrix33_transpose</a> (float mat[3][3], float transpose[3][3])</td></tr>
+<tr class="memdesc:a03e4217ed67dd8185ddf865194198a78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates transposed matrix.  <a href="matrices__and__vectors_8h.html#a03e4217ed67dd8185ddf865194198a78">More...</a><br /></td></tr>
 <tr class="separator:a03e4217ed67dd8185ddf865194198a78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02526c634ba5d74a286f8329f90129cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matrices__and__vectors_8h.html#a02526c634ba5d74a286f8329f90129cc">matrix33_multiplication</a> (float a[3][3], float b[3][3], float c[3][3])</td></tr>
+<tr class="memdesc:a02526c634ba5d74a286f8329f90129cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculcate product of two matrices c = a * b.  <a href="matrices__and__vectors_8h.html#a02526c634ba5d74a286f8329f90129cc">More...</a><br /></td></tr>
 <tr class="separator:a02526c634ba5d74a286f8329f90129cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d80ccbd0642ecbeb1bcccb36009a360"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matrices__and__vectors_8h.html#a6d80ccbd0642ecbeb1bcccb36009a360">matrix33_inverse</a> (float mat[3][3], float inv[3][3])</td></tr>
+<tr class="memdesc:a6d80ccbd0642ecbeb1bcccb36009a360"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculcates inverse of a matrix.  <a href="matrices__and__vectors_8h.html#a6d80ccbd0642ecbeb1bcccb36009a360">More...</a><br /></td></tr>
 <tr class="separator:a6d80ccbd0642ecbeb1bcccb36009a360"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7041fae0acc533308f8dabbce1d39192"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matrices__and__vectors_8h.html#a7041fae0acc533308f8dabbce1d39192">matrix33_vector3_multiplication</a> (float mat[3][3], float vec[3], float out[3])</td></tr>
+<tr class="memdesc:a7041fae0acc533308f8dabbce1d39192"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculcate product vector of matrix and vector.  <a href="matrices__and__vectors_8h.html#a7041fae0acc533308f8dabbce1d39192">More...</a><br /></td></tr>
 <tr class="separator:a7041fae0acc533308f8dabbce1d39192"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a964fad039322cc58aa2574e2be0aa17e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a964fad039322cc58aa2574e2be0aa17e">&#9670;&nbsp;</a></span>matrix33_adjoint()</h2>
+<a id="a2a94a803cbc2307ac743ac8fd98a3163"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a94a803cbc2307ac743ac8fd98a3163">&#9670;&nbsp;</a></span>matrix33_cofactors()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void matrix33_adjoint </td>
+          <td class="memname">void matrix33_cofactors </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>mat</em>[3][3], </td>
@@ -114,7 +119,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>adj</em>[3][3]&#160;</td>
+          <td class="paramname"><em>cof</em>[3][3]&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -123,6 +128,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Calculates cofactor matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">mat</td><td>original matrix (3x3) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">cof</td><td>cofactor matrix (3x3) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -151,6 +165,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Calculcates inverse of a matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">mat</td><td>original matrix (3x3) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">inv</td><td>inverse matrix (3x3) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -186,6 +209,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Calculcate product of two matrices c = a * b. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>first matrix (3x3) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>second matrix (3x3) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">c</td><td>product matrix (3x3) </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a03e4217ed67dd8185ddf865194198a78"></a>
@@ -213,6 +246,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Creates transposed matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">mat</td><td>original matrix (3x3) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">transpose</td><td>transposed matrix (3x3) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -247,6 +289,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Calculcate product vector of matrix and vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">mat</td><td>matrix (3x3) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">vec</td><td>vector (3) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>product vector mat * vec </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
