@@ -228,6 +228,17 @@ int readpbc(char *name, float pbc[3][3])
             return 1;
         }
     }
+    
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if ((i != j) && (pbc[i][j] != 0))
+            {
+                printf("\tSupport for RDFs in non-orthorhombic cells is experimental. Tread carefully!\n");
+            }
+        }
+    }
     return 0;
 }
 

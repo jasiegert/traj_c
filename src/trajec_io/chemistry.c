@@ -4,6 +4,7 @@
 #include <math.h>
 
 #include "chemistry.h"
+#include "matrices_and_vectors.h"
 
 //typedef struct atominfo
 //{
@@ -197,8 +198,26 @@ float pbc_dist(float coord_1[3], float coord_2[3], float pbc[3][3])
 
 float pbc_dist_triclinic(float coord_1[3], float coord_2[3], float pbc[3][3])
 {
-        printf("Non-orthogonal PBCs are not supported yet. Sorry!\n");
-        exit(1);
+    float diff[3], rel_diff[3], inv_pbc[3][3];
+    for (int i = 0; i < 3; i++)
+    {
+        diff[i] = coord_1[i] - coord_2[i];
+    }
+    matrix33_inverse(pbc, inv_pbc);
+    matrix33_vector3_multiplication(inv_pbc, diff, rel_diff);
+    // These loops can be fused for some speedup
+    // 
+    for (int i = 0; i < 3; i++)
+    {
+        rel_diff[i] -= round(rel_diff[i]);
+    }
+    matrix33_vector3_multiplication(pbc, rel_diff, diff);
+    float distance2 = 0;
+    for (int i = 0; i < 3; i++)
+    {
+        distance2 += diff[i] * diff[i];
+    }
+    return sqrt(distance2);
 }
 
 float pbc_dist_orthogonal(float coord_1[3], float coord_2[3], float pbc[3][3])
