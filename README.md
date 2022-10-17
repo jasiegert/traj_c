@@ -6,6 +6,10 @@ The documentation should ideally be read in a browser beginning with docs/html/i
 
 I've written this tool with a background in computational chemistry. If you're unfamiliar with this field, you might want to check out the [Theoretical Background](docs/THEORY.md).
 
+## Warning #
+
+This program is still under development. It's mostly meant for analysis of simple trajectories, where all atoms of the same element are chemically equivalent and can be evaluated as a group. If you require a more powerful tool, you might want to check out [TRAVIS](http://www.travis-analyzer.de/), the program that inspired this project.
+
 ## Installation #
 
 In order to build the executable, simply invoke `make`. This will build all the necessary object files and an executable traj_analyzer. You can remove the object files with `make clean`.
@@ -21,7 +25,7 @@ If you wish to remove all compiled files including the executable, run `make rem
 The executable traj_analyzer expects three arguments:
 - Trajectory (.xyz)
  
-    A trajectory, usually produced by a molecular dynamics software. One timestep is assumed to represent 0.5 fs.  Currently only the xyz file format is supported.
+    A trajectory, usually produced by a molecular dynamics software. One timestep is assumed to represent 0.5 fs. Currently only the xyz file format is supported.
 
 - pbc file
 
@@ -34,10 +38,6 @@ The executable traj_analyzer expects three arguments:
 With these three, you can invoke the program as:
 
     traj_analyzer trajectory.xyz pbc-file input-file
-
-## Warning ##
-
-Currently only orthogonal periodic boundary conditions are supported. Support for non-orthogonal cells will be part of the next update.
 
 ## Example #
 
@@ -81,7 +81,7 @@ rdf (rdf_inter)        | Atom type 1 |   -    | First atom type in the rdf-pair.
 ^ | Atom type 2 |   -    | Second atom type in the rdf-pair.
 ^           | Bins        |   300  | Number of bins, into which the distances will be sorted. More bins might give slightly more accurate results.
 ^           | Min distances | 0    | Minimum distance to bin.
-^           | Max distances | 4    | Maximum distance to bin.
+^           | Max distances | 4    | Maximum distance to bin. Must be below half of the smallest for non-orthorhombic boxes, results for larger distances might be wrong.
 oacf        | Atom type 1 |   -    | First atom type, which will be the start of the rotating vector.
 ^           | Atom type 2 |   -    | Second atom type, of which the closest neighbors to the atoms of type 1 will be the end of the rotating vector.
 ^           | Resolution |   100   | Number of correlation times to be sampled. Higher resolution might give a more accurate and less jagged result, but will also increase calculation time.
