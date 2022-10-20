@@ -1,3 +1,10 @@
+#include <math.h>
+
+float vector3_norm(float vec[3])
+{
+    return sqrt(vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2]);
+}
+
 void matrix33_cofactors(float mat[3][3], float cof[3][3])
 {
     cof[0][0] = mat[1][1] * mat[2][2] - mat[2][1] * mat[1][2];
@@ -79,3 +86,10 @@ void matrix33_vector3_multiplication(float mat[3][3], float vec[3], float out[3]
     return;
 }
 
+float matrix33_determinant(float mat[3][3])
+{
+    float cof00 = mat[1][1] * mat[2][2] - mat[2][1] * mat[1][2];
+    float cof01 = mat[1][0] * mat[2][2] - mat[2][0] * mat[1][2];
+    float cof02 = mat[1][0] * mat[2][1] - mat[2][0] * mat[1][1];
+    return cof00 * mat[0][0] + cof01 * mat[0][1] + cof02 * mat[0][2];
+}

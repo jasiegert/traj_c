@@ -15,6 +15,8 @@
 
 int no_to_atominfo(int atom_no, atominfo *this_atom)
 {
+    // Put info corresponding to atomic number into this_atom
+    // If atomic number is not found (outsite of range 1 - 118), return -1
     switch (atom_no)
     {
         case 1: this_atom->atom_no = 1; this_atom->atom_mass = 1.00798; strcpy(this_atom->symbol, "H");  break;
@@ -135,7 +137,7 @@ int no_to_atominfo(int atom_no, atominfo *this_atom)
         case 116: this_atom->atom_no = 116; this_atom->atom_mass = 293.0; strcpy(this_atom->symbol, "Lv");  break;
         case 117: this_atom->atom_no = 117; this_atom->atom_mass = 292.0; strcpy(this_atom->symbol, "Ts");  break;
         case 118: this_atom->atom_no = 118; this_atom->atom_mass = 294.0; strcpy(this_atom->symbol, "Og");  break;
-        default: return 1;
+    default: return 1;
     }
     return 0;
 }
@@ -144,6 +146,7 @@ int element_to_no(char *element)
 {
     int atom_no = -1;
     atominfo this_atom;
+    // Try each atomic number from 1 to 118 to see if the element symbol is associated with it
     for (int test_no = 1; test_no < 119; test_no++)
     {
         no_to_atominfo(test_no, &this_atom);
@@ -157,6 +160,7 @@ int element_to_no(char *element)
 
 int no_to_element(int atom_no, char* element)
 {
+    // Call no_to_atominfo to populate this_atom, then copy element symbol from there
     atominfo this_atom;
     if (no_to_atominfo(atom_no, &this_atom) != 0)
     {
@@ -171,6 +175,7 @@ int no_to_element(int atom_no, char* element)
 
 float no_to_mass(int atom_no)
 {
+    // Call no_to_atominfo to populate this_atom, then return atomic mass from there
     atominfo this_atom;
     if (no_to_atominfo(atom_no, &this_atom) != 0)
     {
@@ -198,25 +203,30 @@ float pbc_dist(float coord_1[3], float coord_2[3], float pbc[3][3])
 
 float pbc_dist_triclinic(float coord_1[3], float coord_2[3], float pbc[3][3])
 {
-    float diff[3], rel_diff[3], inv_pbc[3][3];
+    // Transpose PBC, so that cell vectors are columns (instead of rows)
+    // Compute inverse of PBC, which is necessary to transform real into fractional coordinates
+    float inv_pbc[3][3];
+    matrix33_inverse(pbc, inv_pbc);
+    float pbcT[3][3], inv_pbcT[3][3];
+    matrix33_transpose(pbc, pbcT);
+    matrix33_transpose(inv_pbc, inv_pbcT);
+    // Take direct difference between points
+    float diff[3], rel_diff[3];
     for (int i = 0; i < 3; i++)
     {
         diff[i] = coord_1[i] - coord_2[i];
     }
-    matrix33_inverse(pbc, inv_pbc);
-    // experimental
-    float pbcT[3][3], inv_pbcT[3][3];
-    matrix33_transpose(pbc, pbcT);
-    matrix33_transpose(inv_pbc, inv_pbcT);
-    //
+    // Real to fractional difference
     matrix33_vector3_multiplication(inv_pbcT, diff, rel_diff);
-    // These loops can be fused for some speedup
-    // 
+    // These loops could be fused, by rounding and performing matrix vector multiplication in the same loop
+    // Add multiples of each cell vector, so that fractional distance is minimized along each cell vector
     for (int i = 0; i < 3; i++)
     {
         rel_diff[i] -= round(rel_diff[i]);
     }
+    // Transform fractional back to real difference
     matrix33_vector3_multiplication(pbcT, rel_diff, diff);
+    // Distance is norm of difference vector
     float distance2 = 0;
     for (int i = 0; i < 3; i++)
     {
@@ -225,13 +235,39 @@ float pbc_dist_triclinic(float coord_1[3], float coord_2[3], float pbc[3][3])
     return sqrt(distance2);
 }
 
+float max_distance_pbc_dist_triclinic(float pbc[3][3])
+{
+    // pbc_dist_triclinic is accurate up to half of the smallest box diameter
+    // box diameter along an axis is computed as volume / area of perpendicular plane
+    // using (volume = det(pbc)) and (area of perpendicular plane = norm of cross product of other two cell vectors)
+    // all of this is computed using the cofactor matrix
+    float cofactors[3][3];
+    matrix33_cofactors(pbc, cofactors);
+    // compute volume = det(pbc) as sum of matrix element * cofactor over any arbitrary row or column
+    float det = cofactors[0][0] * pbc[0][0] + cofactors[0][1] * pbc[0][1] + cofactors[0][2] * pbc[0][2];
+    // each row in the cofactor matrix corresponds to the cross product of the other two rows in the original matrix
+    float area_ab = vector3_norm(cofactors[2]);
+    float area_ac = vector3_norm(cofactors[1]);
+    float area_bc = vector3_norm(cofactors[0]);
+    // find largest area and compute smallest box diameter
+//    printf("\n%f %f %f %f \n", det, area_ab, area_ac, area_bc);
+    float largest_area;
+    largest_area = (area_ab > area_ac) ? area_ab : area_ac;
+    largest_area = (largest_area > area_bc) ? largest_area : area_bc;
+    return det / largest_area / 2;
+}
+
 float pbc_dist_orthogonal(float coord_1[3], float coord_2[3], float pbc[3][3])
 {
     float diff[3];
     float dist = 0;
     for (int i = 0; i < 3; i++)
     {
+        // direct distance along one axis
         diff[i] = coord_2[i] - coord_1[i];
+        // add multiples of each cell vector in such a way that it minimizes the absolute value of the distance along each axis
+        // following 7 lines could be replaced by the following one, but for some reason the 7 lines are slightly faster:
+        // diff[i] -= round(diff[i] / pbc[i][i]) * pbc[i][i];
         if (diff[i] < 0) 
             diff[i] *= -1;
         diff[i] = diff[i] - floor(diff[i] / pbc[i][i]) * pbc[i][i];

@@ -4,10 +4,19 @@
 #include <string.h>
 
 #include "trajec_io/chemistry.h"
+#include "trajec_io/matrices_and_vectors.h"
 
 // Calculates the RDF between two atom types passed as atom_1 and atom_2 in the trajectory traj. Returns RDF by writing into rdf.
 int rdf_overall(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], int atom_1, int atom_2, float min_distance, float max_distance, int bin, float rdf[bin][2], char *output)
 {
+    // Check that distance is acceptable
+    float pbc_dist_max_distance = max_distance_pbc_dist_triclinic(pbc);
+    if (max_distance > pbc_dist_max_distance)
+    {
+        printf("\tMax distance of %.2f is too large for PBCs -> lowered to %.2f, half of smallest box diameter.\n", max_distance, pbc_dist_max_distance);
+        max_distance = pbc_dist_max_distance;
+    }
+    
     // Initialize histogram counting all binned atom pair distances
     int histogram[bin];
     for (int i = 0; i < bin; i++)
@@ -62,7 +71,8 @@ int rdf_overall(int frame_no, int atom_no, float traj[frame_no][atom_no][3], flo
     
 
     // Calculate ideal density and shell volumes in order to normalize RDF
-    float pbc_volume = pbc[0][0] * pbc[1][1] * pbc[2][2]; // only valid for orthogonal cell -> otherwise triple-dot product (a x b) * c
+//    float pbc_volume = pbc[0][0] * pbc[1][1] * pbc[2][2]; // only valid for orthogonal cell -> otherwise triple-dot product (a x b) * c
+    float pbc_volume = matrix33_determinant(pbc);
     float ideal_density = atom_1_no * atom_2_no / pbc_volume;
     for (int i = 0; i < bin; i++)
     {
@@ -87,6 +97,14 @@ int rdf_overall(int frame_no, int atom_no, float traj[frame_no][atom_no][3], flo
 // Calculates the RDF between two atom types passed as atom_1 and atom_2 in the trajectory traj. Returns RDF by writing into rdf.
 int rdf_intermolecular(int frame_no, int atom_no, float traj[frame_no][atom_no][3], float pbc[3][3], int atom[atom_no], int atom_1, int atom_2, int atom_central, float min_distance, float max_distance, int bin, float rdf[bin][2], char *output)
 {
+    // Check that distance is acceptable
+    float pbc_dist_max_distance = max_distance_pbc_dist_triclinic(pbc);
+    if (max_distance > pbc_dist_max_distance)
+    {
+        printf("\tMax distance of %.2f is too large for PBCs -> lowered to %.2f, half of smallest box diameter.\n", max_distance, pbc_dist_max_distance);
+        max_distance = pbc_dist_max_distance;
+    }
+
     // Allow calculation only if atom types are H, O or the central atom
     if ( !(((atom_1 == 1) || (atom_1 == 8) || (atom_1 == atom_central)) && ((atom_2 == 1) || (atom_2 == 8) || (atom_2 == atom_central))))
     {
@@ -191,7 +209,8 @@ int rdf_intermolecular(int frame_no, int atom_no, float traj[frame_no][atom_no][
     
 
     // Calculate ideal density and shell volumes in order to normalize RDF
-    float pbc_volume = pbc[0][0] * pbc[1][1] * pbc[2][2]; // only valid for orthogonal cell -> otherwise triple-dot product (a x b) * c
+    // float pbc_volume = pbc[0][0] * pbc[1][1] * pbc[2][2]; // only valid for orthogonal cell -> otherwise triple-dot product (a x b) * c
+    float pbc_volume = matrix33_determinant(pbc);
     float ideal_density = atom_1_no * atom_2_no / pbc_volume;
     for (int i = 0; i < bin; i++)
     {

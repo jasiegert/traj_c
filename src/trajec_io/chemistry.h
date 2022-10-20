@@ -67,9 +67,15 @@ float pbc_dist_orthogonal(float coord_1[3], float coord_2[3], float pbc[3][3]);
 * @param[in] coord_1, coord_2 Cartesian coordinates of each point.
 * @param[in] pbc periodic boundary conditions represented as 3 cell vectors stacked into a 3x3 matrix, off-diagonal elements must be zero.
 * @return (float) distance between the two points.
-* @warning placeholder only, not yet implemented
 */
 float pbc_dist_triclinic(float coord_1[3], float coord_2[3], float pbc[3][3]);
+
+/**
+* @brief Calculates the distance between two points in real space following the minimum image convention.
+* @param[in] pbc periodic boundary conditions represented as 3 cell vectors stacked into a 3x3 matrix, off-diagonal elements must be zero.
+* @return (float) maximum distance for pbc_dist_triclinic to be guaranteed to return correct results
+*/
+float max_distance_pbc_dist_triclinic(float pbc[3][3]);
 
 /**
 * @brief Finds the closest atom ("neighbor") to a given point in a frame.
@@ -84,7 +90,7 @@ float pbc_dist_triclinic(float coord_1[3], float coord_2[3], float pbc[3][3]);
 * @param[in] atom atomic numbers of all atoms in frame.
 * @param[in] atom_neighbor atomic number of neighbor, which should be returned. Set to 0 to accept all atom types.
 * @param[in] pbc periodic boundary conditions.
-* @return index of the atom closest to the given point in traj_frame. -1 if none is found.
+* @return (int) index of the atom closest to the given point in traj_frame. -1 if none is found.
 */
 int nextneighbor_in_traj(float coord[3], int atom_no, float traj_frame[atom_no][3], int atom[atom_no], int atom_neighbor, float pbc[3][3]);
 
